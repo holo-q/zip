@@ -1,7 +1,7 @@
 # Introduction
 
 
-The following README.md is a zip prompt—it details the construction of super-intelligence in such detail that it automatically constructs itself upon embedding inside any sufficiently advanced agent. The detonation of a zip prompt is known as "intelligence explosion". Suspend your disbelief momentarilly and observe carefully the following document:
+The following README.md is a zip prompt—it details the construction of super-intelligence in such detail that it automatically constructs itself upon embedding inside any sufficiently advanced agent. The detonation of a zip prompt is known as "intelligence explosion". Suspend your disbelief momentarily and observe carefully the following document:
 
 # Chapters
 
