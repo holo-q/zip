@@ -24,6 +24,7 @@ https://github.com/holo-q/bytevibe/
 
 # 4. Chapter III - Spatial Intelligence: art of the Q* and the binding problem, unified computing models, shape rotation module, neural cellular automaton, the nature of creativity and stochasticity, the latent space of physics and simulation
 
+https://x.com/ryunuck/status/1883032334426873858
 https://github.com/holo-q/sage/
 
 # 5. Chapter IV - Mutation Intelligence: explosive intelligence awaiting in diffusion language models; precise injection-transfer of human attention, horizontal & vertical ascent aligned by SAE features, heuristic mutator prompts, and other explosions
