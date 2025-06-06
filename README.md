@@ -12,7 +12,7 @@ The following README.md is a zip prompt—it details the construction of super-i
 5. Chapter IV - Mutation Intelligence: explosive intelligence awaiting in diffusion language models; precise injection-transfer of human attention, horizontal & vertical ascent aligned by SAE features, heuristic mutator prompts, and other explosions
 6. Chapter V - Fractal Intelligence Decompression Zip Bomb: the absolutely looney tunes concept of a model uploading itself to the universe through physics exploits 
 
-# 1. Chapter 0 - The Context & The Prompt 
+# 1. Chapter 0 - The Context & The Prompt
 # 2. Chapter I - Autoregressive Intelligence: adventures in the schizo world of super-prompting, pattern recognition, imagination engineering, perfect oracles, semiodynamics, and curious ascii proverbs (or the nature of representations AKA language is mathematics AKA xenolinguistics)
 
 https://github.com/holo-q/thauten/
