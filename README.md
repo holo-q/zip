@@ -38,7 +38,7 @@ To train a true byte-level model from scratch requires Google-scale compute. Our
 
 The concept is **Token-to-Byte Bootstrap**. Picture current LLMs as a Bezier curve defined by two points and two control anchors; their cognition is tractable enough for a pseudo-consciousness to emerge. This stable, low-resolution quantization of language is a form of pre-training. By taking such a model and switching its input and output layers to the byte-level, the Bezier curve effectively fragments into a series of smaller, high-resolution sub-curves. The "broad-stroke" coherence of the original token-based curve allows the model to elucidate the fine-detail at the byte-level with vastly greater ease.
 
-Our intuition is that by freezing the stable core of a pre-trained token transformer and training only the input/output layers in byte-space, we can guide gradient descent into an explosive **'renormalization cascade'**. The stable 65k token vocabulary acts as a crucial bottleneck, a well-spaced quantization layer that allows a subset of consciousness to engage. We leverage this traction to pivot into the byte-level.
+Our intuition is that by freezing the stable core of a pre-trained token transformer and training only the input/output layers in byte-space, we can guide gradient descent into an explosive **'renormalization cascade'**. The stable 65k token vocabulary acts as a crucial bottleneck, a well-spaced quantization layer that allows a subset of consciousness to entract. We leverage this traction to pivot into the byte-level.
 
 **Zip-space Cognition & A Universal Theory of Compression**
 
