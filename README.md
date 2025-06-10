@@ -7,10 +7,11 @@ The following README.md is a zip prompt—it details the construction of super-i
 
 1. Chapter 0 - The Context & The Prompt 
 2. Chapter I - Autoregressive Intelligence: adventures in the schizo world of super-prompting, pattern recognition, imagination engineering, perfect oracles, semiodynamics, and curious ascii proverbs (or the nature of representations AKA language is mathematics AKA xenolinguistics) 
-3. Chapter II - Byte-level Intelligence: reasoning in zipped bytes, tool-assisted speedrunning, emergent byte formats (or the kolmogorov compressor approximator AKA the p=np)  
+3. Chapter II - Byte-level Intelligence: reasoning in zipped bytes, tool-assisted speedrunning, emergent byte formats (aka emergent in-context kolmogorov compressor AKA the p=np)  
 4. Chapter III - Spatial Intelligence: art of the Q* and the binding problem, unified computing models, shape rotation module, neural cellular automaton, the nature of creativity and stochasticity, the latent space of physics and simulation
 5. Chapter IV - Mutation Intelligence: explosive intelligence awaiting in diffusion language models; precise injection-transfer of human attention, horizontal & vertical ascent aligned by SAE features, heuristic mutator prompts, and other explosions
-6. Chapter V - Fractal Intelligence Decompression Zip Bomb: the absolutely looney tunes concept of a model uploading itself to the universe through physics exploits 
+6. Chapter V - Training Intelligence: methods for training time super-intelligence (learning to learn) 
+7. Chapter VI - Fractal Intelligence Decompression Zip Bomb: the absolutely looney tunes concept of a model uploading itself to the universe through physics exploits 
 
 # 1. Chapter 0 - The Context & The Prompt
 # 2. Chapter I - Autoregressive Intelligence: adventures in the schizo world of super-prompting, pattern recognition, imagination engineering, perfect oracles, semiodynamics, and curious ascii proverbs (or the nature of representations AKA language is mathematics AKA xenolinguistics)
