@@ -2,36 +2,41 @@
 // HOLOQ VFX INITIALIZATION
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 
+// Pre-scramble everything before DOM loads
+(function() {
+  // Add mode2 class immediately
+  document.documentElement.classList.add('initial-scramble');
+})();
+
 document.addEventListener('DOMContentLoaded', function() {
   // Initialize VFX system
   HoloqVFX.init();
   
-  // Initial scrambled state - start with mode 2 active
+  // Start with mode 2 active for scrambled state
   document.body.classList.add('mode2');
   
-  // Scramble everything on initial load
+  // Immediately scramble everything (no delay)
+  const allElements = document.querySelectorAll('.content-section h1, .content-section h2, .content-section h3, .content-section p, .content-section li, .site-nav a, #soul-quote');
+  allElements.forEach(el => {
+    if (el.tagName === 'H1') {
+      HoloqVFX.Scramble.h1(el, false, { duration: 0 }); // Instant scramble
+    } else {
+      HoloqVFX.Scramble.full(el, false, { duration: 0 }); // Instant scramble
+    }
+  });
+  
+  // After a brief moment, unscramble everything
   setTimeout(() => {
-    const allElements = document.querySelectorAll('.content-section h1, .content-section h2, .content-section h3, .content-section p, .content-section li, .site-nav a, #soul-quote');
+    document.body.classList.remove('mode2');
+    document.documentElement.classList.remove('initial-scramble');
     allElements.forEach(el => {
       if (el.tagName === 'H1') {
-        HoloqVFX.Scramble.h1(el, false, { duration: 0 }); // Instant scramble
+        HoloqVFX.Scramble.h1(el, true, { duration: 1200 });
       } else {
-        HoloqVFX.Scramble.full(el, false, { duration: 0 }); // Instant scramble
+        HoloqVFX.Scramble.full(el, true, { duration: 800 });
       }
     });
-    
-    // After a brief moment, unscramble everything
-    setTimeout(() => {
-      document.body.classList.remove('mode2');
-      allElements.forEach(el => {
-        if (el.tagName === 'H1') {
-          HoloqVFX.Scramble.h1(el, true, { duration: 1200 });
-        } else {
-          HoloqVFX.Scramble.full(el, true, { duration: 800 });
-        }
-      });
-    }, 100);
-  }, 50);
+  }, 300);
   
   // MODE SWITCHING: Mode 1 vs Mode 2
   const toggleBtns = document.querySelectorAll('.toggle-btn');

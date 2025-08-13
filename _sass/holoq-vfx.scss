@@ -2,6 +2,19 @@
 // HOLOQ VFX STYLES - MODULAR VFX EFFECTS
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 
+// Initial scramble state - hide content briefly
+.initial-scramble {
+  .content-section h1,
+  .content-section h2,
+  .content-section h3,
+  .content-section p,
+  .content-section li,
+  .site-nav a,
+  #soul-quote {
+    opacity: 0;
+  }
+}
+
 // ═══════════════════════════════════════════════════════
 // CONFIGURATION VARIABLES
 // ═══════════════════════════════════════════════════════
