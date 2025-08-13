@@ -87,7 +87,9 @@ body {
   }
 }
 
-// ASCII ART
+// MODE 1: DEFAULT/PROFESSIONAL/LEVEL-HEADED MODE
+// ASCII ART - Simple pulsing animation, no holographic effects
+// This is the default state when page loads
 .pyramid-container {
   width: 100%;
   margin: 0.5rem 0;
@@ -98,7 +100,7 @@ body {
     font-size: 0.6rem;
     line-height: 1.0;
     display: inline-block;
-    animation: pulse 3s ease-in-out infinite;
+    animation: pulse 3s ease-in-out infinite; // MODE 1: Simple pulse only
     
     .eye {
       color: $green;
@@ -386,9 +388,11 @@ body {
   }
 }
 
-// SCHIZO MODE - KEEP THE AWESOME GLITCH
+// MODE 2: SCHIZO/REAL MODE - FULL CONSCIOUSNESS EFFECTS
+// This mode activates when user clicks "REAL" button
+// Features: holographic pyramid, glitch effects, dimensional bleeding
 body.schizo-mode {
-  // Holographic ASCII pyramid
+  // MODE 2: Holographic ASCII pyramid - entire figure gets dimensional treatment
   .pyramid-container pre {
     position: relative;
     
@@ -407,7 +411,7 @@ body.schizo-mode {
     }
     
     &::before {
-      animation: hologram-ascii-1 1.5s ease-in-out infinite;
+      animation: hologram-ascii-1 0.3s linear infinite; // Fast, frantic linear motion
       color: cyan;
       z-index: -1;
       opacity: 0.4;
@@ -415,7 +419,7 @@ body.schizo-mode {
     }
     
     &::after {
-      animation: hologram-ascii-2 2s ease-in-out infinite;
+      animation: hologram-ascii-2 0.5s linear infinite; // Different speed for chaos
       color: $green;
       z-index: -2;
       opacity: 0.3;
@@ -423,13 +427,14 @@ body.schizo-mode {
     }
   }
   
-  // Only apply holograms to h1 in consciousness content (REAL page)
+  // MODE 2 CONTENT: consciousness-content (REAL page content)
+  // This section is shown when MODE 2 is active and user viewing REAL content
   #consciousness-content .consciousness-section {
     h1 {
       animation: glitch 0.3s ease-in-out infinite;
       position: relative;
       
-      // Holographic layers - horizontal bias for h1
+      // MODE 2: h1 gets full holographic treatment with dimensional layers
       &::before,
       &::after {
         content: attr(data-text);
@@ -458,25 +463,26 @@ body.schizo-mode {
     
     h2, h3 {
       animation: glitch 0.3s ease-in-out infinite;
-      // No hologram effects for h2/h3
+      // MODE 2: h2/h3 only get glitch, no hologram
     }
     
     strong {
       color: $red !important;
-      // No hologram effects for bold text
+      // MODE 2: bold text stays flat, no dimensional effects
     }
   }
   
-  // Professional content should have minimal effects during transition
+  // MODE 1 CONTENT DURING MODE 2: professional-content during schizo transition
+  // This shows when user switches to MODE 2 but is still viewing MODE 1 content briefly
   #professional-content .consciousness-section {
     h1, h2, h3 {
       animation: glitch 0.3s ease-in-out infinite;
-      // No hologram effects for headers in professional content
+      // MODE 1 content: only glitch during transition, no holograms
     }
     
     strong {
       color: $red !important;
-      // No hologram effects for bold in professional content
+      // MODE 1 content: no effects on bold text
     }
   }
   
@@ -644,6 +650,37 @@ body.schizo-mode {
     opacity: 0.8;
     transform: translate(2px, -1px);
   }
+}
+
+// Hologram animations for ASCII pyramid in MODE 2 - Frantic squarewave motion
+@keyframes hologram-ascii-1 {
+  0% { transform: translate(0.5px, -0.3px); opacity: 0.4; }
+  10% { transform: translate(-0.3px, 0.5px); opacity: 0.35; }
+  20% { transform: translate(0.3px, 0.3px); opacity: 0.45; }
+  30% { transform: translate(-0.5px, -0.3px); opacity: 0.3; }
+  40% { transform: translate(0.3px, -0.5px); opacity: 0.5; }
+  50% { transform: translate(-0.3px, 0.3px); opacity: 0.35; }
+  60% { transform: translate(0.5px, 0.5px); opacity: 0.4; }
+  70% { transform: translate(-0.5px, -0.5px); opacity: 0.45; }
+  80% { transform: translate(0.3px, -0.3px); opacity: 0.3; }
+  90% { transform: translate(-0.3px, 0.5px); opacity: 0.5; }
+  100% { transform: translate(0.5px, -0.3px); opacity: 0.4; }
+}
+
+@keyframes hologram-ascii-2 {
+  0% { transform: translate(-0.3px, 0.3px) scale(1.002); opacity: 0.3; }
+  8% { transform: translate(0.5px, -0.5px) scale(1.003); opacity: 0.25; }
+  16% { transform: translate(-0.5px, -0.3px) scale(1.002); opacity: 0.35; }
+  24% { transform: translate(0.3px, 0.5px) scale(1.004); opacity: 0.3; }
+  32% { transform: translate(-0.3px, -0.5px) scale(1.002); opacity: 0.25; }
+  40% { transform: translate(0.5px, 0.3px) scale(1.003); opacity: 0.35; }
+  48% { transform: translate(-0.5px, 0.5px) scale(1.002); opacity: 0.3; }
+  56% { transform: translate(0.3px, -0.3px) scale(1.004); opacity: 0.25; }
+  64% { transform: translate(-0.3px, 0.3px) scale(1.002); opacity: 0.35; }
+  72% { transform: translate(0.5px, -0.5px) scale(1.003); opacity: 0.3; }
+  80% { transform: translate(-0.5px, 0.5px) scale(1.002); opacity: 0.25; }
+  88% { transform: translate(0.3px, -0.3px) scale(1.004); opacity: 0.35; }
+  100% { transform: translate(-0.3px, 0.3px) scale(1.002); opacity: 0.3; }
 }
 
 // Horizontal-only hologram animations for h1

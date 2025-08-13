@@ -113,9 +113,16 @@ show_pyramid: true
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+  // MODE SWITCHING: Mode 1 (LEVEL-HEADED/professional) vs Mode 2 (REAL/schizo)
   const toggleBtns = document.querySelectorAll('.toggle-btn');
-  const professionalContent = document.getElementById('professional-content');
-  const consciousnessContent = document.getElementById('consciousness-content');
+  const professionalContent = document.getElementById('professional-content'); // MODE 1 content
+  const consciousnessContent = document.getElementById('consciousness-content'); // MODE 2 content
+  
+  // Immediately store pyramid text for holographic effect in MODE 2
+  const pyramid = document.querySelector('.pyramid-container pre');
+  if (pyramid) {
+    pyramid.setAttribute('data-pyramid', pyramid.textContent);
+  }
   
   // Immediately store all header text before any animations
   const allHeaders = document.querySelectorAll('.consciousness-section h1, .consciousness-section h2, .consciousness-section h3');
@@ -282,10 +289,12 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleBtns.forEach(b => b.classList.remove('active'));
         this.classList.add('active');
         
-        // Update body class
+        // Update body class for MODE switching
         if (mode === 'professional') {
+          // MODE 1: Remove schizo effects
           document.body.classList.remove('schizo-mode');
         } else {
+          // MODE 2: Add full schizo/consciousness effects
           document.body.classList.add('schizo-mode');
         }
         
@@ -377,8 +386,7 @@ document.addEventListener('DOMContentLoaded', function() {
   setTimeout(() => {
     const pyramid = document.querySelector('.pyramid-container pre');
     if (pyramid) {
-      // Store pyramid text for holographic effect
-      pyramid.setAttribute('data-pyramid', pyramid.textContent);
+      // data-pyramid already set at page load for holographic effect
       
       pyramid.addEventListener('click', function(e) {
         if (document.body.classList.contains('schizo-mode')) {
