@@ -42,14 +42,31 @@ body {
     margin: 0 auto;
   }
   
+  .site-title-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.3rem;
+    
+    .site-logo {
+      height: 1.5rem;
+      width: auto;
+      margin-right: 0.8rem;
+      vertical-align: middle;
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+    }
+  }
+  
   .site-title {
     font-size: 1.5rem;
     font-weight: 700;
     color: $red;
     text-decoration: none;
     letter-spacing: 0.3em;
-    display: block;
-    margin-bottom: 0.3rem;
+    display: inline-block;
+    vertical-align: middle;
     
     &:hover {
       text-decoration: underline;
