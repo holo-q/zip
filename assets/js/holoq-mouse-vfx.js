@@ -88,6 +88,7 @@ const HoloqMouseVFX = (function() {
       const char = span.textContent;
       const isWhitespace = char === ' ' || char === '\n' || char === '\r';
       const isEye = span.classList.contains('eye');
+      const isQ = char === 'Q' && span.hasAttribute('data-x'); // The special Q portal
       
       characters.push({
         span: span,
@@ -96,15 +97,18 @@ const HoloqMouseVFX = (function() {
         y: y,
         isWhitespace: isWhitespace,
         isEye: isEye,  // Track if this is part of an eye
+        isQ: isQ,      // Track if this is the special Q
         index: i
       });
       
       // Initialize cell state - pyramid chars start with small random energy
-      // Eyes get slightly different initial energy
+      // Q starts with more energy, other eyes with less
       if (isWhitespace) {
         cellStates.push(0);
+      } else if (isQ) {
+        cellStates.push(Math.random() * 0.3); // Q accumulates more energy
       } else if (isEye) {
-        cellStates.push(Math.random() * 0.15);
+        cellStates.push(Math.random() * 0.05); // Other eye parts start with less
       } else {
         cellStates.push(Math.random() * 0.1);
       }
@@ -234,16 +238,36 @@ const HoloqMouseVFX = (function() {
         
         // 3. Spontaneous excitation: random energy injection
         if (Math.random() < CONFIG.SPONTANEOUS_RATE) {
-          state = 1.0; // Sudden burst of energy
-          
-          // If this is an eye, energize the entire kaomoji face
-          if (char.isEye && char.eyeGroup) {
-            char.eyeGroup.members.forEach(memberIdx => {
-              if (memberIdx !== i) {
-                newStates[memberIdx] = Math.max(newStates[memberIdx], 0.8);
+          // Q accumulates energy differently
+          if (char.isQ) {
+            state = Math.min(state + 0.3, 1.0); // Q accumulates energy
+          } else {
+            state = 1.0; // Sudden burst of energy
+            
+            // If this is an eye, energize the entire kaomoji face
+            if (char.isEye && char.eyeGroup && !char.isQ) {
+              char.eyeGroup.members.forEach(memberIdx => {
+                if (memberIdx !== i) {
+                  newStates[memberIdx] = Math.max(newStates[memberIdx], 0.8);
+                }
+              });
+            }
+          }
+        }
+        
+        // 3a. Q ENERGY BURST - When Q reaches threshold, burst to all kaomoji
+        if (char.isQ && state > 0.85) {
+          // Q has reached critical mass - send energy burst to all kaomoji faces!
+          eyeGroups.forEach(group => {
+            group.members.forEach(memberIdx => {
+              const targetChar = characters[memberIdx];
+              if (!targetChar.isQ) { // Don't send energy back to Q
+                newStates[memberIdx] = Math.min(newStates[memberIdx] + 0.6, 1.0);
               }
             });
-          }
+          });
+          // Q releases its energy
+          state = 0.2;
         }
         
         // 3b. Eye group energy sharing - if one eye cell has energy, share with face
@@ -298,8 +322,28 @@ const HoloqMouseVFX = (function() {
           // Three-stage color graduation
           let r, g, b;
           
-          // Eyes (kaomoji) always use green palette
-          if (char.isEye) {
+          // Q accumulator shows energy buildup with special effects
+          if (char.isQ) {
+            // Q glows brighter as it accumulates energy
+            if (normalizedEnergy < 0.3) {
+              // Low energy: faint red glow
+              r = 255;
+              g = Math.floor(100 * normalizedEnergy);
+              b = Math.floor(100 * normalizedEnergy);
+            } else if (normalizedEnergy < 0.7) {
+              // Building energy: orange to yellow
+              const buildUp = (normalizedEnergy - 0.3) / 0.4;
+              r = 255;
+              g = Math.floor(100 + 155 * buildUp);
+              b = Math.floor(30 * buildUp);
+            } else {
+              // Critical mass: bright white-yellow pulsing
+              r = 255;
+              g = 255;
+              b = Math.floor(100 + 155 * Math.sin(Date.now() * 0.01));
+            }
+          } else if (char.isEye) {
+            // Other kaomoji parts use green palette
             // Pure green gradient for eyes
             if (normalizedEnergy < 0.5) {
               // Low energy: bright green with white mix

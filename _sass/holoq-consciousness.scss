@@ -111,7 +111,7 @@ body {
         animation: pulse 3s ease-in-out infinite; // MODE 1: Simple pulse only // MODE 1: Simple pulse only
     
     .eye {
-      color: $green;
+      color: $red;  // Start red like everything else
       animation: blink 5s ease-in-out infinite;
       
       // Secret portal Q has subtle hover effect
@@ -119,7 +119,7 @@ body {
         transition: text-shadow 0.3s ease;
         
         &:hover {
-          text-shadow: 0 0 3px $green, 0 0 6px $green;
+          text-shadow: 0 0 3px $red, 0 0 6px $red;
         }
       }
     }
