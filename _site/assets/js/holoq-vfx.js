@@ -33,9 +33,9 @@ const HoloqVFX = (function() {
     return document.body.classList.contains(CONFIG.SCHIZO_MODE_CLASS);
   }
   
-  function storeOriginalText(element) {
-    if (!element.hasAttribute('data-text')) {
-      element.setAttribute('data-text', element.textContent);
+  function storeOriginalHTML(element) {
+    if (!element.hasAttribute('data-html')) {
+      element.setAttribute('data-html', element.innerHTML);
     }
   }
   
@@ -48,7 +48,7 @@ const HoloqVFX = (function() {
     prepareElement: function(element, attributeName = 'data-hologram') {
       const content = element.textContent;
       element.setAttribute(attributeName, content);
-      storeOriginalText(element);
+      storeOriginalHTML(element);
     },
     
     // Prepare all elements matching selector
@@ -113,10 +113,10 @@ const HoloqVFX = (function() {
         original = element.getAttribute('data-original') || element.textContent;
       } else {
         // Normal behavior for other elements
-        original = element.getAttribute('data-text') || element.textContent;
+        original = element.getAttribute('data-html') || element.innerHTML;
       }
       
-      storeOriginalText(element);
+      storeOriginalHTML(element);
       
       const chars = original.split('');
       const alienLen = CONFIG.ALIEN_CHARS.length;
@@ -143,7 +143,7 @@ const HoloqVFX = (function() {
           clearInterval(interval);
           // For transform links, don't restore text - let CSS handle it
           if (!isTransformLink || !inSchizoMode) {
-            element.textContent = original;
+            element.innerHTML = original;
           } else {
             // Clear text content for CSS pseudo-elements to work
             element.textContent = '';
