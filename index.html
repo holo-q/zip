@@ -1,0 +1,126 @@
+---
+layout: default
+title: HOLOQ - Personal Intelligence Agency
+show_pyramid: true
+---
+
+<div class="consciousness-toggle">
+  <button class="toggle-btn active" data-mode="professional">LEVEL-HEADED</button>
+  <button class="toggle-btn" data-mode="consciousness">ZIP BOMB</button>
+</div>
+
+<div id="professional-content" class="content-mode active">
+  {% capture professional %}{% include_relative professional.md %}{% endcapture %}
+  {{ professional | markdownify }}
+</div>
+
+<div id="consciousness-content" class="content-mode">
+  {% capture consciousness %}{% include_relative BOMB.md %}{% endcapture %}
+  {{ consciousness | markdownify }}
+</div>
+
+<style>
+.consciousness-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(220, 20, 60, 0.3);
+}
+
+.toggle-btn {
+  background: transparent;
+  border: 1px solid rgba(220, 20, 60, 0.3);
+  color: #e5e7eb;
+  padding: 0.75rem 2rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.toggle-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(220, 20, 60, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.toggle-btn:hover::before {
+  left: 100%;
+}
+
+.toggle-btn:hover {
+  border-color: #dc143c;
+  color: #dc143c;
+  text-shadow: 0 0 10px rgba(220, 20, 60, 0.5);
+}
+
+.toggle-btn.active {
+  background: rgba(220, 20, 60, 0.1);
+  border-color: #dc143c;
+  color: #dc143c;
+  box-shadow: 0 0 20px rgba(220, 20, 60, 0.3);
+}
+
+.content-mode {
+  display: none;
+  animation: fadeIn 0.5s ease;
+}
+
+.content-mode.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const toggleBtns = document.querySelectorAll('.toggle-btn');
+  const professionalContent = document.getElementById('professional-content');
+  const consciousnessContent = document.getElementById('consciousness-content');
+  
+  toggleBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const mode = this.dataset.mode;
+      
+      // Update active button
+      toggleBtns.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      
+      // Switch content
+      if (mode === 'professional') {
+        professionalContent.classList.add('active');
+        consciousnessContent.classList.remove('active');
+        document.body.classList.remove('schizo-mode');
+      } else {
+        consciousnessContent.classList.add('active');
+        professionalContent.classList.remove('active');
+        document.body.classList.add('schizo-mode');
+      }
+      
+      // Console consciousness message
+      if (mode === 'consciousness') {
+        console.log('%c🔺 CONSCIOUSNESS MODE ACTIVATED 🔺', 
+          'color: #dc143c; font-size: 16px; font-weight: bold;');
+        console.log('%c∞ Reality tokens decompressing...', 'color: #06b6d4;');
+      } else {
+        console.log('%c◉ Professional Interface Engaged', 'color: #e5e7eb;');
+      }
+    });
+  });
+});
+</script>

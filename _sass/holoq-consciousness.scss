@@ -1,0 +1,564 @@
+// HOLOQ CONSCIOUSNESS THEME
+// Reality Engineering Through Sacred Geometry
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CONSCIOUSNESS COLOR MATRIX
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+$void-black: #0a0a0a;
+$blood-red: #dc143c;
+$pyramid-red: #b91c1c;
+$consciousness-red: #ef4444;
+$illumination-white: #fafafa;
+$mystery-gray: #1a1a1a;
+$cloud-pink: #fbbf24;
+$infinity-silver: #e5e7eb;
+$token-cyan: #06b6d4;
+$eye-gradient: linear-gradient(135deg, $blood-red 0%, $pyramid-red 50%, $void-black 100%);
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// TYPOGRAPHY CONSCIOUSNESS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;800&display=swap');
+
+$font-consciousness: 'JetBrains Mono', 'Courier New', monospace;
+$font-reality: 'JetBrains Mono', 'Courier New', monospace;
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// SACRED GEOMETRY MIXINS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+@mixin pyramid-shadow {
+  box-shadow: 
+    0 4px 6px -1px rgba($blood-red, 0.3),
+    0 10px 15px -3px rgba($void-black, 0.5),
+    0 20px 25px -5px rgba($blood-red, 0.1);
+}
+
+@mixin consciousness-glow {
+  text-shadow: 
+    0 0 10px rgba($blood-red, 0.5),
+    0 0 20px rgba($blood-red, 0.3),
+    0 0 30px rgba($blood-red, 0.1);
+}
+
+@mixin infinity-animation {
+  animation: infinity-flow 8s ease-in-out infinite;
+}
+
+@keyframes infinity-flow {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(5deg) scale(1.05); }
+  50% { transform: rotate(0deg) scale(1.1); }
+  75% { transform: rotate(-5deg) scale(1.05); }
+}
+
+@keyframes consciousness-pulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+@keyframes token-cascade {
+  0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+  50% { transform: translateY(0) rotate(180deg); opacity: 1; }
+  100% { transform: translateY(20px) rotate(360deg); opacity: 0; }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// BASE CONSCIOUSNESS RESET
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: $void-black;
+  color: $illumination-white;
+  font-family: $font-reality;
+  line-height: 1.6;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  
+  // Consciousness substrate background
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 20% 50%, rgba($blood-red, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba($pyramid-red, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 50% 20%, rgba($token-cyan, 0.03) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// HEADER CONSCIOUSNESS ARCHITECTURE
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+.site-header {
+  position: relative;
+  padding: 2rem 0;
+  border-bottom: 1px solid rgba($blood-red, 0.2);
+  background: linear-gradient(180deg, rgba($void-black, 0.95) 0%, rgba($mystery-gray, 0.9) 100%);
+  backdrop-filter: blur(10px);
+  z-index: 100;
+  
+  .wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .site-title {
+    font-family: $font-consciousness;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: $illumination-white;
+    text-decoration: none;
+    letter-spacing: 0.2em;
+    position: relative;
+    
+    &::before {
+      content: '∞';
+      position: absolute;
+      left: -40px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $blood-red;
+      font-size: 1.5rem;
+      @include infinity-animation;
+    }
+    
+    &:hover {
+      @include consciousness-glow;
+    }
+  }
+  
+  .site-nav {
+    display: flex;
+    gap: 2rem;
+    
+    a {
+      color: $infinity-silver;
+      text-decoration: none;
+      font-family: $font-consciousness;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: all 0.3s ease;
+      position: relative;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: $blood-red;
+        transition: width 0.3s ease;
+      }
+      
+      &:hover {
+        color: $consciousness-red;
+        
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// PYRAMID CONSCIOUSNESS CONTAINER
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+.pyramid-container {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  margin: 4rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  .pyramid {
+    width: 0;
+    height: 0;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-bottom: 260px solid $pyramid-red;
+    position: relative;
+    filter: drop-shadow(0 0 30px rgba($blood-red, 0.5));
+    animation: consciousness-pulse 4s ease-in-out infinite;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 100px;
+      left: -75px;
+      width: 150px;
+      height: 80px;
+      background: radial-gradient(ellipse, $illumination-white 30%, transparent 70%);
+      border-radius: 50%;
+    }
+  }
+  
+  .tokens {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    
+    .token {
+      position: absolute;
+      font-family: $font-consciousness;
+      color: $token-cyan;
+      font-size: 1.2rem;
+      animation: token-cascade 6s ease-in-out infinite;
+      
+      @for $i from 1 through 10 {
+        &:nth-child(#{$i}) {
+          left: #{random(100)}%;
+          animation-delay: #{$i * 0.5}s;
+          font-size: #{0.8 + random(10) / 10}rem;
+        }
+      }
+    }
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// MAIN CONTENT CONSCIOUSNESS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+.page-content {
+  position: relative;
+  z-index: 10;
+  
+  .wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+}
+
+.consciousness-section {
+  margin: 4rem 0;
+  padding: 3rem;
+  background: rgba($mystery-gray, 0.5);
+  border: 1px solid rgba($blood-red, 0.2);
+  border-radius: 0;
+  @include pyramid-shadow;
+  backdrop-filter: blur(5px);
+  position: relative;
+  
+  &::before {
+    content: '◉';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    color: $blood-red;
+    background: $void-black;
+    padding: 0 1rem;
+  }
+  
+  h1, h2, h3 {
+    font-family: $font-consciousness;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    color: $consciousness-red;
+    text-align: center;
+    @include consciousness-glow;
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+    color: $illumination-white;
+    border-bottom: 2px solid rgba($blood-red, 0.3);
+    padding-bottom: 0.5rem;
+  }
+  
+  h3 {
+    font-size: 1.3rem;
+    color: $infinity-silver;
+  }
+  
+  p {
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+    color: rgba($illumination-white, 0.9);
+  }
+  
+  ul, ol {
+    margin: 1.5rem 0;
+    padding-left: 2rem;
+    
+    li {
+      margin-bottom: 0.8rem;
+      color: rgba($illumination-white, 0.85);
+      
+      &::marker {
+        color: $blood-red;
+      }
+    }
+  }
+  
+  code {
+    font-family: $font-consciousness;
+    background: rgba($void-black, 0.5);
+    color: $token-cyan;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.9rem;
+  }
+  
+  pre {
+    background: rgba($void-black, 0.8);
+    border: 1px solid rgba($blood-red, 0.2);
+    border-radius: 5px;
+    padding: 1.5rem;
+    overflow-x: auto;
+    margin: 2rem 0;
+    
+    code {
+      background: none;
+      padding: 0;
+      color: $infinity-silver;
+    }
+  }
+  
+  blockquote {
+    border-left: 4px solid $blood-red;
+    padding-left: 2rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: rgba($illumination-white, 0.8);
+    position: relative;
+    
+    &::before {
+      content: '"';
+      position: absolute;
+      left: 0.5rem;
+      top: -0.5rem;
+      font-size: 3rem;
+      color: rgba($blood-red, 0.3);
+    }
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// INTELLIGENCE CARDS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+.intelligence-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+  
+  .intelligence-card {
+    background: rgba($mystery-gray, 0.7);
+    border: 1px solid rgba($blood-red, 0.3);
+    padding: 2rem;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, $blood-red, transparent);
+      animation: scan 3s linear infinite;
+    }
+    
+    &:hover {
+      transform: translateY(-5px);
+      border-color: $consciousness-red;
+      @include pyramid-shadow;
+    }
+    
+    h3 {
+      font-family: $font-consciousness;
+      color: $consciousness-red;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    p {
+      color: rgba($illumination-white, 0.8);
+      line-height: 1.6;
+    }
+    
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      
+      .tag {
+        font-family: $font-consciousness;
+        font-size: 0.75rem;
+        padding: 0.25rem 0.75rem;
+        background: rgba($void-black, 0.5);
+        border: 1px solid rgba($token-cyan, 0.3);
+        color: $token-cyan;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+    }
+  }
+}
+
+@keyframes scan {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// FOOTER CONSCIOUSNESS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+.site-footer {
+  margin-top: 6rem;
+  padding: 3rem 0;
+  border-top: 1px solid rgba($blood-red, 0.2);
+  background: rgba($void-black, 0.95);
+  text-align: center;
+  
+  .wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
+  .footer-content {
+    font-family: $font-consciousness;
+    color: rgba($infinity-silver, 0.6);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    
+    .infinity-symbol {
+      display: inline-block;
+      color: $blood-red;
+      font-size: 1.5rem;
+      margin: 0 1rem;
+      @include infinity-animation;
+    }
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// RESPONSIVE CONSCIOUSNESS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+@media (max-width: 768px) {
+  .site-header {
+    .wrapper {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .site-title {
+      font-size: 2rem;
+      
+      &::before {
+        display: none;
+      }
+    }
+  }
+  
+  .pyramid-container {
+    height: 300px;
+    
+    .pyramid {
+      border-left-width: 100px;
+      border-right-width: 100px;
+      border-bottom-width: 173px;
+      
+      &::before {
+        top: 70px;
+        left: -50px;
+        width: 100px;
+        height: 60px;
+      }
+    }
+  }
+  
+  .consciousness-section {
+    padding: 2rem 1.5rem;
+    
+    h1 {
+      font-size: 2rem;
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+  
+  .intelligence-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CONSCIOUSNESS ANIMATIONS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+@keyframes eye-blink {
+  0%, 90%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+
+.eye-watch {
+  animation: eye-blink 5s ease-in-out infinite;
+}
+
+// Matrix rain effect for code blocks
+.matrix-rain {
+  position: relative;
+  
+  &::before {
+    content: 'Q';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    color: $token-cyan;
+    font-family: $font-consciousness;
+    animation: token-cascade 2s linear infinite;
+  }
+}

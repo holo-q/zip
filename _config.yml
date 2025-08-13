@@ -1,4 +1,3 @@
-theme: jekyll-theme-minimal
 title: HOLOQ
 description: Intelligence Fractal Decompression Architecture
 show_downloads: false
@@ -6,3 +5,21 @@ markdown: kramdown
 kramdown:
   input: GFM
   syntax_highlighter: rouge
+
+# Build settings
+sass:
+  sass_dir: _sass
+  style: compressed
+
+# Collections for different consciousness levels
+collections:
+  pages:
+    output: true
+    permalink: /:name
+
+# Default values
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
