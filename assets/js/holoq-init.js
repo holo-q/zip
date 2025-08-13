@@ -56,6 +56,13 @@ document.addEventListener('DOMContentLoaded', function() {
             HoloqVFX.Scramble.full(el, true, { duration: 800 });
           }
         });
+        
+        // Restart the cellular automaton on the pyramid after mode switch
+        const pyramidContainer = document.querySelector('.pyramid-container');
+        if (pyramidContainer && typeof HoloqMouseVFX !== 'undefined') {
+          // The automaton might have been disrupted, restart it
+          HoloqMouseVFX.init(pyramidContainer);
+        }
       }, 400);
     });
   });

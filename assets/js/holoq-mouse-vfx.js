@@ -26,6 +26,16 @@ const HoloqMouseVFX = (function() {
         return;
     }
 
+    // Cancel any existing animation
+    if (animationFrameId) {
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
+    }
+    
+    // Reset state
+    characters = [];
+    cellStates = [];
+
     container = el;
     pre = container.querySelector('pre');
     
