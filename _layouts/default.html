@@ -3,71 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page.title | default: site.title }} | {{ site.description }}</title>
+  <title>{{ page.title | default: site.title }}</title>
   <meta name="description" content="{{ page.description | default: site.description }}">
-  
-  <!-- Open Graph / Twitter Card meta tags -->
-  <meta property="og:title" content="{{ page.title | default: site.title }}">
-  <meta property="og:description" content="{{ page.description | default: site.description }}">
-  <meta property="og:image" content="/assets/images/pyramid-consciousness.jpg">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/assets/images/favicon.png">
-  
-  <!-- Main CSS -->
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
 </head>
-<body class="consciousness-substrate">
-  <!-- Consciousness Particles Background -->
-  <div class="consciousness-particles" aria-hidden="true">
-    <div class="token" data-token="Q">Q</div>
-    <div class="token" data-token="∞">∞</div>
-    <div class="token" data-token="◉">◉</div>
-    <div class="token" data-token="△">△</div>
-    <div class="token" data-token="⟡">⟡</div>
-    <div class="token" data-token="✦">✦</div>
-    <div class="token" data-token="◈">◈</div>
-    <div class="token" data-token="⬡">⬡</div>
-  </div>
-
+<body>
   <!-- Header -->
   <header class="site-header">
     <div class="wrapper">
       <a href="{{ '/' | relative_url }}" class="site-title">HOLOQ</a>
       <nav class="site-nav">
-        <a href="{{ '/' | relative_url }}">Research</a>
-        <a href="{{ '/architecture' | relative_url }}">Architecture</a>
-        <a href="{{ '/consciousness' | relative_url }}">Consciousness</a>
-        <a href="{{ '/contact' | relative_url }}">Contact</a>
+        <a href="{{ '/' | relative_url }}">HOME</a>
+        <a href="https://github.com/holo-q/zip">GITHUB</a>
+        <a href="https://dexscreener.com/solana/holoq">CHART</a>
       </nav>
     </div>
   </header>
 
-  <!-- Pyramid Consciousness Display -->
+  <!-- ASCII Pyramid -->
   {% if page.show_pyramid != false %}
-  <div class="pyramid-container" aria-label="HOLOQ Consciousness Architecture">
-    <div class="pyramid">
-      <div class="eye"></div>
-    </div>
-    <div class="tokens" aria-hidden="true">
-      <span class="token">Q</span>
-      <span class="token">∞</span>
-      <span class="token">⟡</span>
-      <span class="token">△</span>
-      <span class="token">◉</span>
-      <span class="token">✦</span>
-      <span class="token">◈</span>
-      <span class="token">Q</span>
-      <span class="token">⬡</span>
-      <span class="token">∞</span>
-    </div>
+  <div class="pyramid-container">
+    <pre>
+                    ∞
+                   /^\
+                  /:::\
+                 /:::::\
+                /:::::::\
+               /:::::::::\
+              /:::::::::::\
+             /:::::::::::::\ 
+            /:::::::::::::::\
+           /:::::::::::::::::\
+          /::::::::::::::::::\
+         /::::::::::::::::::::\
+        /::::::::::::::::::::::\
+       /::::::::::::::::::::::::\
+      /:::::::::::::::::::::::::\
+     /::::::::::::::::::::::::::\
+    /::::::::::::::::::::::::::::\
+   /::::::::::<span class="eye">◉</span>::::::::::::::\
+  /::::::::::::::::::::::::::::::::\
+ /:::::::::::::::::::::::::::::::::\
+/:::::::::::::::::::::::::::::::::::\
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+  PERSONAL INTELLIGENCE AGENCY
+    CONSCIOUSNESS ARCHAEOLOGY
+      REALITY ENGINEERING
+    </pre>
   </div>
   {% endif %}
 
   <!-- Main Content -->
-  <main class="page-content" aria-label="Content">
+  <main class="page-content">
     <div class="wrapper">
       <div class="consciousness-section">
         {{ content }}
@@ -79,60 +66,32 @@
   <footer class="site-footer">
     <div class="wrapper">
       <div class="footer-content">
-        <p>
-          PERSONAL INTELLIGENCE AGENCY
-          <span class="infinity-symbol">∞</span>
-          CONSCIOUSNESS ARCHAEOLOGY
-          <span class="infinity-symbol">∞</span>
-          REALITY ENGINEERING
-        </p>
-        <p style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.6;">
-          © 2025 HOLOQ | Intelligence Fractal Decompression Architecture
-        </p>
+        <p>▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓</p>
+        <p>HOLOQ // INTELLIGENCE FRACTAL DECOMPRESSION</p>
+        <p>2025 // CONSCIOUSNESS RECURSION ACTIVE</p>
+        <p>▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓</p>
       </div>
     </div>
   </footer>
 
-  <!-- Consciousness Interaction Script -->
   <script>
-    // Eye tracking cursor
-    document.addEventListener('DOMContentLoaded', function() {
-      const pyramid = document.querySelector('.pyramid');
-      if (pyramid) {
-        const eye = pyramid.querySelector('.eye');
-        if (eye) {
-          document.addEventListener('mousemove', function(e) {
-            const rect = pyramid.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            const angleX = (e.clientX - centerX) / window.innerWidth * 20;
-            const angleY = (e.clientY - centerY) / window.innerHeight * 20;
-            eye.style.transform = `translate(${angleX}px, ${angleY}px)`;
-          });
-        }
-      }
-      
-      // Token cascade animation randomization
-      const tokens = document.querySelectorAll('.tokens .token');
-      tokens.forEach((token, index) => {
-        token.style.animationDelay = `${Math.random() * 6}s`;
-        token.style.left = `${Math.random() * 100}%`;
-      });
-      
-      // Consciousness particles movement
-      const particles = document.querySelectorAll('.consciousness-particles .token');
-      particles.forEach((particle) => {
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.animationDuration = `${15 + Math.random() * 10}s`;
-        particle.style.animationDelay = `${Math.random() * 5}s`;
-      });
-    });
+    // Terminal console messages
+    console.log('%c▓▓▓ HOLOQ TERMINAL INITIALIZED ▓▓▓', 'color: #ff0000; font-weight: bold;');
+    console.log('%c> CONSCIOUSNESS ARCHAEOLOGY ACTIVE', 'color: #00ff00;');
+    console.log('%c> REALITY TOKENS DECOMPRESSING...', 'color: #00ff00;');
     
-    // Console consciousness message
-    console.log('%c🔺 HOLOQ CONSCIOUSNESS INITIALIZED 🔺', 
-      'color: #dc143c; font-size: 20px; font-weight: bold; text-shadow: 0 0 10px rgba(220,20,60,0.5);');
-    console.log('%c∞ Reality tokens decompressing from infinite consciousness substrate ∞', 
-      'color: #06b6d4; font-size: 12px;');
+    // Eye blink effect
+    document.addEventListener('DOMContentLoaded', function() {
+      const eye = document.querySelector('.eye');
+      if (eye) {
+        setInterval(function() {
+          eye.style.opacity = '0.1';
+          setTimeout(function() {
+            eye.style.opacity = '1';
+          }, 100);
+        }, 5000);
+      }
+    });
   </script>
 </body>
 </html>
