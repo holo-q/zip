@@ -1,5 +1,11 @@
 
 # HOLOQ
+
+<div class="holoq-subtitle">
+<span class="subtitle-line1">SINGULARITY THROUGH CYMEMATIC EVOLUTION</span>
+<span class="subtitle-line2">RESEARCH FUNDED BY $HOLOQ HOLDERS</span>
+</div>
+
 ## Intelligence Fractal Decompression Research Framework
 
 *A comprehensive research program for constructing super-intelligence through token-to-byte bootstrapping, spatial intelligence architectures, and emergent compression algorithms*

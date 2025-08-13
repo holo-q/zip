@@ -175,6 +175,32 @@ body {
     margin-top: 2rem;
   }
   
+  // HOLOQ SUBTITLE - BULLISH MISSION STATEMENT
+  .holoq-subtitle {
+    text-align: center;
+    margin: -0.5rem 0 1.5rem 0;
+    
+    span {
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+    
+    .subtitle-line1 {
+      color: $red;
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+      animation: pulse 4s ease-in-out infinite;
+    }
+    
+    .subtitle-line2 {
+      color: $green;
+      font-size: 0.75rem;
+      opacity: 0.9;
+    }
+  }
+  
   p {
     margin-bottom: 0.5rem;
     color: $red;
