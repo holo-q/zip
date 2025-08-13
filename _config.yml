@@ -1,7 +1,7 @@
 title: HOLOQ
 description: Intelligence Fractal Decompression Architecture
 url: "https://holoq.ai"
-baseurl: "/zip"
+baseurl: ""
 show_downloads: false
 markdown: kramdown
 kramdown:
