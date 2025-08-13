@@ -394,9 +394,25 @@ const HoloqVFX = (function() {
   // ═══════════════════════════════════════════════════════
   
   const Mode = {
+    // Update navigation links for mode changes
+    updateNavLinks: function(isMode2) {
+      // Handle HOME/SRC transformation
+      const homeLink = document.querySelector('.home-link');
+      if (homeLink) {
+        if (isMode2) {
+          homeLink.textContent = homeLink.getAttribute('data-mode2-text') || 'SRC';
+          homeLink.href = homeLink.getAttribute('data-mode2-href') || 'https://github.com/holo-q/zip';
+        } else {
+          homeLink.textContent = homeLink.getAttribute('data-mode1-text') || 'HOME';
+          homeLink.href = homeLink.getAttribute('data-original-href') || '/';
+        }
+      }
+    },
+    
     // Enter mode 2
     enterMode2: function() {
       document.body.classList.add(CONFIG.MODE2_CLASS);
+      this.updateNavLinks(true);
       console.log('%c🔺 MODE 2 ACTIVATED 🔺', 
         'color: #dc143c; font-size: 16px; font-weight: bold;');
       console.log('%c∞ Alternative view loading...', 'color: #06b6d4;');
@@ -410,6 +426,7 @@ const HoloqVFX = (function() {
     // Exit mode 2
     exitMode2: function() {
       document.body.classList.remove(CONFIG.MODE2_CLASS);
+      this.updateNavLinks(false);
       console.log('%c◉ Mode 1 Interface Engaged', 'color: #e5e7eb;');
     },
     
