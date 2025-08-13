@@ -19,6 +19,7 @@ const HoloqMouseVFX = (function() {
   let lastFrameTime = 0;
   let isMode2 = false;
   let wavePhase = 0;  // For the rushing wave effect
+  let originalPyramidText = null;  // Store the original text to prevent corruption
 
   function init(el) {
     // Set mode state
@@ -37,7 +38,11 @@ const HoloqMouseVFX = (function() {
     container = el;
     pre = container.querySelector('pre');
     
-    const originalText = pre.textContent;
+    // Store original text on first init, reuse on subsequent inits
+    if (!originalPyramidText) {
+      originalPyramidText = pre.textContent;
+    }
+    const originalText = originalPyramidText;
     pre.innerHTML = ''; // Clear the pre
 
     let x = 0;
