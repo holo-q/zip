@@ -2,8 +2,8 @@
 # HOLOQ
 
 <div class="holoq-subtitle">
-<span class="subtitle-line1">SINGULARITY THROUGH CYMEMATIC EVOLUTION</span>
-<span class="subtitle-line2">RESEARCH FUNDED BY $HOLOQ HOLDERS</span>
+<span class="subtitle-line1" data-original-text="SINGULARITY THROUGH CYMEMATIC EVOLUTION">SINGULARITY THROUGH CYMEMATIC EVOLUTION</span>
+<span class="subtitle-line2" data-original-text="RESEARCH FUNDED BY $HOLOQ HOLDERS">RESEARCH FUNDED BY $HOLOQ HOLDERS</span>
 </div>
 
 ## Intelligence Fractal Decompression Research Framework
