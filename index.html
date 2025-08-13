@@ -92,11 +92,58 @@ document.addEventListener('DOMContentLoaded', function() {
   const professionalContent = document.getElementById('professional-content');
   const consciousnessContent = document.getElementById('consciousness-content');
   
+  // Immediately store all header text before any animations
+  const allHeaders = document.querySelectorAll('.consciousness-section h1, .consciousness-section h2, .consciousness-section h3');
+  allHeaders.forEach(header => {
+    header.setAttribute('data-text', header.textContent);
+  });
+  
   // Alien characters for scrambling
   const aliens = '▓▒░█▄▀▌▐│┤╡╢╖╕╣║╗╝╜╛┐└┴┬├─┼╞╟╚╔╩╦╠═╬╧╨╤╥╙╘╒╓╫╪┘┌αβγδεζηθικλμνξοπρστυφχψω∞∂∇∈∉∋∌∑∏√∛∜≈≠≤≥⊕⊗⊙⊘';
   
   // Track active animations to prevent overlaps
   let activeAnimations = new Set();
+  
+  // Mini scramble for hover effects
+  function miniScramble(element, duration = 300) {
+    if (activeAnimations.has(element)) return;
+    activeAnimations.add(element);
+    
+    // Get the original text from data-text or current content
+    const original = element.getAttribute('data-text') || element.textContent;
+    // Store it if not already stored
+    if (!element.hasAttribute('data-text')) {
+      element.setAttribute('data-text', original);
+    }
+    
+    const chars = original.split('');
+    const alienLen = aliens.length;
+    const frames = 5;
+    let frame = 0;
+    
+    // Add scrambling class for visual effects
+    element.classList.add('scrambling');
+    element.classList.add('glitch-text');
+    
+    const interval = setInterval(() => {
+      const progress = frame / frames;
+      const scrambled = chars.map(char => {
+        if (char === ' ' || char === '\n' || char === '\t') return char;
+        return Math.random() < (1 - progress) ? 
+          aliens[Math.floor(Math.random() * alienLen)] : char;
+      });
+      element.textContent = scrambled.join('');
+      
+      frame++;
+      if (frame > frames) {
+        clearInterval(interval);
+        element.textContent = original;
+        element.classList.remove('scrambling');
+        setTimeout(() => element.classList.remove('glitch-text'), 150);
+        activeAnimations.delete(element);
+      }
+    }, duration / frames);
+  }
   
   function scrambleElement(element, reverse = false) {
     // Clear any existing animations on this element
@@ -201,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Start scrambling out current content immediately
       scrambleElement(currentContent, false);
       
-      // Start new content scramble in much earlier (at 250ms, ~42% of the way)
+      // Wait for scramble to reach full alien state before hiding (around 400ms)
       setTimeout(() => {
         // Update active button
         toggleBtns.forEach(b => b.classList.remove('active'));
@@ -229,8 +276,88 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
           console.log('%c◉ Professional Interface Engaged', 'color: #e5e7eb;');
         }
-      }, 250); // Start new content at ~42% of 600ms duration
+      }, 400); // Wait for scramble animation to reach alien state
     });
   });
+  
+  // Add hover scramble to navigation links in schizo mode
+  const navLinks = document.querySelectorAll('.site-nav a');
+  navLinks.forEach(link => {
+    link.addEventListener('mouseenter', function() {
+      if (document.body.classList.contains('schizo-mode')) {
+        miniScramble(this, 200);
+      }
+    });
+  });
+  
+  // Add scramble effect to headers when they come into view
+  const headers = document.querySelectorAll('.consciousness-section h1, .consciousness-section h2, .consciousness-section h3');
+  const scrambledHeaders = new Set();
+  
+  const observerOptions = {
+    threshold: 0.5,
+    rootMargin: '0px'
+  };
+  
+  const headerObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && document.body.classList.contains('schizo-mode')) {
+        const header = entry.target;
+        // Only scramble once per header per mode switch
+        if (!scrambledHeaders.has(header)) {
+          scrambledHeaders.add(header);
+          miniScramble(header, 400);
+        }
+      }
+    });
+  }, observerOptions);
+  
+  headers.forEach(header => {
+    headerObserver.observe(header);
+  });
+  
+  // Clear scrambled headers set when switching modes and re-observe
+  toggleBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      scrambledHeaders.clear();
+      // Re-trigger observation for visible headers after mode switch
+      setTimeout(() => {
+        headers.forEach(header => {
+          if (header.offsetParent !== null) { // Check if visible
+            headerObserver.unobserve(header);
+            headerObserver.observe(header);
+          }
+        });
+      }, 300);
+    });
+  });
+  
+  // Add periodic glitch to footer quote in schizo mode
+  const footerQuote = document.getElementById('soul-quote');
+  if (footerQuote) {
+    setInterval(() => {
+      if (document.body.classList.contains('schizo-mode') && Math.random() < 0.1) {
+        miniScramble(footerQuote, 150);
+      }
+    }, 5000);
+  }
+  
+  // Add scramble to pyramid on click in schizo mode
+  setTimeout(() => {
+    const pyramid = document.querySelector('.pyramid-container pre');
+    if (pyramid) {
+      // Store pyramid text for holographic effect
+      pyramid.setAttribute('data-pyramid', pyramid.textContent);
+      
+      pyramid.addEventListener('click', function(e) {
+        if (document.body.classList.contains('schizo-mode')) {
+          // Check if Q was clicked (the Q has data-x attribute)
+          if (!e.target.hasAttribute('data-x')) {
+            miniScramble(this, 500);
+          }
+        }
+      });
+    }
+  }, 100); // Small delay to ensure DOM is ready
 });
 </script>

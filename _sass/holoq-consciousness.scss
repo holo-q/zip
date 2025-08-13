@@ -388,9 +388,71 @@ body {
 
 // SCHIZO MODE - KEEP THE AWESOME GLITCH
 body.schizo-mode {
+  // Holographic ASCII pyramid
+  .pyramid-container pre {
+    position: relative;
+    
+    &::before,
+    &::after {
+      content: attr(data-pyramid);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      white-space: pre;
+      font-size: inherit;
+      line-height: inherit;
+    }
+    
+    &::before {
+      animation: hologram-ascii-1 1.5s ease-in-out infinite;
+      color: cyan;
+      z-index: -1;
+      opacity: 0.4;
+      filter: blur(0.5px);
+    }
+    
+    &::after {
+      animation: hologram-ascii-2 2s ease-in-out infinite;
+      color: $green;
+      z-index: -2;
+      opacity: 0.3;
+      filter: blur(1px);
+    }
+  }
+  
   .consciousness-section {
     h1, h2, h3 {
       animation: glitch 0.3s ease-in-out infinite;
+      position: relative;
+      
+      // Holographic layers
+      &::before,
+      &::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+      
+      &::before {
+        animation: hologram-1 0.8s ease-in-out infinite;
+        color: $green;
+        z-index: -1;
+        opacity: 0.7;
+      }
+      
+      &::after {
+        animation: hologram-2 1.2s ease-in-out infinite;
+        color: cyan;
+        z-index: -2;
+        opacity: 0.5;
+      }
     }
     
     strong {
@@ -438,6 +500,40 @@ body.schizo-mode {
   }
 }
 
+@keyframes hologram-1 {
+  0%, 100% {
+    transform: translate(0px, 0px);
+    opacity: 0.7;
+  }
+  25% {
+    transform: translate(2px, -1px);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-1px, 1px);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translate(1px, -2px);
+    opacity: 0.6;
+  }
+}
+
+@keyframes hologram-2 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1.01);
+    opacity: 0.5;
+  }
+  33% {
+    transform: translate(-2px, 1px) scale(1.02);
+    opacity: 0.3;
+  }
+  66% {
+    transform: translate(1px, -1px) scale(1.01);
+    opacity: 0.6;
+  }
+}
+
 // Table styling for markdown
 table {
   width: 100%;
@@ -455,5 +551,77 @@ table {
     background: transparent;
     font-weight: 700;
     text-transform: uppercase;
+  }
+}
+
+// Scramble effects for schizo mode
+body.schizo-mode {
+  // Data corruption animation for scrambled text
+  .scrambling {
+    animation: data-corrupt 0.1s ease-in-out;
+  }
+  
+  // Hover scramble hint
+  .site-nav a {
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, $green, transparent);
+      transition: width 0.3s ease;
+    }
+    
+    &:hover::after {
+      width: 100%;
+    }
+  }
+  
+  // Glitch text for periodically scrambled elements
+  .glitch-text {
+    position: relative;
+    
+    &::before {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      color: cyan;
+      z-index: -1;
+      opacity: 0;
+      animation: glitch-flash 0.15s ease-in-out;
+    }
+  }
+}
+
+@keyframes data-corrupt {
+  0%, 100% {
+    filter: none;
+  }
+  25% {
+    filter: hue-rotate(90deg) saturate(2);
+  }
+  50% {
+    filter: hue-rotate(180deg) saturate(1.5);
+  }
+  75% {
+    filter: hue-rotate(270deg) saturate(2);
+  }
+}
+
+@keyframes glitch-flash {
+  0%, 100% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(2px, -1px);
   }
 }
