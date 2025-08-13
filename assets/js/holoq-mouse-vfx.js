@@ -363,14 +363,23 @@ const HoloqMouseVFX = (function() {
             }
           }
           
-          char.span.style.color = `rgb(${r}, ${g}, ${b})`;
+          // Only apply color if energized, otherwise default red
+          if (char.isEye && normalizedEnergy < 0.1) {
+            // Low energy eyes stay default red
+            char.span.style.color = '';
+          } else {
+            char.span.style.color = `rgb(${r}, ${g}, ${b})`;
+          }
           
           // Add visual intensity based on energy level
           char.span.style.opacity = 0.7 + (state * 0.3);
         } else {
-          char.span.textContent = char.originalChar;
+          // Restore original character
+          if (!char.isEye) {
+            char.span.textContent = char.originalChar;
+          }
           char.span.style.opacity = 1.0;
-          char.span.style.color = ''; // Reset to default color
+          char.span.style.color = ''; // Reset to default color (red)
         }
       }
       
