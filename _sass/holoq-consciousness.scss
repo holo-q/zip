@@ -377,6 +377,21 @@ body.schizo-mode {
       animation: pulse 1s ease-in-out infinite;
     }
   }
+  
+  // Change CHART to DEX in schizo mode
+  .dex-link::after {
+    content: 'DEX';
+  }
+  .dex-link {
+    font-size: 0;
+    &::after {
+      font-size: 0.8rem;
+    }
+    &:hover::after {
+      background: $red;
+      color: $black;
+    }
+  }
 }
 
 @keyframes glitch {

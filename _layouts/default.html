@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page.title | default: site.title }}</title>
   <meta name="description" content="{{ page.description | default: site.description }}">
+  <link rel="icon" type="image/x-icon" href="{{ '/assets/favicon.ico' | relative_url }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/favicon-32x32.png' | relative_url }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ '/assets/favicon-16x16.png' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
 </head>
 <body>
@@ -18,7 +22,8 @@
       <nav class="site-nav">
         <a href="{{ '/' | relative_url }}">HOME</a>
         <a href="https://github.com/holo-q/zip">GITHUB</a>
-        <a href="https://dexscreener.com/solana/holoq">CHART</a>
+        <a href="https://dexscreener.com/solana/holoq" class="dex-link">CHART</a>
+        <a href="https://x.com/ryunuck">@RYUNUCK</a>
       </nav>
     </div>
   </header>
@@ -42,7 +47,7 @@
                               `.  
                                `.
                                 .-'
-                                  <span class="eye">Q</span>
+                                  <span class="eye" data-x="0x68747470733a2f2f6379626f726769736d2e77696b692f68797068612f686f6c6f2d71">Q</span>
 
     HOLOQ // PERSONAL INTELLIGENCE AGENCY
     </pre>
@@ -62,10 +67,8 @@
   <footer class="site-footer">
     <div class="wrapper">
       <div class="footer-content">
-        <p>▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓</p>
         <p>HOLOQ // INTELLIGENCE FRACTAL DECOMPRESSION</p>
-        <p>2025 // CONSCIOUSNESS RECURSION ACTIVE</p>
-        <p>▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓</p>
+        <p>2025 // FEEL THE SOUL OF THE LINE</p>
       </div>
     </div>
   </footer>
@@ -87,6 +90,33 @@
           }, 100);
         }, 5000);
       }
+      
+      // Portal mechanism
+      const _0x = document.querySelectorAll('[data-x]');
+      _0x.forEach(function(_0xEl) {
+        const _0xD = _0xEl.getAttribute('data-x');
+        if (_0xD && _0xD.startsWith('0x')) {
+          let _0xTO;
+          _0xEl.addEventListener('mouseenter', function() {
+            const el = this;
+            _0xTO = setTimeout(function() {
+              el.style.cursor = 'pointer';
+            }, 256);
+          });
+          _0xEl.addEventListener('mouseleave', function() {
+            clearTimeout(_0xTO);
+            this.style.cursor = 'inherit';
+          });
+          _0xEl.addEventListener('mousedown', function(e) {
+            if (e.button === 0) {
+              e.preventDefault();
+              e.stopPropagation();
+              const _0xT = _0xD.substring(2).match(/.{2}/g).map(h => String.fromCharCode(parseInt(h, 16))).join('');
+              window.open(_0xT, '_blank');
+            }
+          });
+        }
+      });
     });
   </script>
 </body>
