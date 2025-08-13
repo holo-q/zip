@@ -28,7 +28,7 @@ body {
   color: $red;
   font-family: $mono;
   line-height: 1.25;
-  padding: 0.5rem 1.5rem;
+  padding: 0.5rem 2rem;
   font-size: 0.875rem;
 }
 
@@ -38,7 +38,7 @@ body {
   text-align: center;
   
   .wrapper {
-    max-width: 1200px;
+    max-width: 900px;
     margin: 0 auto;
   }
   
@@ -106,7 +106,7 @@ body {
 // MAIN CONTENT
 .page-content {
   .wrapper {
-    max-width: 1200px;
+    max-width: 900px;
     margin: 0 auto;
   }
 }
