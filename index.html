@@ -117,10 +117,15 @@ document.addEventListener('DOMContentLoaded', function() {
     let node;
     while (node = walker.nextNode()) {
       if (node.nodeValue.trim()) {
+        const original = node.nodeValue;
+        // If reverse, start from void
+        if (reverse) {
+          node.nodeValue = original.replace(/[^\s\n\t]/g, '\u00A0');
+        }
         textNodes.push({
           node: node,
-          original: node.nodeValue,
-          chars: node.nodeValue.split('')
+          original: original,
+          chars: original.split('')
         });
       }
     }
@@ -213,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
         currentContent.classList.remove('active');
         nextContent.classList.add('active');
         
-        // Start scrambling in new content
+        // Start scrambling in new content (reverse starts from void)
         scrambleElement(nextContent, true);
         
         // Console consciousness message
