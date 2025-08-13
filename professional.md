@@ -1,5 +1,5 @@
 
-# HOLOQ
+# $HOLOQ
 
 <div class="holoq-subtitle">
 <span class="subtitle-line1" data-original-text="SINGULARITY THROUGH CYMEMATIC EVOLUTION">SINGULARITY THROUGH CYMEMATIC EVOLUTION</span>
