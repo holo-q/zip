@@ -21,10 +21,8 @@ const HoloqMouseVFX = (function() {
   let wavePhase = 0;  // For the rushing wave effect
 
   function init(el) {
-    if (document.body.classList.contains('mode2')) {
-        isMode2 = true;
-        return;
-    }
+    // Set mode state
+    isMode2 = document.body.classList.contains('mode2');
 
     // Cancel any existing animation
     if (animationFrameId) {
@@ -110,15 +108,8 @@ const HoloqMouseVFX = (function() {
   }
 
   function animate(timestamp) {
-    if (document.body.classList.contains('mode2')) {
-        if (!isMode2) {
-            // Mode has been switched, restore original text and stop animation
-            pre.innerHTML = characters.map(c => c.originalChar).join('');
-            cancelAnimationFrame(animationFrameId);
-            isMode2 = true;
-        }
-        return;
-    }
+    // Update mode state
+    isMode2 = document.body.classList.contains('mode2');
 
     const elapsed = timestamp - lastFrameTime;
     const interval = 1000 / CONFIG.FPS;
