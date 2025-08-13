@@ -33,11 +33,22 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleBtns.forEach(b => b.classList.remove('active'));
         this.classList.add('active');
         
-        // Update mode
+        // Update mode FIRST before scrambling
         if (mode === 'professional') {
           HoloqVFX.Mode.exitSchizo();
         } else {
           HoloqVFX.Mode.enterSchizo();
+        }
+        
+        // NOW scramble the DEX and WRITER links after mode is set
+        const dexLink = document.querySelector('.dex-link');
+        const writerLink = document.querySelector('.writer-link');
+        
+        if (dexLink) {
+          HoloqVFX.Scramble.mini(dexLink, 400);
+        }
+        if (writerLink) {
+          HoloqVFX.Scramble.mini(writerLink, 400);
         }
         
         // Start scrambling in new content

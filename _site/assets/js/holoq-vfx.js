@@ -71,6 +71,21 @@ const HoloqVFX = (function() {
       headers.forEach(header => {
         this.prepareElement(header, 'data-text');
       });
+    },
+    
+    // Initialize nav links that transform in schizo mode
+    initTransformLinks: function() {
+      const dexLink = document.querySelector('.dex-link');
+      const writerLink = document.querySelector('.writer-link');
+      
+      if (dexLink) {
+        dexLink.setAttribute('data-original', dexLink.textContent);
+        dexLink.setAttribute('data-schizo', 'DEX');
+      }
+      if (writerLink) {
+        writerLink.setAttribute('data-original', writerLink.textContent);
+        writerLink.setAttribute('data-schizo', 'WRITER');
+      }
     }
   };
   
@@ -84,8 +99,23 @@ const HoloqVFX = (function() {
       if (CONFIG.activeAnimations.has(element)) return;
       CONFIG.activeAnimations.add(element);
       
-      // Store original text
-      const original = element.getAttribute('data-text') || element.textContent;
+      // Check if this is a transform link (DEX/WRITER) in schizo mode
+      const isTransformLink = element.classList.contains('dex-link') || element.classList.contains('writer-link');
+      const inSchizoMode = document.body.classList.contains(CONFIG.SCHIZO_MODE_CLASS);
+      
+      // Get the appropriate text based on mode and element type
+      let original;
+      if (isTransformLink && inSchizoMode) {
+        // Use the schizo text for transform links in schizo mode
+        original = element.getAttribute('data-schizo') || element.textContent;
+      } else if (isTransformLink && !inSchizoMode) {
+        // Use the original text for transform links in normal mode
+        original = element.getAttribute('data-original') || element.textContent;
+      } else {
+        // Normal behavior for other elements
+        original = element.getAttribute('data-text') || element.textContent;
+      }
+      
       storeOriginalText(element);
       
       const chars = original.split('');
@@ -111,7 +141,13 @@ const HoloqVFX = (function() {
         frame++;
         if (frame > frames) {
           clearInterval(interval);
-          element.textContent = original;
+          // For transform links, don't restore text - let CSS handle it
+          if (!isTransformLink || !inSchizoMode) {
+            element.textContent = original;
+          } else {
+            // Clear text content for CSS pseudo-elements to work
+            element.textContent = '';
+          }
           element.classList.remove('scrambling');
           if (options.addGlitch !== false) {
             setTimeout(() => element.classList.remove('glitch-text'), 150);
@@ -332,6 +368,7 @@ const HoloqVFX = (function() {
       // Initialize all hologram preparations
       Hologram.initPyramid();
       Hologram.initHeaders();
+      Hologram.initTransformLinks();
     }
   };
 })();

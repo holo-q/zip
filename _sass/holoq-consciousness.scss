@@ -396,6 +396,35 @@ body {
 // Features: holographic pyramid, glitch effects, dimensional bleeding
 body.schizo-mode {
   // MODE 2: Holographic ASCII pyramid - entire figure gets dimensional treatment
+  
+  // Change CHART to DEX in schizo mode
+  .dex-link {
+    font-size: 0;
+    &::after {
+      content: 'DEX';
+      font-size: 0.8rem;
+      color: $red;
+    }
+    &:hover::after {
+      background: $red;
+      color: $black;
+    }
+  }
+  
+  // Change @RYUNUCK to WRITER in schizo mode
+  .writer-link {
+    font-size: 0;
+    &::after {
+      content: 'WRITER';
+      font-size: 0.8rem;
+      color: $red;
+    }
+    &:hover::after {
+      background: $red;
+      color: $black;
+    }
+  }
+  
   .pyramid-container pre {
     position: relative;
     
@@ -488,36 +517,6 @@ body.schizo-mode {
       // MODE 1 content: no effects on bold text
     }
   }
-  
-  // Change CHART to DEX in schizo mode
-  .dex-link::after {
-    content: 'DEX';
-  }
-  .dex-link {
-    font-size: 0;
-    &::after {
-      font-size: 0.8rem;
-    }
-    &:hover::after {
-      background: $red;
-      color: $black;
-    }
-  }
-  
-  // Change @RYUNUCK to WRITER in schizo mode
-  .writer-link::after {
-    content: 'WRITER';
-  }
-  .writer-link {
-    font-size: 0;
-    &::after {
-      font-size: 0.8rem;
-    }
-    &:hover::after {
-      background: $red;
-      color: $black;
-    }
-  }
 }
 
 @keyframes glitch {
@@ -591,7 +590,7 @@ body.schizo-mode {
   }
   
   // Hover scramble hint
-  .site-nav a {
+  .site-nav a:not(.dex-link):not(.writer-link) {
     position: relative;
     
     &::after {

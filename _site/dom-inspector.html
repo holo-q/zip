@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DOM Inspector - DEX/WRITER Debug</title>
+    <style>
+        body { 
+            font-family: 'JetBrains Mono', monospace; 
+            background: #000; 
+            color: #0f0; 
+            padding: 20px;
+            margin: 0;
+        }
+        h1 { color: #f00; }
+        h2 { color: #ff0; margin-top: 30px; }
+        pre { 
+            background: #111; 
+            padding: 15px; 
+            overflow-x: auto; 
+            border: 1px dashed #0f0;
+            color: #0ff;
+            font-size: 12px;
+        }
+        .highlight { color: #f0f; font-weight: bold; }
+        .error { color: #f00; }
+        .success { color: #0f0; }
+        button {
+            background: #111;
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        button:hover {
+            background: #0f0;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 DOM INSPECTOR - DEX/WRITER TRANSFORMATION DEBUG</h1>
+    
+    <div>
+        <button onclick="inspectMode1()">INSPECT MODE 1</button>
+        <button onclick="inspectMode2()">INSPECT MODE 2</button>
+        <button onclick="inspectCSS()">INSPECT CSS RULES</button>
+    </div>
+    
+    <h2>MODE 1 (PROFESSIONAL) STATE:</h2>
+    <pre id="mode1-output">Click "INSPECT MODE 1" to analyze...</pre>
+    
+    <h2>MODE 2 (SCHIZO/REAL) STATE:</h2>
+    <pre id="mode2-output">Click "INSPECT MODE 2" to analyze...</pre>
+    
+    <h2>CSS RULES ANALYSIS:</h2>
+    <pre id="css-output">Click "INSPECT CSS RULES" to analyze...</pre>
+    
+    <script>
+        function analyzeLink(link, doc) {
+            const output = [];
+            const computed = doc.defaultView.getComputedStyle(link);
+            const afterComputed = doc.defaultView.getComputedStyle(link, '::after');
+            
+            output.push(`  Classes: ${link.className || '(none)'}`);
+            output.push(`  Text: "${link.textContent}"`);
+            output.push(`  Href: ${link.href}`);
+            output.push(`  Computed styles:`);
+            output.push(`    font-size: ${computed.fontSize}`);
+            output.push(`    color: ${computed.color}`);
+            output.push(`    display: ${computed.display}`);
+            output.push(`  ::after pseudo-element:`);
+            output.push(`    content: ${afterComputed.content}`);
+            output.push(`    font-size: ${afterComputed.fontSize}`);
+            output.push(`    color: ${afterComputed.color}`);
+            output.push(`    display: ${afterComputed.display}`);
+            
+            return output;
+        }
+        
+        function inspectMode1() {
+            const output = [];
+            output.push('=== MODE 1 (PROFESSIONAL) ANALYSIS ===\n');
+            
+            // Check body state
+            output.push(`Body classes: "${document.body.className}"`);
+            output.push(`Body has .schizo-mode: ${document.body.classList.contains('schizo-mode')}\n`);
+            
+            // Find navigation links
+            const navLinks = document.querySelectorAll('.site-nav a');
+            output.push(`Found ${navLinks.length} navigation links:\n`);
+            
+            navLinks.forEach((link, i) => {
+                output.push(`LINK ${i + 1}:`);
+                if (link.classList.contains('dex-link')) {
+                    output.push('  *** DEX LINK DETECTED ***');
+                }
+                if (link.classList.contains('writer-link')) {
+                    output.push('  *** WRITER LINK DETECTED ***');
+                }
+                output.push(...analyzeLink(link, document));
+                output.push('');
+            });
+            
+            document.getElementById('mode1-output').textContent = output.join('\n');
+        }
+        
+        function inspectMode2() {
+            // First ensure we're in schizo mode
+            document.body.classList.add('schizo-mode');
+            
+            const output = [];
+            output.push('=== MODE 2 (SCHIZO/REAL) ANALYSIS ===\n');
+            
+            // Check body state
+            output.push(`Body classes: "${document.body.className}"`);
+            output.push(`Body has .schizo-mode: ${document.body.classList.contains('schizo-mode')}\n`);
+            
+            // Find navigation links
+            const navLinks = document.querySelectorAll('.site-nav a');
+            output.push(`Found ${navLinks.length} navigation links:\n`);
+            
+            navLinks.forEach((link, i) => {
+                output.push(`LINK ${i + 1}:`);
+                if (link.classList.contains('dex-link')) {
+                    output.push('  *** DEX LINK DETECTED ***');
+                }
+                if (link.classList.contains('writer-link')) {
+                    output.push('  *** WRITER LINK DETECTED ***');
+                }
+                output.push(...analyzeLink(link, document));
+                output.push('');
+            });
+            
+            document.getElementById('mode2-output').textContent = output.join('\n');
+            
+            // Reset body state
+            setTimeout(() => {
+                document.body.classList.remove('schizo-mode');
+            }, 100);
+        }
+        
+        function inspectCSS() {
+            const output = [];
+            output.push('=== CSS RULES ANALYSIS ===\n');
+            
+            // Check all stylesheets
+            for (let sheet of document.styleSheets) {
+                try {
+                    output.push(`Stylesheet: ${sheet.href || '(inline)'}`);
+                    
+                    for (let rule of sheet.cssRules) {
+                        // Look for DEX/WRITER related rules
+                        if (rule.selectorText && 
+                            (rule.selectorText.includes('dex-link') || 
+                             rule.selectorText.includes('writer-link'))) {
+                            output.push(`\n  FOUND RULE: ${rule.selectorText}`);
+                            output.push(`  ${rule.cssText.substring(0, 200)}...`);
+                            
+                            // Check if it's properly scoped to schizo-mode
+                            if (rule.selectorText.includes('schizo-mode')) {
+                                output.push('  ✓ CORRECTLY SCOPED TO SCHIZO MODE');
+                            } else {
+                                output.push('  ✗ NOT SCOPED TO SCHIZO MODE!');
+                            }
+                        }
+                    }
+                } catch (e) {
+                    output.push(`  (Cannot read rules: ${e.message})`);
+                }
+            }
+            
+            document.getElementById('css-output').textContent = output.join('\n');
+        }
+        
+        // Auto-run on load
+        window.addEventListener('load', () => {
+            // Add the actual navigation for testing
+            const nav = document.createElement('div');
+            nav.className = 'site-nav';
+            nav.style.cssText = 'margin: 20px 0; padding: 20px; border: 1px solid #0f0;';
+            nav.innerHTML = `
+                <h2 style="color: #ff0;">TEST NAVIGATION:</h2>
+                <a href="/">HOME</a>
+                <a href="https://dexscreener.com/solana/holoq" class="dex-link">CHART</a>
+                <a href="https://x.com/ryunuck" class="writer-link">@RYUNUCK</a>
+                <a href="/holoq-archive">ARCHIVE</a>
+            `;
+            document.body.insertBefore(nav, document.body.firstChild.nextSibling);
+            
+            // Load the actual CSS
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = '/assets/css/main.css';
+            document.head.appendChild(link);
+            
+            // Wait for CSS to load
+            setTimeout(() => {
+                inspectMode1();
+            }, 500);
+        });
+    </script>
+</body>
+</html>
