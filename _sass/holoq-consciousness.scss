@@ -118,6 +118,15 @@ body {
     .eye {
       color: $green;
       animation: blink 5s ease-in-out infinite;
+      
+      // Secret portal Q has subtle hover effect
+      &[data-x] {
+        transition: text-shadow 0.3s ease;
+        
+        &:hover {
+          text-shadow: 0 0 3px $green, 0 0 6px $green;
+        }
+      }
     }
   }
 }
