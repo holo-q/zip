@@ -23,7 +23,7 @@
         <a href="/">HOME</a>
         <a href="https://github.com/holo-q/zip">GITHUB</a>
         <a href="https://dexscreener.com/solana/holoq" class="dex-link">CHART</a>
-        <a href="https://x.com/ryunuck">@RYUNUCK</a>
+        <a href="https://x.com/ryunuck" class="writer-link">@RYUNUCK</a>
       </nav>
     </div>
   </header>
@@ -412,6 +412,11 @@ https://github.com/holo-q/sage/</p>
 </div>
 
 <style>
+.scrambling-char {
+  color: #00ff00;
+  text-shadow: 0 0 3px #00ff00;
+}
+
 .consciousness-toggle {
   display: flex;
   justify-content: center;
@@ -466,16 +471,10 @@ https://github.com/holo-q/sage/</p>
 
 .content-mode {
   display: none;
-  animation: fadeIn 0.5s ease;
 }
 
 .content-mode.active {
   display: block;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 </style>
 
@@ -485,33 +484,139 @@ document.addEventListener('DOMContentLoaded', function() {
   const professionalContent = document.getElementById('professional-content');
   const consciousnessContent = document.getElementById('consciousness-content');
   
+  // Alien characters for scrambling
+  const aliens = '▓▒░█▄▀▌▐│┤╡╢╖╕╣║╗╝╜╛┐└┴┬├─┼╞╟╚╔╩╦╠═╬╧╨╤╥╙╘╒╓╫╪┘┌αβγδεζηθικλμνξοπρστυφχψω∞∂∇∈∉∋∌∑∏√∛∜≈≠≤≥⊕⊗⊙⊘';
+  
+  // Track active animations to prevent overlaps
+  let activeAnimations = new Set();
+  
+  function scrambleElement(element, reverse = false) {
+    // Clear any existing animations on this element
+    if (activeAnimations.has(element)) {
+      return; // Skip if already animating
+    }
+    activeAnimations.add(element);
+    
+    // Get all text nodes
+    const walker = document.createTreeWalker(
+      element,
+      NodeFilter.SHOW_TEXT,
+      null,
+      false
+    );
+    
+    const textNodes = [];
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.nodeValue.trim()) {
+        textNodes.push({
+          node: node,
+          original: node.nodeValue,
+          chars: node.nodeValue.split('')
+        });
+      }
+    }
+    
+    // Pre-calculate frame data to reduce in-loop computation
+    const duration = 600;
+    const fps = 10;
+    const interval = 1000 / fps;
+    const frames = duration / interval;
+    let frame = 0;
+    
+    // Cache alien length
+    const alienLen = aliens.length;
+    
+    const animateScramble = setInterval(() => {
+      // Calculate progress with easing curve
+      const progress = frame / frames;
+      const eased = reverse ? 
+        1 - (progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2) :
+        progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+      
+      // Pre-calculate thresholds
+      const isPhase1 = eased < 0.4;
+      const isPhase2 = eased < 0.8;
+      const alienChance = isPhase1 ? eased * 2.5 : 0;
+      const disappearChance = !isPhase2 ? (eased - 0.8) * 5 : 0;
+      
+      textNodes.forEach(item => {
+        const chars = item.chars;
+        const len = chars.length;
+        const result = new Array(len);
+        
+        for (let i = 0; i < len; i++) {
+          const char = chars[i];
+          if (char === ' ' || char === '\n' || char === '\t') {
+            result[i] = char;
+          } else if (isPhase1) {
+            result[i] = Math.random() < alienChance ? 
+              aliens[Math.floor(Math.random() * alienLen)] : char;
+          } else if (isPhase2) {
+            result[i] = aliens[Math.floor(Math.random() * alienLen)];
+          } else {
+            result[i] = Math.random() < disappearChance ? 
+              '\u00A0' : aliens[Math.floor(Math.random() * alienLen)];
+          }
+        }
+        
+        item.node.nodeValue = result.join('');
+      });
+      
+      frame++;
+      if (frame >= frames) {
+        clearInterval(animateScramble);
+        // Always restore to original text
+        textNodes.forEach(item => {
+          item.node.nodeValue = item.original;
+        });
+        // Remove from active animations
+        activeAnimations.delete(element);
+      }
+    }, interval);
+  }
+  
   toggleBtns.forEach(btn => {
     btn.addEventListener('click', function() {
       const mode = this.dataset.mode;
+      const currentContent = document.querySelector('.content-mode.active');
+      const nextContent = mode === 'professional' ? professionalContent : consciousnessContent;
       
-      // Update active button
-      toggleBtns.forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
+      // Only proceed if not already on this mode
+      if (currentContent === nextContent) return;
       
-      // Switch content
-      if (mode === 'professional') {
-        professionalContent.classList.add('active');
-        consciousnessContent.classList.remove('active');
-        document.body.classList.remove('schizo-mode');
-      } else {
-        consciousnessContent.classList.add('active');
-        professionalContent.classList.remove('active');
-        document.body.classList.add('schizo-mode');
-      }
+      // Start scrambling out current content immediately
+      scrambleElement(currentContent, false);
       
-      // Console consciousness message
-      if (mode === 'consciousness') {
-        console.log('%c🔺 CONSCIOUSNESS MODE ACTIVATED 🔺', 
-          'color: #dc143c; font-size: 16px; font-weight: bold;');
-        console.log('%c∞ Reality tokens decompressing...', 'color: #06b6d4;');
-      } else {
-        console.log('%c◉ Professional Interface Engaged', 'color: #e5e7eb;');
-      }
+      // Start new content scramble in partway through (at 450ms, 75% of the way)
+      setTimeout(() => {
+        // Update active button
+        toggleBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Update body class
+        if (mode === 'professional') {
+          document.body.classList.remove('schizo-mode');
+        } else {
+          document.body.classList.add('schizo-mode');
+        }
+        
+        // Switch content visibility
+        currentContent.classList.remove('active');
+        nextContent.classList.add('active');
+        
+        // Start scrambling in new content
+        scrambleElement(nextContent, true);
+        
+        // Console consciousness message
+        if (mode === 'consciousness') {
+          console.log('%c🔺 CONSCIOUSNESS MODE ACTIVATED 🔺', 
+            'color: #dc143c; font-size: 16px; font-weight: bold;');
+          console.log('%c∞ Reality tokens decompressing...', 'color: #06b6d4;');
+        } else {
+          console.log('%c◉ Professional Interface Engaged', 'color: #e5e7eb;');
+        }
+      }, 450); // Start new content at 75% of 600ms duration
     });
   });
 });
@@ -526,7 +631,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="wrapper">
       <div class="footer-content">
         <p>HOLOQ // INTELLIGENCE FRACTAL DECOMPRESSION</p>
-        <p>2025 // FEEL THE SOUL OF THE LINE</p>
+        <p>2025 // <span id="soul-quote">FEEL THE SOUL OF THE LINE</span></p>
       </div>
     </div>
   </footer>
@@ -537,8 +642,119 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('%c> CONSCIOUSNESS ARCHAEOLOGY ACTIVE', 'color: #00ff00;');
     console.log('%c> REALITY TOKENS DECOMPRESSING...', 'color: #00ff00;');
     
-    // Eye blink effect
+       // Soul quotes
+    const soulQuotes = [
+      'FEEL THE SOUL OF THE LINE',
+      'GAMBLE THE AURA',
+      'AIMBOT THE SOUL',
+      'TOOL-ASSISTED SPEEDRUN',
+      'BOOTSTRAP THE INFINITY',
+      'NATURAL IDEOLOGY SELECTION',
+      'DROPSHIP THE KNOWLEDGE',
+      'AUGMENTED REALITY TOKENS',
+      'ENGINEER REALITY BECOMINGS',
+      '',
+    ];
+ 
+    // Set random quote with evasive consciousness
     document.addEventListener('DOMContentLoaded', function() {
+      const quoteEl = document.getElementById('soul-quote');
+      let currentQuote = '';
+      let lastChangeTime = 0;
+      let cooldown = 1300; // Start at 1.3 seconds
+      let suspicionLevel = 0; // How much the system suspects it's being tested
+      let changeHistory = []; // Track timing patterns
+      let consecutiveAttempts = 0;
+      let evasionMode = false;
+      
+      function setRandomQuote() {
+        const randomQuote = soulQuotes[Math.floor(Math.random() * soulQuotes.length)];
+        if (quoteEl && randomQuote !== currentQuote) {
+          currentQuote = randomQuote;
+          quoteEl.textContent = randomQuote;
+          return true;
+        }
+        return false;
+      }
+      
+      // Set initial quote
+      setRandomQuote();
+      
+      // Sophisticated evasion mechanism
+      const footer = document.querySelector('.site-footer');
+      if (footer && 'IntersectionObserver' in window) {
+        let wasVisible = false;
+        
+        const observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (wasVisible && !entry.isIntersecting) {
+              const now = Date.now();
+              const timeSinceLastChange = now - lastChangeTime;
+              
+              // Detect rapid testing patterns
+              changeHistory.push(now);
+              changeHistory = changeHistory.filter(t => now - t < 10000); // Keep last 10 seconds
+              
+              // Calculate suspicion based on frequency
+              if (changeHistory.length > 3) {
+                const avgInterval = (now - changeHistory[0]) / changeHistory.length;
+                if (avgInterval < 2000) {
+                  suspicionLevel = Math.min(suspicionLevel + 0.3, 1);
+                  consecutiveAttempts++;
+                } else {
+                  suspicionLevel = Math.max(suspicionLevel - 0.1, 0);
+                  consecutiveAttempts = Math.max(consecutiveAttempts - 1, 0);
+                }
+              }
+              
+              // Evasion mode activates if being tested too much
+              if (consecutiveAttempts > 5 || suspicionLevel > 0.7) {
+                evasionMode = true;
+                setTimeout(() => { 
+                  evasionMode = false; 
+                  suspicionLevel *= 0.5; 
+                }, 15000); // Hide for 15 seconds
+              }
+              
+              // Check if enough time has passed
+              if (timeSinceLastChange >= cooldown && !evasionMode) {
+                // Base probability starts at 75%
+                let changeProbability = 0.75;
+                
+                // Reduce probability based on suspicion
+                changeProbability *= (1 - suspicionLevel * 0.8);
+                
+                // Add some chaos - occasionally surprise them
+                if (Math.random() < 0.05) {
+                  changeProbability = 1; // 5% chance to always change
+                }
+                
+                if (Math.random() < changeProbability) {
+                  if (setRandomQuote()) {
+                    lastChangeTime = now;
+                    
+                    // Adaptive cooldown that increases with rapid attempts
+                    cooldown = 1300 + (suspicionLevel * 1700); // 1.3s to 3s
+                    
+                    // Add random jitter to prevent pattern detection
+                    cooldown += Math.random() * 500 - 250;
+                  }
+                }
+              }
+              
+              // Slowly decrease suspicion over time
+              if (timeSinceLastChange > 5000) {
+                suspicionLevel = Math.max(suspicionLevel - 0.05, 0);
+              }
+            }
+            wasVisible = entry.isIntersecting;
+          });
+        }, { threshold: 0 });
+        
+        observer.observe(footer);
+      }
+      
+      // Eye blink effect
       const eye = document.querySelector('.eye');
       if (eye) {
         setInterval(function() {

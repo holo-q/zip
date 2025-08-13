@@ -5,7 +5,7 @@
 // COLORS
 $black: #000000;
 $red: #ff0000;
-$green: #00ff00;
+$green: #00aa00;
 
 // MONOSPACE ONLY
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
@@ -290,6 +290,26 @@ body {
     p {
       margin: 0.3rem 0;
     }
+    
+    // Breathing text animation
+    #soul-quote {
+      animation: breathing 8s ease-in-out infinite;
+      display: inline-block;
+    }
+  }
+}
+
+// Subtle breathing animation
+@keyframes breathing {
+  0%, 100% {
+    opacity: 0.85;
+    text-shadow: 0 0 0 rgba(255, 0, 0, 0);
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 3px rgba(255, 0, 0, 0.4);
+    transform: scale(1.02);
   }
 }
 
@@ -383,6 +403,21 @@ body.schizo-mode {
     content: 'DEX';
   }
   .dex-link {
+    font-size: 0;
+    &::after {
+      font-size: 0.8rem;
+    }
+    &:hover::after {
+      background: $red;
+      color: $black;
+    }
+  }
+  
+  // Change @RYUNUCK to WRITER in schizo mode
+  .writer-link::after {
+    content: 'WRITER';
+  }
+  .writer-link {
     font-size: 0;
     &::after {
       font-size: 0.8rem;
