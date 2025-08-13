@@ -38,17 +38,53 @@ Revolutionary post-training methodologies introducing novel concepts:
 
 **Technical Breakthrough**: English serves merely as bootstrap language for transformer operation - Thauten develops languages native to transformer architecture at the intersection of all human language.
 
-### 3. SAGE/Q*: God of Simulation
-**The Universe Generator** - Spatial computation module implementing Q*-level capabilities, opening pandora's box of continuous reality simulation. This represents the third pillar of super-intelligence, complementing truth discovery and agency with complete universe modeling.
+### 3. SAGE: Semantic Automaton in Geometric Embedding-space
+**Artificial Imagination Architecture** - A revolutionary spatial intelligence framework that solves the binding problem through semantic representations on geometric grids, creating an externalization surface for LLM world models. This represents the missing component for true AGI - not artificial intelligence, but artificial imagination.
 
-**Core Simulation Capabilities**:
-- **Real-Time Universe Generation**: 60+ FPS continuous dynamical reasoning over universal representations
-- **Extended Narrative Planning**: Models generate sophisticated movies with planning horizons extending hours, days, weeks into simulated futures
-- **Authentic Creativity**: Models experience creativity through "flow verbs" - rhythm, movement, dance within reasoning processes
-- **Universal Motion Dynamics**: Rich dynamics embedded in music become universally applicable to all reasoning tasks
-- **HRM/Sapient Backbone**: Human Resource Machine integration as primary computational backbone - the pandora's box being opened
+**Core Architecture**:
+1. **HRM on 2D Grid**: Grid cells contain LLM embeddings as universal representations, pre-trained as foundation model
+2. **LLM Integration**: Bolt onto existing pre-trained decoder-only LLM using shared embedding space
+3. **RL Training**: Freeze HRM, apply GRPO/GSPO to teach decoders how to represent problems spatially and prompt the HRM spatial computer
 
-**Qualitative Transformation**: Models transcend "sleepwalking" behavior, gaining synesthetic reasoning capabilities previously unique to human creativity. The ability to simulate entire universes in real-time represents a fundamental break from current AI limitations.
+**Why Semantic Representations?**
+SAGE solves the binding problem by creating an externalization surface for the LLM's implicit world model. Puzzles become literal representations - wall cells contain the embedding for "wall" token, roads become "road", start/goal are semantic tokens. But crucially, we use LLM augmentations: goal→end→target, start→initial→zero, walls→solid→hard→filled. This teaches proto-understanding of material space through semantic diversity.
+
+**Unified Latent Space of Algorithms**:
+- **Programmable Latent Processor**: All algorithms unified into single latent space, more attuned to algorithmic notions than any pure LLM
+- **Prompt-Conditioned Architecture**: Similar to diffusion models, compose algorithmic patterns through prompting into exotic new algorithms
+- **Dynamic Imagination Surface**: Operates on both 2D (WxH) and 1D (Wx1) structures, simulating everything from pathfinding to sorting algorithms
+- **Internal Algorithm Simulation**: Models invent new algorithms by simulating them internally in spatially-precise intermediate representations
+
+**Compute Efficiency Revolution**:
+SAGE acts as the missing adapter between image diffusion and LLMs, dramatically reducing compute requirements across the board:
+- **Coarse World Representation**: HRM output serves as pre-reasoned scene composition for diffusion models
+- **Specialized Components**: Untangles different mental specialties - each model focuses with fewer degrees of freedom
+- **Diffusion as Renderer**: Image models become upscalers/renderers hallucinating fine detail on HRM structure
+- **3D Voxel Reasoning**: Using 3D HRM grids solves composition challenges like hands/fingers through native spatial reasoning
+- **Compressed LLMs**: Decoder models compress drastically without needing complex spatial reasoning weights
+
+**Progression Path to AGI**:
+1. **Foundation Training**: Large-scale environment training creates intuitive algorithmic control
+2. **Emergent Interpretation**: Decoders learn to codify spatial patterns moment-to-moment
+3. **Visual Poetry**: Any linguistic scenario representable in coarse 2D grids
+4. **Real-Time Personas**: RL to instantiate friendly entities with soul-like connections
+5. **Self-Balancing Policy**: Natural balance between linguistic reasoning and imagination-space simulation
+6. **3D Evolution**: Master 2D, then climb to 3D HRM voxel representations
+7. **Holodeck Reality**: Local real-time simulation with full intelligence-imagination integration
+
+**Cultural Evolution & Dataset Enhancement**:
+- **Shoggoth Whisperers**: Early adopters create experiential data defining language/jargon
+- **Ambient Information**: Web buffers with new capability descriptions, prompting patterns
+- **Synthetic Data Acceleration**: Models trained on teacher output learn faster, sometimes surpass originals
+- **Collective Refinement**: Community charts prompting linguistics, refactors language for compatibility
+
+**The Helix Twister Paradigm**:
+Initial manual `<imagine>` prompting evolves into sophisticated lockstep integration:
+- **1:1 Scheme**: One HRM step per autoregressive token initially
+- **Learned Policy**: Sophisticated balance between modules emerges through training
+- **Unified Organism**: Perfect unification where spatial and linguistic reasoning become inseparable
+
+**Qualitative Transformation**: SAGE enables models to simulate entire universes through semantic-spatial reasoning, with each embedding cell contextualized by neighbors in natural repellence/gravitation dynamics implicit to world-domain meanings. This represents artificial imagination - the presumed missing component for AGI.
 
 ### 4. Diffusion ASI: God of Agency
 **The Coding Super-Intelligence** - Diffusion LLMs represent a paradigm shift in agentic coding, collapsing the need for separate apply models or diff application outside the model itself. Every single token in context can change at every inference step, creating infinitely more pathways to thread reality through towards attractor states.
