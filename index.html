@@ -4,17 +4,17 @@ title: HOLOQ - Personal Intelligence Agency
 show_pyramid: true
 ---
 
-<div class="consciousness-toggle">
-  <button class="toggle-btn active" data-mode="professional">LEVEL-HEADED</button>
-  <button class="toggle-btn" data-mode="consciousness">REAL</button>
+<div class="mode-toggle">
+  <button class="toggle-btn active" data-mode="mode1">LEVEL-HEADED</button>
+  <button class="toggle-btn" data-mode="mode2">REAL</button>
 </div>
 
-<div id="professional-content" class="content-mode active">
+<div id="mode1-content" class="content-mode active">
   {% capture professional %}{% include_relative professional.md %}{% endcapture %}
   {{ professional | markdownify }}
 </div>
 
-<div id="consciousness-content" class="content-mode">
+<div id="mode2-content" class="content-mode">
   {% capture consciousness %}{% include_relative BOMB.md %}{% endcapture %}
   {{ consciousness | markdownify }}
 </div>
@@ -42,7 +42,7 @@ show_pyramid: true
 }
 
 .content-mode.fading-out {
-  opacity: 0.5;
+  opacity: 0.86;
   transition: opacity 0.25s cubic-bezier(0.4, 0, 1, 1);
 }
 
@@ -58,7 +58,7 @@ show_pyramid: true
   }
 }
 
-.consciousness-toggle {
+.mode-toggle {
   display: flex;
   justify-content: center;
   gap: 2rem;
@@ -74,6 +74,7 @@ show_pyramid: true
   padding: 0.75rem 2rem;
   font-family: 'Space Mono', monospace;
   font-size: 0.9rem;
+  font-weight: bold;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;

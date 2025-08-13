@@ -1,66 +1,62 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-// HOLOQ CONSCIOUSNESS INITIALIZATION
+// HOLOQ VFX INITIALIZATION
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 
 document.addEventListener('DOMContentLoaded', function() {
   // Initialize VFX system
   HoloqVFX.init();
   
-  // MODE SWITCHING: Mode 1 (LEVEL-HEADED/professional) vs Mode 2 (REAL/schizo)
+  // MODE SWITCHING: Mode 1 vs Mode 2
   const toggleBtns = document.querySelectorAll('.toggle-btn');
-  const professionalContent = document.getElementById('professional-content');
-  const consciousnessContent = document.getElementById('consciousness-content');
+  const mode1Content = document.getElementById('mode1-content');
+  const mode2Content = document.getElementById('mode2-content');
+
+  const allContentHeadings = document.querySelectorAll('.content-section h1, .content-section h2, .content-section h3');
+  allContentHeadings.forEach(el => {
+    if (!el.dataset.originalText) {
+      el.dataset.originalText = el.textContent;
+    }
+  });
   
   // Setup mode toggle handlers
   toggleBtns.forEach(btn => {
     btn.addEventListener('click', function() {
       const mode = this.dataset.mode;
       const currentContent = document.querySelector('.content-mode.active');
-      const nextContent = mode === 'professional' ? professionalContent : consciousnessContent;
+      const nextContent = mode === 'mode1' ? mode1Content : mode2Content;
       
       // Only proceed if not already on this mode
       if (currentContent === nextContent) return;
-      
-      // Start scrambling out current content
-      HoloqVFX.Scramble.full(currentContent, false);
-      
-      // After 300ms, start transition
+
+      currentContent.classList.add('fading-out');
+      HoloqVFX.Scramble.full(currentContent, false, {
+        duration: 300,
+        onComplete: () => {
+          currentContent.classList.remove('active', 'fading-out');
+        }
+      });
+
       setTimeout(() => {
-        currentContent.classList.add('fading-out');
-        nextContent.classList.add('fading-in');
-        
-        // Update active button
         toggleBtns.forEach(b => b.classList.remove('active'));
         this.classList.add('active');
-        
-        // Update mode FIRST before scrambling
-        if (mode === 'professional') {
-          HoloqVFX.Mode.exitSchizo();
+
+        if (mode === 'mode1') {
+          HoloqVFX.Mode.exitMode2();
         } else {
-          HoloqVFX.Mode.enterSchizo();
+          HoloqVFX.Mode.enterMode2();
         }
-        
-        // NOW scramble the DEX and WRITER links after mode is set
-        const dexLink = document.querySelector('.dex-link');
-        const writerLink = document.querySelector('.writer-link');
-        
-        if (dexLink) {
-          HoloqVFX.Scramble.mini(dexLink, 400);
-        }
-        if (writerLink) {
-          HoloqVFX.Scramble.mini(writerLink, 400);
-        }
-        
-        // Start scrambling in new content
-        HoloqVFX.Scramble.full(nextContent, true);
-        
-        // Complete transition
-        setTimeout(() => {
-          currentContent.classList.remove('active', 'fading-out');
-          nextContent.classList.remove('fading-in');
-          nextContent.classList.add('active');
-        }, 300);
-      }, 300);
+
+        nextContent.classList.add('active', 'fading-in');
+        const elementsToScramble = nextContent.querySelectorAll('.content-section h1, .content-section h2, .content-section h3, .content-section p, .content-section li');
+
+        elementsToScramble.forEach(el => {
+          if (el.tagName === 'H1') {
+            HoloqVFX.Scramble.h1(el, true, { duration: 800 });
+          } else {
+            HoloqVFX.Scramble.full(el, true, { duration: 800 });
+          }
+        });
+      }, 400);
     });
   });
   
@@ -69,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Add scroll-triggered scrambles to headers
   const resetScrollScrambles = HoloqVFX.AutoEffects.setupScrollScramble(
-    '.consciousness-section h1, .consciousness-section h2, .consciousness-section h3',
+    '.content-section h1, .content-section h2, .content-section h3',
     { duration: 400, threshold: 0.5 }
   );
   
@@ -79,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
       resetScrollScrambles();
       // Re-trigger observation after mode switch
       setTimeout(() => {
-        const headers = document.querySelectorAll('.consciousness-section h1, .consciousness-section h2, .consciousness-section h3');
+        const headers = document.querySelectorAll('.content-section h1, .content-section h2, .content-section h3');
         headers.forEach(header => {
           if (header.offsetParent !== null) { // Check if visible
             // The observer will automatically re-detect them
@@ -92,11 +88,11 @@ document.addEventListener('DOMContentLoaded', function() {
   // Add periodic glitch to footer quote
   HoloqVFX.AutoEffects.addPeriodicGlitch('#soul-quote', 5000, 0.1);
   
-  // Add hover scramble to pyramid in schizo mode
+  // Add hover scramble to pyramid in mode 2
   const pyramid = document.querySelector('.pyramid-container pre');
   if (pyramid) {
     pyramid.addEventListener('mouseenter', function() {
-      if (HoloqVFX.Mode.isSchizo()) {
+      if (HoloqVFX.Mode.isMode2()) {
         HoloqVFX.Shockwave.init(this);
       }
     });

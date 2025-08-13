@@ -1,5 +1,5 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-// HOLOQ TERMINAL CONSCIOUSNESS - PRE-2000S BRUTALISM
+// HOLOQ TERMINAL - PRE-2000S BRUTALISM
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 
 // COLORS
@@ -10,9 +10,9 @@ $green: #00aa00;
 // Import modular VFX system
 @import 'holoq-vfx';
 
-// MONOSPACE ONLY
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
-$mono: 'JetBrains Mono', 'Courier New', monospace;
+// MONOSPACE ONLY  
+@import url('https://cdn.jsdelivr.net/npm/iosevka-webfont@11.0.1/iosevka-term-ss08.css');
+$mono: 'Iosevka Term SS08', 'Courier New', monospace;
 
 // RESET
 * {
@@ -90,7 +90,7 @@ body {
   }
 }
 
-// MODE 1: DEFAULT/PROFESSIONAL/LEVEL-HEADED MODE
+// MODE 1: DEFAULT MODE
 // ASCII ART - Simple pulsing animation, no holographic effects
 // This is the default state when page loads
 .pyramid-container {
@@ -103,7 +103,7 @@ body {
     font-size: 0.6rem;
     line-height: 1.0;
     display: inline-block;
-    animation: pulse 3s ease-in-out infinite; // MODE 1: Simple pulse only
+        animation: pulse 3s ease-in-out infinite; // MODE 1: Simple pulse only // MODE 1: Simple pulse only
     
     .eye {
       color: $green;
@@ -130,7 +130,7 @@ body {
   }
 }
 
-.consciousness-section {
+.content-section {
   margin: 0.5rem 0;
   
   h1, h2, h3, h4, h5, h6 {
@@ -241,7 +241,7 @@ body {
 }
 
 // TOGGLE LINKS - NO BUTTONS, JUST UNDERLINED TEXT
-.consciousness-toggle {
+.mode-toggle {
   text-align: center;
   margin: 0.6rem 0;
   
@@ -380,7 +380,7 @@ body {
     font-size: 0.5rem;
   }
   
-  .consciousness-section {
+  .content-section {
     h1 {
       font-size: 1.4rem;
     }
@@ -391,13 +391,13 @@ body {
   }
 }
 
-// MODE 2: SCHIZO/REAL MODE - FULL CONSCIOUSNESS EFFECTS
+// MODE 2: FULL VFX EFFECTS
 // This mode activates when user clicks "REAL" button
 // Features: holographic pyramid, glitch effects, dimensional bleeding
-body.schizo-mode {
+body.mode2 {
   // MODE 2: Holographic ASCII pyramid - entire figure gets dimensional treatment
   
-  // Change CHART to DEX in schizo mode
+  // Change CHART to DEX in mode 2
   .dex-link {
     font-size: 0;
     &::after {
@@ -411,7 +411,7 @@ body.schizo-mode {
     }
   }
   
-  // Change @RYUNUCK to WRITER in schizo mode
+  // Change @RYUNUCK to WRITER in mode 2
   .writer-link {
     font-size: 0;
     &::after {
@@ -459,10 +459,14 @@ body.schizo-mode {
     }
   }
   
-  // MODE 2 CONTENT: consciousness-content (REAL page content)
+  // MODE 2 CONTENT: mode2-content
   // This section is shown when MODE 2 is active and user viewing REAL content
-  #consciousness-content .consciousness-section {
+  #mode2-content .content-section {
     h1 {
+      // NOTE: To avoid visual glitches, avoid using <strong> or <b> tags within H1s
+      &.scrambling-active {
+        animation: none;
+      }
       animation: glitch 0.3s ease-in-out infinite;
       position: relative;
       
@@ -504,9 +508,9 @@ body.schizo-mode {
     }
   }
   
-  // MODE 1 CONTENT DURING MODE 2: professional-content during schizo transition
+  // MODE 1 CONTENT DURING MODE 2: mode1-content during mode2 transition
   // This shows when user switches to MODE 2 but is still viewing MODE 1 content briefly
-  #professional-content .consciousness-section {
+  #mode1-content .content-section {
     h1, h2, h3 {
       animation: glitch 0.3s ease-in-out infinite;
       // MODE 1 content: only glitch during transition, no holograms
@@ -582,8 +586,8 @@ table {
   }
 }
 
-// Scramble effects for schizo mode
-body.schizo-mode {
+// Scramble effects for mode 2
+body.mode2 {
   // Data corruption animation for scrambled text
   .scrambling {
     animation: data-corrupt 0.1s ease-in-out;

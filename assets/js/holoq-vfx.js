@@ -1,5 +1,5 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-// HOLOQ VFX ENGINE - MODULAR CONSCIOUSNESS EFFECTS
+// HOLOQ VFX ENGINE - MODULAR VFX EFFECTS
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 
 const HoloqVFX = (function() {
@@ -16,21 +16,22 @@ const HoloqVFX = (function() {
     SCRAMBLE_FPS: 10,
     
     // Mode detection
-    SCHIZO_MODE_CLASS: 'schizo-mode',
+    MODE2_CLASS: 'mode2',
     
     // Animation tracking
     activeAnimations: new Set(),
     
     // Alien character set for scrambling
-    ALIEN_CHARS: '▓▒░█▄▀▌▐│┤╡╢╖╕╣║╗╝╜╛┐└┴┬├─┼╞╟╚╔╩╦╠═╬╧╨╤╥╙╘╒╓╫╪┘┌αβγδεζηθικλμνξοπρστυφχψω∞∂∇∈∉∋∌∑∏√∛∜≈≠≤≥⊕⊗⊙⊘'
+    ALIEN_CHARS: '▓▒░█▄▀▌▐│┤╡╢╖╕╣║╗╝╜╛┐└┴┬├─┼╞╟╚╔╩╦╠═╬╧╨╤╥╙╘╒╓╫╪┘┌αβγδεζηθικλμνξοπρστυφχψω∞∂∇∈∉∋∌∑∏√∛∜≈≠≤≥⊕⊗⊙⊘',
+    HEADING_ALIEN_CHARS: '▓▒░█▄▀▌▐'
   };
   
   // ═══════════════════════════════════════════════════════
   // UTILITY FUNCTIONS
   // ═══════════════════════════════════════════════════════
   
-  function isInSchizoMode() {
-    return document.body.classList.contains(CONFIG.SCHIZO_MODE_CLASS);
+  function isInMode2() {
+    return document.body.classList.contains(CONFIG.MODE2_CLASS);
   }
   
   function storeOriginalText(element) {
@@ -67,24 +68,24 @@ const HoloqVFX = (function() {
     
     // Initialize header holograms
     initHeaders: function() {
-      const headers = document.querySelectorAll('.consciousness-section h1, .consciousness-section h2, .consciousness-section h3');
+      const headers = document.querySelectorAll('.content-section h1, .content-section h2, .content-section h3');
       headers.forEach(header => {
         this.prepareElement(header, 'data-text');
       });
     },
     
-    // Initialize nav links that transform in schizo mode
+    // Initialize nav links that transform in mode 2
     initTransformLinks: function() {
       const dexLink = document.querySelector('.dex-link');
       const writerLink = document.querySelector('.writer-link');
       
       if (dexLink) {
         dexLink.setAttribute('data-original', dexLink.textContent);
-        dexLink.setAttribute('data-schizo', 'DEX');
+        dexLink.setAttribute('data-mode2', 'DEX');
       }
       if (writerLink) {
         writerLink.setAttribute('data-original', writerLink.textContent);
-        writerLink.setAttribute('data-schizo', 'WRITER');
+        writerLink.setAttribute('data-mode2', 'WRITER');
       }
     }
   };
@@ -131,7 +132,7 @@ const HoloqVFX = (function() {
         });
 
         frame++;
-        if (frame > frames) {
+        if (frame >= frames) {
           clearInterval(interval);
           textNodes.forEach((node, i) => {
             node.nodeValue = originalContents[i];
@@ -180,9 +181,20 @@ const HoloqVFX = (function() {
       const interval = 1000 / CONFIG.SCRAMBLE_FPS;
       const frames = duration / interval;
       let frame = 0;
-      const alienLen = CONFIG.ALIEN_CHARS.length;
+      const alienChars = options.alienChars || CONFIG.ALIEN_CHARS;
+      const alienLen = alienChars.length;
       
       const animateScramble = setInterval(() => {
+        if (frame >= frames) {
+          clearInterval(animateScramble);
+          textNodes.forEach(item => {
+            item.node.nodeValue = item.original;
+          });
+          CONFIG.activeAnimations.delete(element);
+          if (options.onComplete) options.onComplete();
+          return;
+        }
+
         const progress = frame / frames;
         const easedProgress = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
 
@@ -204,12 +216,12 @@ const HoloqVFX = (function() {
               if (Math.random() < easedProgress) {
                 result[i] = char;
               } else {
-                result[i] = CONFIG.ALIEN_CHARS[Math.floor(Math.random() * alienLen)];
+                result[i] = alienChars[Math.floor(Math.random() * alienLen)];
               }
             } else {
               // Scramble OUT
               if (Math.random() < easedProgress) {
-                result[i] = CONFIG.ALIEN_CHARS[Math.floor(Math.random() * alienLen)];
+                result[i] = alienChars[Math.floor(Math.random() * alienLen)];
               } else {
                 result[i] = char;
               }
@@ -219,20 +231,17 @@ const HoloqVFX = (function() {
         });
         
         frame++;
-        if (frame >= frames) {
-          clearInterval(animateScramble);
-          textNodes.forEach(item => {
-            item.node.nodeValue = item.original;
-          });
-          CONFIG.activeAnimations.delete(element);
-          if (options.onComplete) options.onComplete();
-        }
       }, interval);
     },
     
     // Check if element is currently scrambling
     isActive: function(element) {
       return CONFIG.activeAnimations.has(element);
+    },
+
+    h1: function(element, reverse = false, options = {}) {
+      options.alienChars = CONFIG.HEADING_ALIEN_CHARS;
+      this.full(element, reverse, options);
     }
   };
   
@@ -246,7 +255,7 @@ const HoloqVFX = (function() {
       const elements = document.querySelectorAll(selector);
       elements.forEach(el => {
         el.addEventListener('mouseenter', function() {
-          if (isInSchizoMode()) {
+          if (isInMode2()) {
             Scramble.mini(this, duration);
           }
         });
@@ -258,7 +267,7 @@ const HoloqVFX = (function() {
       const elements = document.querySelectorAll(selector);
       elements.forEach(el => {
         el.addEventListener('click', function() {
-          if (isInSchizoMode()) {
+          if (isInMode2()) {
             Scramble.mini(this, duration);
           }
         });
@@ -270,7 +279,7 @@ const HoloqVFX = (function() {
       const elements = document.querySelectorAll(selector);
       elements.forEach(el => {
         setInterval(() => {
-          if (isInSchizoMode() && Math.random() < chance) {
+          if (isInMode2() && Math.random() < chance) {
             Scramble.mini(el, 150);
           }
         }, interval);
@@ -289,7 +298,7 @@ const HoloqVFX = (function() {
       
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting && isInSchizoMode()) {
+          if (entry.isIntersecting && isInMode2()) {
             const element = entry.target;
             if (!scrambledElements.has(element)) {
               scrambledElements.add(element);
@@ -385,31 +394,43 @@ const HoloqVFX = (function() {
   // ═══════════════════════════════════════════════════════
   
   const Mode = {
-    // Enter schizo mode
-    enterSchizo: function() {
-      document.body.classList.add(CONFIG.SCHIZO_MODE_CLASS);
-      console.log('%c🔺 CONSCIOUSNESS MODE ACTIVATED 🔺', 
+    // Enter mode 2
+    enterMode2: function() {
+      document.body.classList.add(CONFIG.MODE2_CLASS);
+      console.log('%c🔺 MODE 2 ACTIVATED 🔺', 
         'color: #dc143c; font-size: 16px; font-weight: bold;');
-      console.log('%c∞ Reality tokens decompressing...', 'color: #06b6d4;');
+      console.log('%c∞ Alternative view loading...', 'color: #06b6d4;');
     },
     
-    // Exit schizo mode
+    // Compatibility shim for old API
+    enterSchizo: function() {
+      this.enterMode2();
+    },
+    
+    // Exit mode 2
+    exitMode2: function() {
+      document.body.classList.remove(CONFIG.MODE2_CLASS);
+      console.log('%c◉ Mode 1 Interface Engaged', 'color: #e5e7eb;');
+    },
+    
+    // Compatibility shim for old API
     exitSchizo: function() {
-      document.body.classList.remove(CONFIG.SCHIZO_MODE_CLASS);
-      console.log('%c◉ Professional Interface Engaged', 'color: #e5e7eb;');
+      this.exitMode2();
     },
     
     // Toggle mode
     toggle: function() {
-      if (isInSchizoMode()) {
-        this.exitSchizo();
+      if (isInMode2()) {
+        this.exitMode2();
       } else {
-        this.enterSchizo();
+        this.enterMode2();
       }
     },
     
     // Check current mode
-    isSchizo: isInSchizoMode
+    isMode2: isInMode2,
+    // Compatibility shim for old API
+    isSchizo: isInMode2
   };
   
   // ═══════════════════════════════════════════════════════

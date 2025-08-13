@@ -1,5 +1,5 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-// HOLOQ VFX STYLES - MODULAR CONSCIOUSNESS EFFECTS
+// HOLOQ VFX STYLES - MODULAR VFX EFFECTS
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 
 // ═══════════════════════════════════════════════════════
@@ -273,8 +273,8 @@ $vfx-glitch-color-2: #00aa00 !default;
   @include glitch-effect();
 }
 
-// MODE 2 (Schizo mode) automatic effects
-body.schizo-mode {
+// MODE 2 automatic effects
+body.mode2 {
   // Auto-apply effects to common elements
   .auto-hologram {
     @include hologram-effect();

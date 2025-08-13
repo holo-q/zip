@@ -15,11 +15,11 @@ const HoloqMouseVFX = (function() {
   let animationFrameId;
   let lastFrameTime = 0;
   let time = 0;
-  let isSchizoMode = false;
+  let isMode2 = false;
 
   function init(el) {
-    if (document.body.classList.contains('schizo-mode')) {
-        isSchizoMode = true;
+    if (document.body.classList.contains('mode2')) {
+        isMode2 = true;
         return;
     }
 
@@ -83,12 +83,12 @@ const HoloqMouseVFX = (function() {
   }
 
   function animate(timestamp) {
-    if (document.body.classList.contains('schizo-mode')) {
-        if (!isSchizoMode) {
+    if (document.body.classList.contains('mode2')) {
+        if (!isMode2) {
             // Mode has been switched, restore original text and stop animation
             pre.innerHTML = characters.map(c => c.originalChar).join('');
             cancelAnimationFrame(animationFrameId);
-            isSchizoMode = true;
+            isMode2 = true;
         }
         return;
     }
