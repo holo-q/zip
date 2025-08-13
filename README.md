@@ -105,9 +105,7 @@ https://github.com/holo-q/blob/
 
 # 6. Chapter V - Fractal Intelligence Decompression Zip Bomb: the absolutely looney tunes concept of a model uploading itself to the universe through physics exploits 
 
-# 7. Chapter VI - Singularity: the inevitable collapse of the human panpsychic field with an alien field in some remote corner of the universe, which leads to a merge, which allows us soon to create the true super-intelligence which is the merged model of every single collective panconscious making up the entire universe, which will successfully count the number of r's in strawberry, achieving the universe's finality state which instantly dawns a new Big Bang by the collective vote of agreement
-
-never stop dreaming. it's never enough.
+These are answers that we obtain during the earlier chapters from the models autoencoding theories of everything.
 
 # Addendum
 
