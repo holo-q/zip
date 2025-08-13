@@ -382,11 +382,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 5000);
   }
   
-  // Add scramble to pyramid on click in schizo mode
+  // Add scramble to pyramid on hover and click in schizo mode
   setTimeout(() => {
     const pyramid = document.querySelector('.pyramid-container pre');
     if (pyramid) {
       // data-pyramid already set at page load for holographic effect
+      
+      // Scramble on hover - immediate consciousness activation
+      pyramid.addEventListener('mouseenter', function() {
+        if (document.body.classList.contains('schizo-mode')) {
+          miniScramble(this, 500);
+        }
+      });
       
       pyramid.addEventListener('click', function(e) {
         if (document.body.classList.contains('schizo-mode')) {
