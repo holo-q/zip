@@ -1,0 +1,8 @@
+theme: jekyll-theme-minimal
+title: HOLOQ
+description: Intelligence Fractal Decompression Architecture
+show_downloads: false
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
