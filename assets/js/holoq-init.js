@@ -6,6 +6,33 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize VFX system
   HoloqVFX.init();
   
+  // Initial scrambled state - start with mode 2 active
+  document.body.classList.add('mode2');
+  
+  // Scramble everything on initial load
+  setTimeout(() => {
+    const allElements = document.querySelectorAll('.content-section h1, .content-section h2, .content-section h3, .content-section p, .content-section li, .site-nav a, #soul-quote');
+    allElements.forEach(el => {
+      if (el.tagName === 'H1') {
+        HoloqVFX.Scramble.h1(el, false, { duration: 0 }); // Instant scramble
+      } else {
+        HoloqVFX.Scramble.full(el, false, { duration: 0 }); // Instant scramble
+      }
+    });
+    
+    // After a brief moment, unscramble everything
+    setTimeout(() => {
+      document.body.classList.remove('mode2');
+      allElements.forEach(el => {
+        if (el.tagName === 'H1') {
+          HoloqVFX.Scramble.h1(el, true, { duration: 1200 });
+        } else {
+          HoloqVFX.Scramble.full(el, true, { duration: 800 });
+        }
+      });
+    }, 100);
+  }, 50);
+  
   // MODE SWITCHING: Mode 1 vs Mode 2
   const toggleBtns = document.querySelectorAll('.toggle-btn');
   const mode1Content = document.getElementById('mode1-content');
