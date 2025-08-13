@@ -7,6 +7,9 @@ $black: #000000;
 $red: #ff0000;
 $green: #00aa00;
 
+// Import modular VFX system
+@import 'holoq-vfx';
+
 // MONOSPACE ONLY
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
 $mono: 'JetBrains Mono', 'Courier New', monospace;
