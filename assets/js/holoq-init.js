@@ -88,13 +88,4 @@ document.addEventListener('DOMContentLoaded', function() {
   // Add periodic glitch to footer quote
   HoloqVFX.AutoEffects.addPeriodicGlitch('#soul-quote', 5000, 0.1);
   
-  // Add hover scramble to pyramid in mode 2
-  const pyramid = document.querySelector('.pyramid-container pre');
-  if (pyramid) {
-    pyramid.addEventListener('mouseenter', function() {
-      if (HoloqVFX.Mode.isMode2()) {
-        HoloqVFX.Shockwave.init(this);
-      }
-    });
-  }
 });
