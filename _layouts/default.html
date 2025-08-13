@@ -210,7 +210,7 @@
         HoloqMouseVFX.init(pyramidContainer);
       }
       
-      // Portal mechanism
+      // Portal mechanism - Q secret link
       const _0x = document.querySelectorAll('[data-x]');
       _0x.forEach(function(_0xEl) {
         const _0xD = _0xEl.getAttribute('data-x');
@@ -226,16 +226,29 @@
             clearTimeout(_0xTO);
             this.style.cursor = 'inherit';
           });
+          // Use capture phase to intercept before parent link
           _0xEl.addEventListener('click', function(e) {
-            if (e.button === 0) {
-              e.preventDefault();
-              e.stopPropagation();
-              const _0xT = _0xD.substring(2).match(/.{2}/g).map(h => String.fromCharCode(parseInt(h, 16))).join('');
-              window.open(_0xT, '_blank');
-            }
-          });
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            const _0xT = _0xD.substring(2).match(/.{2}/g).map(h => String.fromCharCode(parseInt(h, 16))).join('');
+            window.open(_0xT, '_blank');
+            return false;
+          }, true); // true = use capture phase
         }
       });
+      
+      // Prevent pyramid link from triggering on Q click
+      const pyramidLink = document.querySelector('.pyramid-link');
+      if (pyramidLink) {
+        pyramidLink.addEventListener('click', function(e) {
+          // Check if click was on the Q
+          if (e.target.hasAttribute('data-x')) {
+            e.preventDefault();
+            return false;
+          }
+        });
+      }
     });
   </script>
   <script src="{{ '/assets/js/holoq-mouse-vfx.js' | relative_url }}"></script>
