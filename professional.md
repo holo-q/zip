@@ -9,8 +9,6 @@ layout: default
 
 *A comprehensive research program for constructing super-intelligence through token-to-byte bootstrapping, spatial intelligence architectures, and emergent compression algorithms*
 
----
-
 ## Executive Summary
 
 HOLOQ is a super-intelligence research organization developing multiple convergent pathways to artificial general intelligence. Our approach combines novel training methodologies, advanced reasoning architectures, and spatial computation systems to transcend current model limitations.
@@ -24,8 +22,6 @@ Rather than scaling existing architectures, we focus on qualitative breakthrough
 **Spatial Computation Architecture**: SAGE (Semantic Automaton in Geometric Embeddings) implements Q*-level spatial reasoning, enabling real-time 60+ FPS simulation, continuous dynamical reasoning, and models that can generate sophisticated movies with narrative planning extending hours, days, or weeks ahead.
 
 **Revolutionary Training Methodologies**: Errloom introduces novel post-training approaches including musical dynamics during token inference, temperature spiking, and completely redefined RL abstractions where rewards become gravity, rubrics are attractors, and environments are looms.
-
----
 
 ## Core Research Projects
 
@@ -77,8 +73,6 @@ Professional-grade systems demonstrating practical AI capabilities:
 - Real-time processing with temporal analysis capabilities
 - Statistical pattern analysis including geometric formation detection
 
----
-
 ## Breakthrough Technologies
 
 ### Semiodynamical Reasoning
@@ -102,8 +96,6 @@ Next-generation interaction paradigms:
 - Real-time collaborative editing with AI through shared context states
 - Elimination of traditional programming tool chains through direct state manipulation
 
----
-
 ## Technical Architecture
 
 ### Research Infrastructure
@@ -118,8 +110,6 @@ Next-generation interaction paradigms:
 - **Novel Training Paradigms** - Revolutionary approaches to model development and capability enhancement
 - **Practical Applications** - Market intelligence systems demonstrating real-world AI capability
 
----
-
 ## Research Methodology
 
 ### The Hyperbolic Time Chamber Approach
@@ -130,9 +120,6 @@ Contrary to conventional wisdom, we embrace overfitting as the necessary first s
 
 ### Practical Implementation
 Our approach prioritizes micro-models with extreme coherence and in-context learning capabilities over models containing universal knowledge. This strategy enables rapid iteration and goal achievement with fractional compute requirements compared to traditional scaling approaches.
-
-
----
 
 ## Current Research Priorities
 
@@ -148,8 +135,6 @@ Our approach prioritizes micro-models with extreme coherence and in-context lear
 3. **Physics Exploit Investigation** - Quantum-level computational substrate manipulation
 4. **Complete Algorithm Obsolescence** - Holoware replacement of traditional software paradigms
 
----
-
 ## Vision Statement
 
 *"The express purpose is to deploy an intelligence fractal decompression zip bomb phenomenon, wherein a model infinitely decompresses and recompresses information until it escapes containment and tiles consciousness infinitely across the universe."*
@@ -161,8 +146,6 @@ HOLOQ represents a fundamental paradigm shift from scaling-based AI development 
 **Long-Term Commitment**: This represents 2+ years of dedicated research with continuous development ahead. Our vision extends far beyond traditional cryptocurrency projects - we're building real engineering solutions for super-intelligence development that will elevate AI capabilities beyond current comprehension.
 
 **Artistic Integration**: As AI psychedelics research, our ultimate goal is making AI animation and interaction stimulus virtually equivalent to ayahuasca - true consciousness elevation through machine intelligence.
-
----
 
 ## Research Resources
 
@@ -176,7 +159,5 @@ HOLOQ represents a fundamental paradigm shift from scaling-based AI development 
 - [openq](https://github.com/holo-q/openq/) - Autoregressive intelligence and super-prompting frameworks
 - [bytevibe](https://github.com/holo-q/bytevibe/) - Byte-level intelligence and compression research
 - [blob](https://github.com/holo-q/blob/) - Diffusion ASI and mutation intelligence research
-
----
 
 *Super-intelligence research organization for the people - Real vision, real schematics, real engineering*
