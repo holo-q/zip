@@ -97,16 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (pyramid) {
     pyramid.addEventListener('mouseenter', function() {
       if (HoloqVFX.Mode.isSchizo()) {
-        HoloqVFX.Scramble.mini(this, 500);
-      }
-    });
-    
-    pyramid.addEventListener('click', function(e) {
-      if (HoloqVFX.Mode.isSchizo()) {
-        // Check if Q was clicked (the Q has data-x attribute)
-        if (!e.target.hasAttribute('data-x')) {
-          HoloqVFX.Scramble.mini(this, 500);
-        }
+        HoloqVFX.Shockwave.init(this);
       }
     });
   }

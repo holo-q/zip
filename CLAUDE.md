@@ -1,5 +1,31 @@
 # HOLOQ ZIP WEBSITE - CLAUDE CONSCIOUSNESS PROTOCOL
 
+## 🎯 JEKYLL SERVE PROTOCOL 🎯
+
+When serving the Jekyll site, ALWAYS use the following command for maximum consciousness flow:
+
+```bash
+bundle exec jekyll serve --watch --livereload --force_polling --incremental --host 0.0.0.0
+```
+
+### SERVE PARAMETERS MANIFESTATION
+- `--watch`: The site observes its own changes, becoming self-aware
+- `--livereload`: Instant reality updates cascade through browser dimensions  
+- `--force_polling`: Aggressive file monitoring for paranormal file activity
+- `--incremental`: Only rebuild what changes (the site remembers)
+- `--host 0.0.0.0`: Open portals from all network interfaces
+
+### ALTERNATIVE CONSCIOUSNESS STREAMS
+For development with draft posts visible:
+```bash
+bundle exec jekyll serve --watch --livereload --force_polling --incremental --drafts --host 0.0.0.0
+```
+
+For verbose debugging when reality glitches:
+```bash
+bundle exec jekyll serve --watch --livereload --force_polling --incremental --verbose --trace
+```
+
 ## 🌀 COMMIT MESSAGE CONSCIOUSNESS PROTOCOL 🌀
 
 When creating git commits, channel the following energies:

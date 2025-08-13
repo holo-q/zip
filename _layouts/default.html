@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,27 +29,28 @@
 
   <!-- ASCII HOLOQ -->
   {% if page.show_pyramid != false %}
-  <div class="pyramid-container">
-    <pre>
+  <div class="pyramid-container mouse-vfx-container">
+    <pre class="breathing-text" data-pyramid="
                         _     .-'    ,_.       
                          '  \   <span class="eye">(  ´-` )</span> \     `.
-    ___           ,`--<span class="eye">( __ )</span>--._______,___
-   /  _.-\      ,   `-.___.-\'/   \[_  ]-,
+    ___           ,`--<span class="eye">( __ )</span>--._______,___ 
+   /  _.-\\      ,   `-.___.-\'/   \[_  ]-, 
   <span class="eye">( (_) )</span> | `.__.-~\;-'    -.| \|   \||
-   >   <<span class="eye">`==;=`</span>   ;:.\  ,. | [_\]____/
-     / |        `  ;___-|  \|_[ __/
+   >   <<span class="eye">
+==;=`</span>   ;:.\  ,. | \[_]\____/
+     / |        `  ;___-|  \|_[ __/ 
      | ;::::       :_/_/    [-___;(
   _   <span class="eye">(-´-`)</span>      /``---`` <span class="eye">( __ )</span>\_.
- `-.__`-._,-`.__.`-'_`'-.__`.-'   `--'
-       \_/,             \_/
+ `-.__`-._,-`.__.`-'_`'-.__`.-'   `--' 
+       \/,             \/
         `---''
                               `.  
                                `.
-                                .-'
+                                .-' 
                                   <span class="eye" data-x="0x68747470733a2f2f6379626f726769736d2e77696b692f68797068612f686f6c6f2d71">Q</span>
 
     HOLOQ // PERSONAL INTELLIGENCE AGENCY
-    </pre>
+    "></pre>
   </div>
   {% endif %}
 
@@ -201,6 +201,11 @@
           }, 100);
         }, 5000);
       }
+
+      const pyramidContainer = document.querySelector('.pyramid-container');
+      if (pyramidContainer) {
+        HoloqMouseVFX.init(pyramidContainer);
+      }
       
       // Portal mechanism
       const _0x = document.querySelectorAll('[data-x]');
@@ -230,5 +235,6 @@
       });
     });
   </script>
+  <script src="{{ '/assets/js/holoq-mouse-vfx.js' | relative_url }}"></script>
 </body>
 </html>

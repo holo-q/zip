@@ -184,35 +184,37 @@ const HoloqVFX = (function() {
       
       const animateScramble = setInterval(() => {
         const progress = frame / frames;
-        const eased = reverse ? 
-          1 - (progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2) :
-          progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-        
-        const isPhase1 = eased < 0.4;
-        const isPhase2 = eased < 0.95;
-        const alienChance = isPhase1 ? eased * 2.5 : 0;
-        const disappearChance = !isPhase2 ? (eased - 0.95) * 20 : 0;
-        
+        const easedProgress = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
         textNodes.forEach(item => {
           const chars = item.chars;
           const len = chars.length;
           const result = new Array(len);
-          
+
           for (let i = 0; i < len; i++) {
             const char = chars[i];
             if (char === ' ' || char === '\n' || char === '\t') {
               result[i] = char;
-            } else if (isPhase1) {
-              result[i] = Math.random() < alienChance ? 
-                CONFIG.ALIEN_CHARS[Math.floor(Math.random() * alienLen)] : char;
-            } else if (isPhase2) {
-              result[i] = CONFIG.ALIEN_CHARS[Math.floor(Math.random() * alienLen)];
+              continue;
+            }
+
+            // Determine which character to show based on progress
+            if (reverse) {
+              // Scramble IN
+              if (Math.random() < easedProgress) {
+                result[i] = char;
+              } else {
+                result[i] = CONFIG.ALIEN_CHARS[Math.floor(Math.random() * alienLen)];
+              }
             } else {
-              result[i] = Math.random() < disappearChance ? 
-                '\u00A0' : CONFIG.ALIEN_CHARS[Math.floor(Math.random() * alienLen)];
+              // Scramble OUT
+              if (Math.random() < easedProgress) {
+                result[i] = CONFIG.ALIEN_CHARS[Math.floor(Math.random() * alienLen)];
+              } else {
+                result[i] = char;
+              }
             }
           }
-          
           item.node.nodeValue = result.join('');
         });
         
@@ -309,6 +311,76 @@ const HoloqVFX = (function() {
   };
   
   // ═══════════════════════════════════════════════════════
+  // SHOCKWAVE/SPRING-FIELD EFFECT
+  // ═══════════════════════════════════════════════════════
+
+  const Shockwave = {
+    init: function(element) {
+      if (element.dataset.shockwaveInitialized) return;
+
+      const text = element.textContent;
+      element.innerHTML = ''; // Clear original text
+
+      const chars = text.split('').map(char => {
+        const span = document.createElement('span');
+        span.textContent = char;
+        span.style.display = 'inline-block';
+        span.style.transition = 'transform 0.1s ease-out';
+        element.appendChild(span);
+        return {
+          span: span,
+          x: span.offsetLeft,
+          y: span.offsetTop,
+          dx: 0,
+          dy: 0,
+          vx: 0,
+          vy: 0
+        };
+      });
+
+      element.dataset.shockwaveInitialized = true;
+
+      element.addEventListener('mousemove', (e) => {
+        const rect = element.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        chars.forEach(char => {
+          const distX = char.x - mouseX;
+          const distY = char.y - mouseY;
+          const dist = Math.sqrt(distX * distX + distY * distY);
+          const force = Math.max(0, 1 - (dist / 100)) * 2;
+
+          if (dist < 100) {
+            const angle = Math.atan2(distY, distX);
+            char.vx += Math.cos(angle) * force;
+            char.vy += Math.sin(angle) * force;
+          }
+        });
+      });
+
+      function animate() {
+        chars.forEach(char => {
+          // Spring back to origin
+          char.vx += (0 - char.dx) * 0.1;
+          char.vy += (0 - char.dy) * 0.1;
+
+          // Damping
+          char.vx *= 0.9;
+          char.vy *= 0.9;
+
+          char.dx += char.vx;
+          char.dy += char.vy;
+
+          char.span.style.transform = `translate(${char.dx}px, ${char.dy}px)`;
+        });
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+  };
+
+  // ═══════════════════════════════════════════════════════
   // MODE MANAGEMENT
   // ═══════════════════════════════════════════════════════
   
@@ -347,6 +419,7 @@ const HoloqVFX = (function() {
   return {
     Hologram,
     Scramble,
+    Shockwave, // <-- Expose the new module
     AutoEffects,
     Mode,
     CONFIG,
