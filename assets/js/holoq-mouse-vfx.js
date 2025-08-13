@@ -19,7 +19,7 @@ const HoloqMouseVFX = (function() {
   let lastFrameTime = 0;
   let isMode2 = false;
   let wavePhase = 0;  // For the rushing wave effect
-  let originalPyramidText = null;  // Store the original text to prevent corruption
+  let originalPyramidHTML = null;  // Store the original HTML to prevent corruption and preserve eye spans
 
   function init(el) {
     // Set mode state
@@ -38,25 +38,56 @@ const HoloqMouseVFX = (function() {
     container = el;
     pre = container.querySelector('pre');
     
-    // Store original text on first init, reuse on subsequent inits
-    if (!originalPyramidText) {
-      originalPyramidText = pre.textContent;
+    // Store original HTML on first init to preserve eye spans
+    if (!originalPyramidHTML) {
+      originalPyramidHTML = pre.innerHTML;
     }
-    const originalText = originalPyramidText;
-    pre.innerHTML = ''; // Clear the pre
+    
+    // Restore original HTML to reset any scrambling
+    pre.innerHTML = originalPyramidHTML;
+    
+    // Now work with the existing spans
+    const allSpans = pre.querySelectorAll('span');
+    const textNodes = [];
+    
+    // Get all text nodes (not inside spans)
+    function getTextNodes(node) {
+      if (node.nodeType === 3) { // Text node
+        textNodes.push(node);
+      } else {
+        for (let child of node.childNodes) {
+          if (child.nodeName !== 'SPAN') {
+            getTextNodes(child);
+          }
+        }
+      }
+    }
+    getTextNodes(pre);
+    
+    // Convert text nodes to spans
+    textNodes.forEach(textNode => {
+      const text = textNode.textContent;
+      const fragment = document.createDocumentFragment();
+      for (let char of text) {
+        const span = document.createElement('span');
+        span.textContent = char;
+        fragment.appendChild(span);
+      }
+      textNode.parentNode.replaceChild(fragment, textNode);
+    });
 
+    // Now get all spans (including eye spans)
+    const allSpansAfter = pre.querySelectorAll('span');
+    
     let x = 0;
     let y = 0;
     let maxX = 0;
     
-    // First pass: create character objects and find dimensions
-    for (let i = 0; i < originalText.length; i++) {
-      const char = originalText[i];
-      const span = document.createElement('span');
-      span.textContent = char;
-      pre.appendChild(span);
-
+    // Process all spans to create character objects
+    allSpansAfter.forEach((span, i) => {
+      const char = span.textContent;
       const isWhitespace = char === ' ' || char === '\n' || char === '\r';
+      const isEye = span.classList.contains('eye');
       
       characters.push({
         span: span,
@@ -64,11 +95,19 @@ const HoloqMouseVFX = (function() {
         x: x,
         y: y,
         isWhitespace: isWhitespace,
+        isEye: isEye,  // Track if this is part of an eye
         index: i
       });
       
       // Initialize cell state - pyramid chars start with small random energy
-      cellStates.push(isWhitespace ? 0 : Math.random() * 0.1);
+      // Eyes get slightly different initial energy
+      if (isWhitespace) {
+        cellStates.push(0);
+      } else if (isEye) {
+        cellStates.push(Math.random() * 0.15);
+      } else {
+        cellStates.push(Math.random() * 0.1);
+      }
 
       if (char === '\n') {
         maxX = Math.max(maxX, x);
@@ -77,9 +116,38 @@ const HoloqMouseVFX = (function() {
       } else {
         x++;
       }
-    }
+    });
     
-    // Second pass: identify neighbors for cellular automaton
+    // Second pass: identify neighbors and kaomoji groups
+    // Find kaomoji face groups (consecutive horizontal eye cells)
+    const eyeGroups = [];
+    let currentGroup = null;
+    
+    characters.forEach((char, i) => {
+      if (char.isEye) {
+        // Check if this continues a group on the same line
+        if (currentGroup && currentGroup.y === char.y && 
+            char.x === currentGroup.lastX + 1) {
+          // Continue the group
+          currentGroup.members.push(i);
+          currentGroup.lastX = char.x;
+        } else {
+          // Start a new group
+          currentGroup = {
+            members: [i],
+            y: char.y,
+            lastX: char.x
+          };
+          eyeGroups.push(currentGroup);
+        }
+        // Store group reference in character
+        char.eyeGroup = currentGroup;
+      } else {
+        currentGroup = null;
+      }
+    });
+    
+    // Now set up neighbors for cellular automaton
     characters.forEach((char, i) => {
       char.neighbors = [];
       
@@ -167,6 +235,25 @@ const HoloqMouseVFX = (function() {
         // 3. Spontaneous excitation: random energy injection
         if (Math.random() < CONFIG.SPONTANEOUS_RATE) {
           state = 1.0; // Sudden burst of energy
+          
+          // If this is an eye, energize the entire kaomoji face
+          if (char.isEye && char.eyeGroup) {
+            char.eyeGroup.members.forEach(memberIdx => {
+              if (memberIdx !== i) {
+                newStates[memberIdx] = Math.max(newStates[memberIdx], 0.8);
+              }
+            });
+          }
+        }
+        
+        // 3b. Eye group energy sharing - if one eye cell has energy, share with face
+        if (char.isEye && char.eyeGroup && state > CONFIG.EXCITATION_THRESHOLD) {
+          // Share energy with rest of kaomoji face
+          const avgEnergy = char.eyeGroup.members.reduce((sum, idx) => 
+            sum + cellStates[idx], 0) / char.eyeGroup.members.length;
+          
+          // Pull all cells toward the average
+          state = state * 0.7 + avgEnergy * 0.3;
         }
         
         // 4. Nonlinear feedback: excited cells can trigger neighbors
@@ -195,7 +282,10 @@ const HoloqMouseVFX = (function() {
         
         // Quantize to display: scramble if above threshold
         if (state > CONFIG.EXCITATION_THRESHOLD) {
-          char.span.textContent = CONFIG.SCRAMBLE_CHARS[Math.floor(Math.random() * CONFIG.SCRAMBLE_CHARS.length)];
+          // Don't scramble eye characters - they keep their kaomoji faces
+          if (!char.isEye) {
+            char.span.textContent = CONFIG.SCRAMBLE_CHARS[Math.floor(Math.random() * CONFIG.SCRAMBLE_CHARS.length)];
+          }
           
           // Color lerp based on position hash and alien energy
           const positionHash = (char.x * 7919 + char.y * 6271) % 100; // Prime number hash
@@ -207,49 +297,69 @@ const HoloqMouseVFX = (function() {
           
           // Three-stage color graduation
           let r, g, b;
-          if (normalizedEnergy < 0.7) {
-            // Low energy: mostly white with slight tint (keeps red high)
-            const tintAmount = normalizedEnergy * 0.3; // Max 21% tint at 0.7 energy
-            if (colorChoice < 0.5) {
-              // Slight cyan tint
-              r = Math.floor(255 * (1 - tintAmount * 0.3));
+          
+          // Eyes (kaomoji) always use green palette
+          if (char.isEye) {
+            // Pure green gradient for eyes
+            if (normalizedEnergy < 0.5) {
+              // Low energy: bright green with white mix
+              const tintAmount = normalizedEnergy * 2; // 0-1 range
+              r = Math.floor(255 * (1 - tintAmount * 0.7));
               g = 255;
-              b = Math.floor(255 * (1 - tintAmount * 0.1));
+              b = Math.floor(255 * (1 - tintAmount * 0.9));
             } else {
-              // Slight green tint
-              r = Math.floor(255 * (1 - tintAmount * 0.3));
+              // High energy: pure bright green
+              const intensity = (normalizedEnergy - 0.5) * 2; // 0-1 range
+              r = Math.floor(255 * (1 - (0.7 + intensity * 0.3)));
               g = 255;
-              b = Math.floor(255 * (1 - tintAmount * 0.3));
-            }
-          } else if (normalizedEnergy < 0.95) {
-            // Medium energy: transition zone
-            const midRange = (normalizedEnergy - 0.7) / 0.25; // 0-1 within this range
-            const lerpAmount = midRange * 0.6; // Up to 60% color at 0.95
-            if (colorChoice < 0.5) {
-              // Moving towards cyan
-              r = Math.floor(255 * (1 - lerpAmount * 0.8));
-              g = 255;
-              b = Math.floor(255 * (1 - lerpAmount * 0.2));
-            } else {
-              // Moving towards green
-              r = Math.floor(255 * (1 - lerpAmount * 0.8));
-              g = 255;
-              b = Math.floor(255 * (1 - lerpAmount * 0.8));
+              b = Math.floor(255 * (1 - (0.9 + intensity * 0.1)));
             }
           } else {
-            // Peak energy (0.95-1.0): PURE cyan or green
-            const peakIntensity = (normalizedEnergy - 0.95) / 0.05; // 0-1 in peak range
-            const finalLerp = 0.6 + (peakIntensity * 0.4); // 60% to 100% pure color
-            if (colorChoice < 0.5) {
-              // Pure cyan at peak
-              r = Math.floor(255 * (1 - finalLerp));
-              g = 255;
-              b = Math.floor(255 * (1 - finalLerp * 0.05)); // Keep blue high for cyan
+            // Regular pyramid characters use original color scheme
+            if (normalizedEnergy < 0.7) {
+              // Low energy: mostly white with slight tint (keeps red high)
+              const tintAmount = normalizedEnergy * 0.3; // Max 21% tint at 0.7 energy
+              if (colorChoice < 0.5) {
+                // Slight cyan tint
+                r = Math.floor(255 * (1 - tintAmount * 0.3));
+                g = 255;
+                b = Math.floor(255 * (1 - tintAmount * 0.1));
+              } else {
+                // Slight green tint
+                r = Math.floor(255 * (1 - tintAmount * 0.3));
+                g = 255;
+                b = Math.floor(255 * (1 - tintAmount * 0.3));
+              }
+            } else if (normalizedEnergy < 0.95) {
+              // Medium energy: transition zone
+              const midRange = (normalizedEnergy - 0.7) / 0.25; // 0-1 within this range
+              const lerpAmount = midRange * 0.6; // Up to 60% color at 0.95
+              if (colorChoice < 0.5) {
+                // Moving towards cyan
+                r = Math.floor(255 * (1 - lerpAmount * 0.8));
+                g = 255;
+                b = Math.floor(255 * (1 - lerpAmount * 0.2));
+              } else {
+                // Moving towards green
+                r = Math.floor(255 * (1 - lerpAmount * 0.8));
+                g = 255;
+                b = Math.floor(255 * (1 - lerpAmount * 0.8));
+              }
             } else {
-              // Pure green at peak
-              r = Math.floor(255 * (1 - finalLerp));
-              g = 255;
-              b = Math.floor(255 * (1 - finalLerp));
+              // Peak energy (0.95-1.0): PURE cyan or green
+              const peakIntensity = (normalizedEnergy - 0.95) / 0.05; // 0-1 in peak range
+              const finalLerp = 0.6 + (peakIntensity * 0.4); // 60% to 100% pure color
+              if (colorChoice < 0.5) {
+                // Pure cyan at peak
+                r = Math.floor(255 * (1 - finalLerp));
+                g = 255;
+                b = Math.floor(255 * (1 - finalLerp * 0.05)); // Keep blue high for cyan
+              } else {
+                // Pure green at peak
+                r = Math.floor(255 * (1 - finalLerp));
+                g = 255;
+                b = Math.floor(255 * (1 - finalLerp));
+              }
             }
           }
           

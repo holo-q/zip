@@ -29,8 +29,7 @@
 
   <!-- ASCII HOLOQ -->
   {% if page.show_pyramid != false %}
-  <a href="https://dexscreener.com/solana/holoq" target="_blank" class="pyramid-link">
-  <div class="pyramid-container mouse-vfx-container">
+  <div class="pyramid-container mouse-vfx-container" data-dex-link="https://dexscreener.com/solana/643Bi6ckHT4ikS45pCkMqHbrHqFbAgA6hcEonKP5BAGS">
     <pre class="breathing-text" data-pyramid="
                         _     .-'    ,_.       
                          '  \   <span class="eye">(  ´-` )</span> \     `.
@@ -53,7 +52,6 @@
     643Bi6ckHT4ikS45pCkMqHbrHqFbAgA6hcEonKP5BAGS
     </pre>
   </div>
-  </a>
   {% endif %}
 
   <!-- Main Content -->
@@ -75,6 +73,7 @@
     </div>
   </footer>
 
+  <script src="{{ '/assets/js/holoq-mouse-vfx.js' | relative_url }}"></script>
   <script>
     // Terminal console messages
     console.log('%c▓▓▓ HOLOQ TERMINAL INITIALIZED ▓▓▓', 'color: #ff0000; font-weight: bold;');
@@ -205,9 +204,10 @@
       }
 
       
-      const pyramidContainer = document.querySelector('.pyramid-container');
-      if (pyramidContainer) {
-        HoloqMouseVFX.init(pyramidContainer);
+      // Initialize cellular automaton FIRST before other handlers
+      const pyramidVFX = document.querySelector('.pyramid-container');
+      if (pyramidVFX && typeof HoloqMouseVFX !== 'undefined') {
+        HoloqMouseVFX.init(pyramidVFX);
       }
       
       // Portal mechanism - Q secret link
@@ -226,31 +226,41 @@
             clearTimeout(_0xTO);
             this.style.cursor = 'inherit';
           });
-          // Use capture phase to intercept before parent link
+          // Q has its own special portal
           _0xEl.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            e.stopImmediatePropagation();
             const _0xT = _0xD.substring(2).match(/.{2}/g).map(h => String.fromCharCode(parseInt(h, 16))).join('');
             window.open(_0xT, '_blank');
-            return false;
-          }, true); // true = use capture phase
+          });
         }
       });
       
-      // Prevent pyramid link from triggering on Q click
-      const pyramidLink = document.querySelector('.pyramid-link');
-      if (pyramidLink) {
-        pyramidLink.addEventListener('click', function(e) {
-          // Check if click was on the Q
-          if (e.target.hasAttribute('data-x')) {
-            e.preventDefault();
-            return false;
+      // Make pyramid clickable to DexScreener (but not the Q)
+      const pyramidContainer = document.querySelector('.pyramid-container[data-dex-link]');
+      if (pyramidContainer) {
+        const dexLink = pyramidContainer.getAttribute('data-dex-link');
+        const pre = pyramidContainer.querySelector('pre');
+        
+        pyramidContainer.addEventListener('click', function(e) {
+          // Don't trigger if clicking on Q portal
+          if (!e.target.hasAttribute('data-x') && !e.target.closest('[data-x]')) {
+            window.open(dexLink, '_blank');
           }
+        });
+        
+        // Show pointer cursor only when hovering over clickable areas
+        pyramidContainer.addEventListener('mouseover', function(e) {
+          if (!e.target.hasAttribute('data-x') && !e.target.closest('[data-x]')) {
+            if (pre) pre.style.cursor = 'pointer';
+          }
+        });
+        
+        pyramidContainer.addEventListener('mouseout', function(e) {
+          if (pre) pre.style.cursor = 'default';
         });
       }
     });
   </script>
-  <script src="{{ '/assets/js/holoq-mouse-vfx.js' | relative_url }}"></script>
 </body>
 </html>

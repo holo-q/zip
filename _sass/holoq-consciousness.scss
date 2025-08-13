@@ -93,15 +93,6 @@ body {
 // MODE 1: DEFAULT MODE
 // ASCII ART - Simple pulsing animation, no holographic effects
 // This is the default state when page loads
-.pyramid-link {
-  text-decoration: none;
-  display: block;
-  
-  &:hover {
-    text-decoration: none;
-  }
-}
-
 .pyramid-container {
   width: 100%;
   margin: 0.5rem 0;
@@ -112,7 +103,11 @@ body {
     font-size: 0.6rem;
     line-height: 1.0;
     display: inline-block;
-    cursor: pointer;
+    cursor: default;  // Normal arrow cursor
+    user-select: none;  // Prevent text selection
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
         animation: pulse 3s ease-in-out infinite; // MODE 1: Simple pulse only // MODE 1: Simple pulse only
     
     .eye {
