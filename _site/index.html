@@ -539,11 +539,11 @@ document.addEventListener('DOMContentLoaded', function() {
         1 - (progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2) :
         progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
       
-      // Pre-calculate thresholds
+      // Pre-calculate thresholds - less void time
       const isPhase1 = eased < 0.4;
-      const isPhase2 = eased < 0.8;
+      const isPhase2 = eased < 0.95; // Alien phase goes to 95%
       const alienChance = isPhase1 ? eased * 2.5 : 0;
-      const disappearChance = !isPhase2 ? (eased - 0.8) * 5 : 0;
+      const disappearChance = !isPhase2 ? (eased - 0.95) * 20 : 0; // Only last 5%
       
       textNodes.forEach(item => {
         const chars = item.chars;
@@ -593,7 +593,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Start scrambling out current content immediately
       scrambleElement(currentContent, false);
       
-      // Start new content scramble in partway through (at 450ms, 75% of the way)
+      // Start new content scramble in much earlier (at 250ms, ~42% of the way)
       setTimeout(() => {
         // Update active button
         toggleBtns.forEach(b => b.classList.remove('active'));
@@ -621,7 +621,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
           console.log('%c◉ Professional Interface Engaged', 'color: #e5e7eb;');
         }
-      }, 450); // Start new content at 75% of 600ms duration
+      }, 250); // Start new content at ~42% of 600ms duration
     });
   });
 });
