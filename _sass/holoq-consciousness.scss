@@ -423,12 +423,13 @@ body.schizo-mode {
     }
   }
   
-  .consciousness-section {
-    h1, h2, h3 {
+  // Only apply holograms to h1 in consciousness content (REAL page)
+  #consciousness-content .consciousness-section {
+    h1 {
       animation: glitch 0.3s ease-in-out infinite;
       position: relative;
       
-      // Holographic layers
+      // Holographic layers - horizontal bias for h1
       &::before,
       &::after {
         content: attr(data-text);
@@ -441,22 +442,41 @@ body.schizo-mode {
       }
       
       &::before {
-        animation: hologram-1 0.8s ease-in-out infinite;
+        animation: hologram-h1-1 0.8s ease-in-out infinite;
         color: $green;
         z-index: -1;
         opacity: 0.7;
       }
       
       &::after {
-        animation: hologram-2 1.2s ease-in-out infinite;
+        animation: hologram-h1-2 1.2s ease-in-out infinite;
         color: cyan;
         z-index: -2;
         opacity: 0.5;
       }
     }
     
+    h2, h3 {
+      animation: glitch 0.3s ease-in-out infinite;
+      // No hologram effects for h2/h3
+    }
+    
     strong {
-      animation: pulse 1s ease-in-out infinite;
+      color: $red !important;
+      // No hologram effects for bold text
+    }
+  }
+  
+  // Professional content should have minimal effects during transition
+  #professional-content .consciousness-section {
+    h1, h2, h3 {
+      animation: glitch 0.3s ease-in-out infinite;
+      // No hologram effects for headers in professional content
+    }
+    
+    strong {
+      color: $red !important;
+      // No hologram effects for bold in professional content
     }
   }
   
@@ -623,5 +643,75 @@ body.schizo-mode {
   50% {
     opacity: 0.8;
     transform: translate(2px, -1px);
+  }
+}
+
+// Horizontal-only hologram animations for h1
+@keyframes hologram-h1-1 {
+  0%, 100% {
+    transform: translateX(0px);
+    opacity: 0.7;
+  }
+  25% {
+    transform: translateX(3px);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateX(-2px);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateX(2px);
+    opacity: 0.6;
+  }
+}
+
+@keyframes hologram-h1-2 {
+  0%, 100% {
+    transform: translateX(0px) scaleX(1.02);
+    opacity: 0.5;
+  }
+  33% {
+    transform: translateX(-4px) scaleX(1.03);
+    opacity: 0.3;
+  }
+  66% {
+    transform: translateX(3px) scaleX(1.01);
+    opacity: 0.6;
+  }
+}
+
+// Red hologram animations for strong/bold text
+@keyframes hologram-red-1 {
+  0%, 100% {
+    transform: translate(0px, 0px);
+    opacity: 0.5;
+  }
+  25% {
+    transform: translate(1px, -0.5px);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate(-0.5px, 0.5px);
+    opacity: 0.6;
+  }
+  75% {
+    transform: translate(0.5px, -1px);
+    opacity: 0.45;
+  }
+}
+
+@keyframes hologram-red-2 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1.01);
+    opacity: 0.3;
+  }
+  33% {
+    transform: translate(-1px, 0.5px) scale(1.015);
+    opacity: 0.25;
+  }
+  66% {
+    transform: translate(0.5px, -0.5px) scale(1.008);
+    opacity: 0.35;
   }
 }
