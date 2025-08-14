@@ -15,38 +15,42 @@ document.addEventListener('DOMContentLoaded', function() {
   // Start with mode 2 active for scrambled state
   document.body.classList.add('mode2');
   
-  // Immediately scramble everything including subtitles (no delay)
+  // Immediately scramble everything including subtitles to VOID (complete random characters)
   const allElements = document.querySelectorAll('.content-section h1, .content-section h2, .content-section h3, .content-section h4, .content-section p, .content-section li, .site-nav a, #soul-quote, .holoq-subtitle span, .holoq-subtitle b, .content-section strong, .content-section em');
+  
+  // First, store original text and immediately replace with random characters
   allElements.forEach(el => {
-    // No longer skip subtitle elements - scramble everything
-    // if (el.classList.contains('subtitle-line1') || el.classList.contains('subtitle-line2')) {
-    //   return;
-    // }
-    
-    if (el.tagName === 'H1') {
-      HoloqVFX.Scramble.h1(el, false, { duration: 0 }); // Instant scramble
-    } else {
-      HoloqVFX.Scramble.full(el, false, { duration: 0 }); // Instant scramble
+    if (!el.dataset.originalText) {
+      el.dataset.originalText = el.textContent;
     }
+    // Replace with random characters of same length (void state)
+    const chars = '█▓▒░╔╗╚╝║═╬╣╠╩╦╤╧╪┼┴┬├┤┘┌└┐';
+    const scrambled = el.textContent.split('').map(char => 
+      char === ' ' ? ' ' : chars[Math.floor(Math.random() * chars.length)]
+    ).join('');
+    el.textContent = scrambled;
   });
   
-  // After a brief moment, unscramble everything
+  // After a brief moment, animate unscramble back to original text
   setTimeout(() => {
     document.body.classList.remove('mode2');
     document.documentElement.classList.remove('initial-scramble');
+    
+    // Animate from void state back to original text
     allElements.forEach(el => {
-      // No longer skip subtitle elements - unscramble everything
-      // if (el.classList.contains('subtitle-line1') || el.classList.contains('subtitle-line2')) {
-      //   return;
-      // }
+      const originalText = el.dataset.originalText || el.textContent;
       
       if (el.tagName === 'H1') {
+        // For H1, use special scramble animation
+        el.textContent = originalText; // Restore original first
         HoloqVFX.Scramble.h1(el, true, { duration: 1200 });
       } else {
+        // For everything else, animate the unscramble
+        el.textContent = originalText; // Restore original first
         HoloqVFX.Scramble.full(el, true, { duration: 800 });
       }
     });
-  }, 300);
+  }, 500); // Slightly longer delay for more dramatic effect
   
   // MODE SWITCHING: Mode 1 vs Mode 2
   const toggleBtns = document.querySelectorAll('.toggle-btn');
