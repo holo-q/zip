@@ -327,6 +327,11 @@ body {
   padding-top: 1rem;
   border-top: 1px dashed $red;
   text-align: center;
+  width: calc(100% + 4rem);
+  margin-left: -2rem;
+  margin-right: -2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
   
   .footer-content {
     font-family: $mono;
@@ -468,16 +473,19 @@ body.mode2 {
   }
   
   // Change GITHUB to CONTRIBUTE! in mode 2
-  .github-link {
+  .site-nav .github-link {
     font-size: 0;
     &::after {
       content: 'CONTRIBUTE!';
       font-size: 0.8rem;
       color: $red;
+      text-decoration: underline;
     }
     &:hover::after {
       background: $red;
       color: $black;
+      text-decoration: none;
+      padding: 0 0.5rem;
     }
   }
   
