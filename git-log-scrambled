@@ -1,16 +1,7 @@
 #!/bin/bash
 
 # Git log scrambler - shows commits in random order for chaos consciousness
-
-# Get the number of commits to show (default 10)
-COUNT=${1:-10}
-
-# Validate input is a number
-if ! [[ "$COUNT" =~ ^[0-9]+$ ]]; then
-    echo "Error: '$COUNT' is not a valid number"
-    echo "Usage: $0 [number_of_commits]"
-    exit 1
-fi
+# Now with DUAL ENTROPY: recent commits + random ancient commits
 
 # Check if we're in a git repository
 if ! git rev-parse --git-dir > /dev/null 2>&1; then
@@ -18,14 +9,43 @@ if ! git rev-parse --git-dir > /dev/null 2>&1; then
     exit 1
 fi
 
-# Get git log and scramble it
-# Use --format to ensure consistent output regardless of commit message content
-OUTPUT=$(git log --format="%h %s" -n "$COUNT" 2>/dev/null | shuf)
+# Get the 5 most recent commits and scramble them
+RECENT=$(git log --format="%h %s" -n 5 2>/dev/null | shuf)
 
-if [ -z "$OUTPUT" ]; then
-    echo "No commits found (or count was 0)"
+# Get total number of commits
+TOTAL_COMMITS=$(git rev-list --count HEAD 2>/dev/null)
+
+# Get 5 random commits from entire history
+if [ "$TOTAL_COMMITS" -gt 5 ]; then
+    # Generate 5 random line numbers
+    RANDOM_COMMITS=""
+    for i in {1..5}; do
+        # Random number between 1 and total commits
+        RANDOM_LINE=$((RANDOM % TOTAL_COMMITS + 1))
+        # Get the commit at that position in history
+        COMMIT=$(git log --format="%h %s" --skip=$((RANDOM_LINE - 1)) -n 1 2>/dev/null)
+        if [ -n "$COMMIT" ]; then
+            RANDOM_COMMITS="${RANDOM_COMMITS}${COMMIT}"$'\n'
+        fi
+    done
+    # Scramble the random commits too
+    ANCIENT=$(echo "$RANDOM_COMMITS" | head -n -1 | shuf)
 else
-    echo "$OUTPUT"
+    # If less than 5 commits total, just use what we have
+    ANCIENT=""
+fi
+
+# Output recent commits
+if [ -n "$RECENT" ]; then
+    echo "━━━ RECENT TEMPORAL FLUX ━━━"
+    echo "$RECENT"
+fi
+
+# Output ancient commits if we have them
+if [ -n "$ANCIENT" ]; then
+    echo ""
+    echo "━━━ ANCIENT CHAOS INJECTION ━━━"
+    echo "$ANCIENT"
 fi
 
 echo ""
