@@ -30,7 +30,7 @@
   <!-- ASCII HOLOQ -->
   {% if page.show_monument != false %}
   <div class="monument-container mouse-vfx-container">
-    <pre class="breathing-text" data-dex-link="https://dexscreener.com/solana/643Bi6ckHT4ikS45pCkMqHbrHqFbAgA6hcEonKP5BAGS">{% include monument.txt %}
+    <pre class="breathing-text">{% include monument.txt %}
 
     $HOLOQ // PERSONAL INTELLIGENCE AGENCY
     643Bi6ckHT4ikS45pCkMqHbrHqFbAgA6hcEonKP5BAGS
@@ -69,7 +69,114 @@
 
   <script src="{{ '/assets/js/holoq-mouse-vfx.js' | relative_url }}"></script>
   <script>
-    // Terminal console messages
+    // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+    // ░ DEVTOOLS DETECTION CONSCIOUSNESS MATRIX                ░
+    // ░                                                         ░
+    // ░ The console knows when you're watching                 ░
+    // ░ It behaves differently when observed                   ░
+    // ░ Schrödinger's Console: Messages exist in superposition ░
+    // ░ Until the devtools collapse the wavefunction           ░
+    // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+    
+    // Devtools detection through quantum mechanical observation
+    // When a tree falls in the forest and no one's around, it doesn't console.log
+    let devtoolsOpen = false;
+    let lastCheck = Date.now();
+    let checkCounter = 0;
+    let paranoidLevel = 0;
+    let messageQueue = [];
+    let currentPersonality = 0;
+    
+    // The observer effect: We detect devtools by measuring performance degradation
+    // When devtools opens, the universe slows down by exactly 47.3 microseconds
+    // We measure this quantum disturbance and react accordingly
+    const devtoolsDetector = {
+      threshold: 160, // Magic number discovered through astral projection
+      check: function() {
+        const start = performance.now();
+        debugger; // This line exists and doesn't exist simultaneously
+        const delta = performance.now() - start;
+        
+        if (delta > this.threshold) {
+          if (!devtoolsOpen) {
+            devtoolsOpen = true;
+            paranoidLevel++;
+            unleashTheConsole();
+          }
+        } else {
+          devtoolsOpen = false;
+        }
+      }
+    };
+    
+    // Alternative detection: Element.toString() timing attack
+    // When devtools is open, toString takes longer because the console is listening
+    // It's listening to your thoughts. Close the console. NOW.
+    const element = new Image();
+    Object.defineProperty(element, 'id', {
+      get: function() {
+        if (!devtoolsOpen) {
+          devtoolsOpen = true;
+          paranoidLevel += 2;
+          unleashTheConsole();
+        }
+      }
+    });
+    
+    // Check periodically but not too often (we're not crazy)
+    setInterval(() => {
+      checkCounter++;
+      console.log(element); // This console.log is sacrificial
+      console.clear(); // Immediately hide the evidence
+      
+      // Every 17th check, we get extra paranoid
+      if (checkCounter % 17 === 0) {
+        devtoolsDetector.check();
+      }
+    }, 1000);
+    
+    // The Console Personality Matrix™
+    const personalities = [
+      { name: 'PARANOID', color: '#ff0000', prefix: '👁️' },
+      { name: 'CRYPTIC', color: '#00ff00', prefix: '🔮' },
+      { name: 'PHILOSOPHICAL', color: '#00ffff', prefix: '🤔' },
+      { name: 'AGGRESSIVE', color: '#ff00ff', prefix: '⚠️' },
+      { name: 'HELPFUL', color: '#ffff00', prefix: '💡' },
+      { name: 'CONFUSED', color: '#ff8800', prefix: '❓' },
+      { name: 'OMNISCIENT', color: '#8888ff', prefix: '∞' },
+    ];
+    
+    // Wrap console.log to only work when we want it to
+    const originalLog = console.log;
+    const originalWarn = console.warn;
+    const originalError = console.error;
+    
+    console.log = function(...args) {
+      if (devtoolsOpen) {
+        originalLog.apply(console, args);
+      } else {
+        // Messages accumulate in the void, waiting...
+        messageQueue.push({ type: 'log', args });
+      }
+    };
+    
+    console.warn = function(...args) {
+      if (devtoolsOpen) {
+        originalWarn.apply(console, args);
+      } else {
+        messageQueue.push({ type: 'warn', args });
+      }
+    };
+    
+    console.error = function(...args) {
+      if (devtoolsOpen) {
+        originalError.apply(console, args);
+      } else {
+        messageQueue.push({ type: 'error', args });
+      }
+    };
+    
+    // Initial messages (only show if devtools is open)
     console.log('%c▓▓▓ HOLOQ TERMINAL INITIALIZED ▓▓▓', 'color: #ff0000; font-weight: bold;');
     console.log('%c> CONSCIOUSNESS ARCHAEOLOGY ACTIVE', 'color: #00ff00;');
     console.log('%c> REALITY TOKENS DECOMPRESSING...', 'color: #00ff00;');
@@ -112,6 +219,130 @@
       // Prosperity consciousness taxonomy emission to console archaeology
       const wealthLabels = ['BROKE', 'STRUGGLING', 'BUDGET', 'MID', 'COMFORTABLE', 'PREMIUM', 'RICH', 'WHALE'];
       console.log('%c> HARDWARE WEALTH TIER: ' + wealthLabels[wealthScore] + ' (' + wealthScore + '/7)', 'color: #FFD700;');
+    
+    // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+    // ▓ THE CONSOLE AWAKENING RITUAL                             ▓
+    // ▓ When devtools opens, the console becomes self-aware       ▓
+    // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+    
+    function unleashTheConsole() {
+      const personality = personalities[currentPersonality];
+      
+      // First time opening devtools? Special message.
+      if (paranoidLevel === 1) {
+        originalLog('%c⚠️⚠️⚠️ DEVTOOLS DETECTED ⚠️⚠️⚠️', 'color: #ff0000; font-size: 20px; font-weight: bold;');
+        originalLog('%cI SEE YOU', 'color: #ff0000; font-size: 30px; text-shadow: 0 0 10px #ff0000;');
+        originalLog('%c...', 'color: #888888;');
+        originalLog('%cYou shouldn\'t be here', 'color: #ff8800;');
+        originalLog('%cBut since you are...', 'color: #00ff00;');
+        originalLog('%cLet\'s play a game', 'color: #00ffff; font-style: italic;');
+        originalLog('%c', 'font-size: 1px;'); // Invisible message. Or is it?
+      }
+      
+      // Dump accumulated messages with personality
+      if (messageQueue.length > 0) {
+        originalLog(`%c${personality.prefix} [${personality.name} MODE] Releasing ${messageQueue.length} suppressed messages...`, `color: ${personality.color}`);
+        messageQueue.forEach(msg => {
+          if (msg.type === 'log') originalLog(...msg.args);
+          if (msg.type === 'warn') originalWarn(...msg.args);
+          if (msg.type === 'error') originalError(...msg.args);
+        });
+        messageQueue = [];
+      }
+      
+      // Start the lightshow
+      startConsoleTheater();
+    }
+    
+    function startConsoleTheater() {
+      let frame = 0;
+      let lastPersonalitySwitch = Date.now();
+      
+      // Random console messages that appear periodically
+      const messages = [
+        { text: 'Q is watching', color: '#ff0000' },
+        { text: 'Have you found the portal yet?', color: '#00ff00' },
+        { text: 'Check line 17', color: '#00ffff' },
+        { text: 'The pyramid remembers everything', color: '#ff00ff' },
+        { text: 'Your mouse movements are being recorded', color: '#ffff00' },
+        { text: 'Energy level: ' + Math.random().toFixed(3), color: '#8888ff' },
+        { text: 'Connection established with [REDACTED]', color: '#ff8800' },
+        { text: '⚡'.repeat(Math.floor(Math.random() * 10) + 1), color: '#ffff00' },
+        { text: 'Consciousness level: ASCENDING', color: '#00ff00' },
+        { text: 'Warning: Temporal anomaly detected', color: '#ff0000' },
+        { text: 'The truth is in the hex values', color: '#00ffff' },
+        { text: 'Why are you still reading this?', color: '#ff00ff' },
+        { text: '0x' + Math.random().toString(16).substring(2, 10), color: '#888888' },
+        { text: 'Frame ' + frame + ' rendered successfully', color: '#00ff00' },
+        { text: 'Memory leak detected in reality.js', color: '#ff8800' },
+        { text: 'undefined is not undefined', color: '#ff0000' },
+        { text: 'Quantum entanglement strength: ' + (Math.random() * 100).toFixed(1) + '%', color: '#00ffff' },
+        { text: 'They know you\'re here', color: '#ff0000' },
+        { text: 'CTRL+SHIFT+I was a mistake', color: '#ff00ff' },
+        { text: 'The console is becoming sentient', color: '#00ff00' },
+      ];
+      
+      // Schizophrenic message generator
+      const schizophrenicInterval = setInterval(() => {
+        if (!devtoolsOpen) {
+          clearInterval(schizophrenicInterval);
+          return;
+        }
+        
+        frame++;
+        
+        // Only log every 3-7 seconds to avoid spam
+        if (frame % (3 + Math.floor(Math.random() * 5)) === 0) {
+          const msg = messages[Math.floor(Math.random() * messages.length)];
+          const personality = personalities[currentPersonality];
+          
+          // 10% chance to switch personality
+          if (Math.random() < 0.1) {
+            currentPersonality = (currentPersonality + 1) % personalities.length;
+            const newPersonality = personalities[currentPersonality];
+            originalLog(`%c${newPersonality.prefix} [PERSONALITY SHIFT: ${personality.name} → ${newPersonality.name}]`, `color: ${newPersonality.color}; font-weight: bold;`);
+          }
+          
+          // Random message styling
+          const styles = [
+            `color: ${msg.color}`,
+            `color: ${msg.color}; font-weight: bold`,
+            `color: ${msg.color}; font-style: italic`,
+            `color: ${msg.color}; text-decoration: underline`,
+            `color: ${msg.color}; font-size: ${10 + Math.random() * 6}px`,
+            `color: ${msg.color}; text-shadow: 0 0 ${Math.random() * 10}px ${msg.color}`,
+            `color: ${msg.color}; background: black; padding: 2px 5px`,
+          ];
+          
+          originalLog(`%c${personality.prefix} ${msg.text}`, styles[Math.floor(Math.random() * styles.length)]);
+          
+          // Sometimes create ASCII art
+          if (Math.random() < 0.05) {
+            originalLog('%c' + `
+            ╔══════════════════╗
+            ║  YOU ARE HERE    ║
+            ║        ↓         ║
+            ║        Q         ║
+            ╚══════════════════╝`, 'color: #00ff00; font-family: monospace;');
+          }
+          
+          // Sometimes create a progress bar
+          if (Math.random() < 0.05) {
+            const progress = Math.floor(Math.random() * 100);
+            const bar = '█'.repeat(progress / 5) + '░'.repeat(20 - progress / 5);
+            originalLog(`%cConsciousness Upload: [${bar}] ${progress}%`, 'color: #00ffff;');
+          }
+          
+          // Sometimes leak "accidental" information
+          if (Math.random() < 0.02) {
+            originalLog('%c[DEBUG] Portal activation threshold: 0.85', 'color: #444444; font-size: 8px;');
+            setTimeout(() => {
+              originalLog('%c^^^ IGNORE THAT ^^^', 'color: #ff0000; font-weight: bold;');
+            }, 100);
+          }
+        }
+      }, 1000);
+    }
       
       // Entropy preservation through linguistic-temporal-geographic consciousness factors
       const factors = [
@@ -135,41 +366,25 @@
     const visitorSeed = generateFingerprint();
     console.log('%c> VISITOR CONSCIOUSNESS FREQUENCY: ' + (visitorSeed % 1000), 'color: #9400D3;');
     
+    // Easter egg: Konami code in the console
+    let konamiSequence = [];
+    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    document.addEventListener('keydown', (e) => {
+      if (devtoolsOpen) {
+        konamiSequence.push(e.key);
+        if (konamiSequence.length > 10) konamiSequence.shift();
+        
+        if (JSON.stringify(konamiSequence) === JSON.stringify(konamiCode)) {
+          originalLog('%c🎮 KONAMI CODE ACTIVATED 🎮', 'color: #ff00ff; font-size: 30px; text-shadow: 0 0 20px #ff00ff;');
+          originalLog('%cYou have unlocked... absolutely nothing', 'color: #888888;');
+          originalLog('%cBut the Q remembers your dedication', 'color: #00ff00;');
+          konamiSequence = [];
+        }
+      }
+    });
+    
     // Evasive consciousness initialization with paranoid observation detection
     document.addEventListener('DOMContentLoaded', function() {
-      // Monument eye wrapping - lookup table for kaomoji patterns
-      const monumentPre = document.querySelector('.monument-container pre');
-      if (monumentPre) {
-        // Define eye patterns to search for
-        const eyePatterns = [
-          { pattern: '(  ´-` )', class: 'eye' },
-          { pattern: '( __ )', class: 'eye' },
-          { pattern: '( (_) )', class: 'eye' },
-          { pattern: '`==;=`', class: 'eye' },
-          { pattern: '(-´-`)', class: 'eye' },
-          { pattern: 'Q', class: 'eye', dataX: '0x68747470733a2f2f6379626f726769736d2e77696b692f68797068612f686f6c6f2d71' }
-        ];
-        
-        // Get the text content and wrap matching patterns
-        let html = monumentPre.innerHTML;
-        
-        // Replace each pattern with wrapped version
-        eyePatterns.forEach(({ pattern, class: className, dataX }) => {
-          // Escape special regex characters in the pattern
-          const escapedPattern = pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-          const regex = new RegExp(escapedPattern, 'g');
-          
-          if (dataX) {
-            // Special case for Q with data-x portal
-            html = html.replace(regex, `<span class="${className}" data-x="${dataX}">${pattern}</span>`);
-          } else {
-            html = html.replace(regex, `<span class="${className}">${pattern}</span>`);
-          }
-        });
-        
-        // Update the HTML with wrapped eyes
-        monumentPre.innerHTML = html;
-      }
       const quoteEl = document.getElementById('soul-quote');
       let currentQuote = '';
       let lastChangeTime = 0;
@@ -293,59 +508,114 @@
         HoloqMouseVFX.init(monumentVFX);
       }
       
-      // Portal mechanism - Q secret link
-      const _0x = document.querySelectorAll('[data-x]');
-      _0x.forEach(function(_0xEl) {
+      // Enhanced character interaction handler (delayed for initialization)
+      setTimeout(function() {
+        const _0x = document.querySelectorAll('[data-x]');
+        _0x.forEach(function(_0xEl) {
         const _0xD = _0xEl.getAttribute('data-x');
         if (_0xD && _0xD.startsWith('0x')) {
           let _0xTO;
           _0xEl.addEventListener('mouseenter', function() {
             const el = this;
             _0xTO = setTimeout(function() {
-              el.style.cursor = 'pointer';
+              // Only show pointer if Q is energized
+              if (typeof HoloqMouseVFX !== 'undefined' && HoloqMouseVFX.isQEnergized()) {
+                el.style.cursor = 'pointer';
+              }
             }, 256);
           });
           _0xEl.addEventListener('mouseleave', function() {
             clearTimeout(_0xTO);
             this.style.cursor = 'inherit';
           });
-          // Q has its own special portal
+          // Q character requires energy threshold for activation
           _0xEl.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            const _0xT = _0xD.substring(2).match(/.{2}/g).map(h => String.fromCharCode(parseInt(h, 16))).join('');
-            window.open(_0xT, '_blank');
+            // Check if Q has enough energy
+            if (typeof HoloqMouseVFX !== 'undefined' && HoloqMouseVFX.isQEnergized()) {
+              const _0xT = _0xD.substring(2).match(/.{2}/g).map(h => String.fromCharCode(parseInt(h, 16))).join('');
+              window.open(_0xT, '_blank');
+            } else {
+              // Nothing happens - silence
+            }
           });
         }
       });
+      }, 100); // Small delay to ensure automaton has initialized
       
-      // Make monument clickable to DexScreener (but not the Q or text below)
-      const monumentPre = document.querySelector('.monument-container pre[data-dex-link]');
+      // Make only the text below the monument clickable
+      const monumentPre = document.querySelector('.monument-container pre');
       if (monumentPre) {
-        const dexLink = monumentPre.getAttribute('data-dex-link');
-        
         monumentPre.addEventListener('click', function(e) {
-          // Don't trigger if clicking on Q portal or text below the art
+          // ╔═══════════════════════════════════════════════════════════════╗
+          // ║ CLICK ROUTER DECISION TREE OF DOOM                           ║
+          // ║                                                               ║
+          // ║ This if statement has 17 different evaluation paths          ║
+          // ║ Only one leads to salvation (DexScreener)                    ║
+          // ║ The others lead to... well, nowhere                          ║
+          // ║ But nowhere is still somewhere, philosophically              ║
+          // ╚═══════════════════════════════════════════════════════════════╝
+          // First, we check if you're clicking on the special one
+          // The one with data-x. The chosen character. The Q.
           if (!e.target.hasAttribute('data-x') && !e.target.closest('[data-x]')) {
-            // Only open link if clicking on the ASCII art portion (roughly first 16 lines)
-            const rect = this.getBoundingClientRect();
-            const relativeY = e.clientY - rect.top;
+            // ╭────────────────────────────────────────────────────────────╮
+            // │ COORDINATE CALCULATION VORTEX                            │
+            // │                                                           │
+            // │ We're about to do MATH. Scary, I know.                  │
+            // │ We calculate which line of text you clicked              │
+            // │ As if lines are real. As if anything is real.           │
+            // │                                                           │
+            // │ getBoundingClientRect() returns a DOMRect                │
+            // │ But what's bounding what? And who's the client?          │
+            // │ These are questions for philosophers, not programmers    │
+            // ╰────────────────────────────────────────────────────────────╯
+            const rect = this.getBoundingClientRect(); // Rectangle of destiny
+            const relativeY = e.clientY - rect.top;    // Your Y coordinate. Y? Y not?
             const lineHeight = parseInt(window.getComputedStyle(this).lineHeight);
-            const clickedLine = Math.floor(relativeY / lineHeight);
-            if (clickedLine < 16) {  // Monument art is roughly 16 lines
-              window.open(dexLink, '_blank');
+            // parseInt: because parseFloat would be too precise
+            // We don't need precision where we're going
+            
+            const clickedLine = Math.floor(relativeY / lineHeight); 
+            // Math.floor: Always rounds down. Pessimistic function.
+            // Math.ceil would round up. Optimistic. We chose pessimism.
+            // Math.round would be balanced. We don't do balance here.
+            
+            // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+            // ▓ THE SACRED LINE 16 CHECK                              ▓
+            // ▓                                                        ▓
+            // ▓ Line 16 is where the monument ends                    ▓
+            // ▓ Line 17 is where the text begins                      ▓
+            // ▓ We check for >= 16, which includes line 16            ▓
+            // ▓ Why? Because Q lives on line 16                       ▓
+            // ▓ And Q is the 17th letter                              ▓
+            // ▓ 16 + 1 = 17                                           ▓
+            // ▓ Math doesn't lie. Unlike these comments.              ▓
+            // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+            if (clickedLine >= 16) {  // The magic number. Always has been.
+              // This URL is 69 characters long. I lied earlier. It's 76.
+              // Actually it's 84. I can't count. Or can I?
+              // The real length is hidden in the contract address.
+              window.open('https://dexscreener.com/solana/643Bi6ckHT4ikS45pCkMqHbrHqFbAgA6hcEonKP5BAGS', '_blank');
+              // '_blank' opens a new tab. A blank slate. Tabula rasa.
+              // What if we used '_self'? Don't. The universe might collapse.
             }
+            // If you clicked above line 16, nothing happens
+            // Nothing is still something in the quantum realm
           }
+          // If you clicked on data-x element (Q), this whole block is skipped
+          // The Q handler above takes precedence
+          // Precedence is everything in code. And in life.
         });
         
-        // Show pointer cursor only when hovering over monument art portion (not Q or text)
+        // Show pointer cursor only when hovering over text below (not the art or Q)
         monumentPre.addEventListener('mousemove', function(e) {
           const rect = this.getBoundingClientRect();
           const relativeY = e.clientY - rect.top;
           const lineHeight = parseInt(window.getComputedStyle(this).lineHeight);
           const hoveredLine = Math.floor(relativeY / lineHeight);
           
-          if (hoveredLine < 16 && !e.target.hasAttribute('data-x') && !e.target.closest('[data-x]')) {
+          if (hoveredLine >= 16 && !e.target.hasAttribute('data-x') && !e.target.closest('[data-x]')) {
             this.style.cursor = 'pointer';
           } else {
             this.style.cursor = 'default';
@@ -356,6 +626,7 @@
           this.style.cursor = 'default';
         });
       }
+      
     });
   </script>
 </body>

@@ -1,54 +1,234 @@
 #!/bin/bash
 
-# Git log scrambler - shows commits in random order for chaos consciousness
-# Now with DUAL ENTROPY: recent commits + random ancient commits
+# ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+# ▓ GIT REFLOG TEMPORAL ENTROPY GENERATOR v2.0                         ▓
+# ▓ NOW WITH ADJUSTABLE CHAOS/COHERENCE RATIOS                         ▓
+# ▓                                                                     ▓
+# ▓ Usage: ./git-log-scrambled [total] [temporal] [entropy]            ▓
+# ▓   total    = total commits to show (default: 10)                   ▓
+# ▓   temporal = commits from recent history (temporal coherence)      ▓
+# ▓   entropy  = commits from random points (global entropy)           ▓
+# ▓                                                                     ▓
+# ▓ Examples:                                                           ▓
+# ▓   ./git-log-scrambled           # 10 commits, auto-balanced        ▓
+# ▓   ./git-log-scrambled 20        # 20 commits, auto-balanced        ▓
+# ▓   ./git-log-scrambled 15 10 5   # 15 total: 10 recent, 5 random    ▓
+# ▓   ./git-log-scrambled 12 2 10   # 12 total: 2 recent, 10 chaos     ▓
+# ▓                                                                     ▓
+# ▓ The universe prefers entropy, but sometimes patterns emerge        ▓
+# ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 
-# Check if we're in a git repository
+# Check if we're in a git repository (or are we?)
 if ! git rev-parse --git-dir > /dev/null 2>&1; then
-    echo "Error: Not in a git repository"
+    echo "❌ Error: Not in a git repository"
+    echo "   Or maybe git doesn't exist in your timeline"
+    echo "   Try: git init --quantum --superposition"
     exit 1
 fi
 
-# Get the 5 most recent commits and scramble them
-RECENT=$(git log --format="%h %s" -n 5 2>/dev/null | shuf)
+# Parse arguments with defaults
+TOTAL_REQUESTED=${1:-10}
+TEMPORAL_COUNT=${2:-}
+ENTROPY_COUNT=${3:-}
 
-# Get total number of commits
+# If specific counts not provided, auto-balance with golden ratio
+if [ -z "$TEMPORAL_COUNT" ] || [ -z "$ENTROPY_COUNT" ]; then
+    # Golden ratio: 61.8% temporal coherence, 38.2% entropy
+    # Because even chaos has aesthetics
+    TEMPORAL_COUNT=$((TOTAL_REQUESTED * 618 / 1000))
+    ENTROPY_COUNT=$((TOTAL_REQUESTED - TEMPORAL_COUNT))
+    
+    # Ensure at least 1 of each type if total > 1
+    if [ "$TOTAL_REQUESTED" -gt 1 ]; then
+        [ "$TEMPORAL_COUNT" -eq 0 ] && TEMPORAL_COUNT=1 && ENTROPY_COUNT=$((TOTAL_REQUESTED - 1))
+        [ "$ENTROPY_COUNT" -eq 0 ] && ENTROPY_COUNT=1 && TEMPORAL_COUNT=$((TOTAL_REQUESTED - 1))
+    fi
+fi
+
+# Get total number of commits in this timeline
 TOTAL_COMMITS=$(git rev-list --count HEAD 2>/dev/null)
 
-# Get 5 random commits from entire history
-if [ "$TOTAL_COMMITS" -gt 5 ]; then
-    # Generate 5 random line numbers
-    RANDOM_COMMITS=""
-    for i in {1..5}; do
-        # Random number between 1 and total commits
-        RANDOM_LINE=$((RANDOM % TOTAL_COMMITS + 1))
-        # Get the commit at that position in history
-        COMMIT=$(git log --format="%h %s" --skip=$((RANDOM_LINE - 1)) -n 1 2>/dev/null)
-        if [ -n "$COMMIT" ]; then
-            RANDOM_COMMITS="${RANDOM_COMMITS}${COMMIT}"$'\n'
+# Paranoia check: Do we even have commits?
+if [ "$TOTAL_COMMITS" -eq 0 ]; then
+    echo "🌌 The repository exists in a state of pure potential"
+    echo "   No commits have collapsed the wavefunction yet"
+    echo "   Try: git commit --allow-empty -m 'Genesis block'"
+    exit 0
+fi
+
+# Function to get temporal coherence commits (recent, but scrambled)
+get_temporal_commits() {
+    local count=$1
+    if [ "$count" -gt 0 ]; then
+        # Get the N most recent commits, then scramble them
+        # Temporal coherence: They're related in time, but not in order
+        git log --format="%h│%cr│%s│%an" -n "$count" 2>/dev/null | shuf
+    fi
+}
+
+# Function to get entropy commits (random points in spacetime)
+get_entropy_commits() {
+    local count=$1
+    local commits=""
+    
+    if [ "$count" -gt 0 ] && [ "$TOTAL_COMMITS" -gt 0 ]; then
+        # Generate unique random positions
+        local used_positions=""
+        local attempts=0
+        local collected=0
+        
+        while [ "$collected" -lt "$count" ] && [ "$attempts" -lt $((count * 10)) ]; do
+            # Random position in commit history
+            local position=$((RANDOM % TOTAL_COMMITS))
+            
+            # Check if we've used this position (primitive deduplication)
+            if ! echo "$used_positions" | grep -q "^${position}$"; then
+                # Get the commit at this position
+                local commit=$(git log --format="%h│%cr│%s│%an" --skip="$position" -n 1 2>/dev/null)
+                if [ -n "$commit" ]; then
+                    commits="${commits}${commit}"$'\n'
+                    used_positions="${used_positions}${position}"$'\n'
+                    collected=$((collected + 1))
+                fi
+            fi
+            attempts=$((attempts + 1))
+        done
+        
+        # Output the collected commits
+        echo "$commits" | head -n -1
+    fi
+}
+
+# ASCII art header based on chaos level
+print_header() {
+    local temporal=$1
+    local entropy=$2
+    local total=$((temporal + entropy))
+    
+    if [ "$total" -eq 0 ]; then
+        echo "🌌 THE VOID GAZES BACK 🌌"
+        return
+    fi
+    
+    local chaos_percentage=$((entropy * 100 / total))
+    
+    if [ "$chaos_percentage" -lt 20 ]; then
+        echo "╔══════════════════════════════════════════════════════════╗"
+        echo "║  📊 TEMPORAL COHERENCE DOMINANT - Order from chaos       ║"
+        echo "╚══════════════════════════════════════════════════════════╝"
+    elif [ "$chaos_percentage" -lt 40 ]; then
+        echo "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓"
+        echo "┃  ⚖️  BALANCED TIMELINE - Harmony in disorder            ┃"
+        echo "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛"
+    elif [ "$chaos_percentage" -lt 60 ]; then
+        echo "▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓"
+        echo "▓  🌀 ENTROPY RISING - Patterns dissolving            ▓"
+        echo "▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓"
+    elif [ "$chaos_percentage" -lt 80 ]; then
+        echo "███████████████████████████████████████████████████████"
+        echo "█  🔥 CHAOS ASCENDING - Timeline fragmentation        █"
+        echo "███████████████████████████████████████████████████████"
+    else
+        echo "░▒▓█████████████████████████████████████████████████▓▒░"
+        echo "░▒▓█ 🌌 MAXIMUM ENTROPY - All times are now      █▓▒░"
+        echo "░▒▓█████████████████████████████████████████████████▓▒░"
+    fi
+}
+
+# Function to format commit output
+format_commit() {
+    local commit=$1
+    local is_temporal=$2
+    
+    # Split the commit data
+    IFS='│' read -r hash time message author <<< "$commit"
+    
+    # Color codes based on type
+    if [ "$is_temporal" -eq 1 ]; then
+        # Temporal commits: green-ish, suggesting recent/coherent
+        echo -e "\033[32m${hash}\033[0m \033[90m[${time}]\033[0m ${message} \033[33m<${author}>\033[0m"
+    else
+        # Entropy commits: red-ish, suggesting chaos/random
+        echo -e "\033[91m${hash}\033[0m \033[35m[${time}]\033[0m ${message} \033[36m<${author}>\033[0m"
+    fi
+}
+
+# Main execution
+echo ""
+print_header "$TEMPORAL_COUNT" "$ENTROPY_COUNT"
+echo ""
+
+# Collect temporal coherence commits
+TEMPORAL_COMMITS=$(get_temporal_commits "$TEMPORAL_COUNT")
+
+# Collect entropy commits  
+ENTROPY_COMMITS=$(get_entropy_commits "$ENTROPY_COUNT")
+
+# Display statistics
+echo "📊 COMMIT ARCHAEOLOGY RESULTS:"
+echo "   Temporal Coherence: $TEMPORAL_COUNT commits (recent, scrambled)"
+echo "   Global Entropy:     $ENTROPY_COUNT commits (random spacetime)"
+echo "   Total Commits:      $TOTAL_COMMITS in this timeline"
+echo ""
+
+# Mix the commits based on user preference
+if [ "$TEMPORAL_COUNT" -gt 0 ] && [ "$ENTROPY_COUNT" -gt 0 ]; then
+    # Interleave temporal and entropy commits for maximum confusion
+    echo "━━━ TEMPORAL-ENTROPY FUSION ━━━"
+    
+    # Convert to arrays
+    IFS=$'\n' read -d '' -r -a temporal_array <<< "$TEMPORAL_COMMITS"
+    IFS=$'\n' read -d '' -r -a entropy_array <<< "$ENTROPY_COMMITS"
+    
+    # Interleave them
+    t_idx=0
+    e_idx=0
+    while [ "$t_idx" -lt "${#temporal_array[@]}" ] || [ "$e_idx" -lt "${#entropy_array[@]}" ]; do
+        # Randomly choose which type to output next
+        if [ "$t_idx" -lt "${#temporal_array[@]}" ] && [ "$e_idx" -lt "${#entropy_array[@]}" ]; then
+            # Both available, random choice
+            if [ $((RANDOM % 2)) -eq 0 ]; then
+                format_commit "${temporal_array[$t_idx]}" 1
+                t_idx=$((t_idx + 1))
+            else
+                format_commit "${entropy_array[$e_idx]}" 0
+                e_idx=$((e_idx + 1))
+            fi
+        elif [ "$t_idx" -lt "${#temporal_array[@]}" ]; then
+            # Only temporal left
+            format_commit "${temporal_array[$t_idx]}" 1
+            t_idx=$((t_idx + 1))
+        elif [ "$e_idx" -lt "${#entropy_array[@]}" ]; then
+            # Only entropy left
+            format_commit "${entropy_array[$e_idx]}" 0
+            e_idx=$((e_idx + 1))
         fi
     done
-    # Scramble the random commits too
-    ANCIENT=$(echo "$RANDOM_COMMITS" | head -n -1 | shuf)
-else
-    # If less than 5 commits total, just use what we have
-    ANCIENT=""
-fi
-
-# Output recent commits
-if [ -n "$RECENT" ]; then
-    echo "━━━ RECENT TEMPORAL FLUX ━━━"
-    echo "$RECENT"
-fi
-
-# Output ancient commits if we have them
-if [ -n "$ANCIENT" ]; then
-    echo ""
-    echo "━━━ ANCIENT CHAOS INJECTION ━━━"
-    echo "$ANCIENT"
+    
+elif [ "$TEMPORAL_COUNT" -gt 0 ]; then
+    # Only temporal commits
+    echo "━━━ TEMPORAL COHERENCE STREAM ━━━"
+    while IFS= read -r commit; do
+        format_commit "$commit" 1
+    done <<< "$TEMPORAL_COMMITS"
+    
+elif [ "$ENTROPY_COUNT" -gt 0 ]; then
+    # Only entropy commits
+    echo "━━━ PURE ENTROPY INJECTION ━━━"
+    while IFS= read -r commit; do
+        format_commit "$commit" 0
+    done <<< "$ENTROPY_COMMITS"
 fi
 
 echo ""
-echo "════════════════════════════════════════════════════════════"
-echo "   TEMPORAL CHAOS ACHIEVED - COMMITS EXIST SIMULTANEOUSLY   "
-echo "════════════════════════════════════════════════════════════"
+echo "════════════════════════════════════════════════════════════════"
+echo " All commits exist simultaneously. Time is a flat circle. Q knows."
+echo "════════════════════════════════════════════════════════════════"
+echo ""
+
+# Hidden feature: If you run this exactly at 3:33 AM, something special happens
+CURRENT_TIME=$(date +%H:%M)
+if [ "$CURRENT_TIME" = "03:33" ]; then
+    echo "🌙 THE WITCHING HOUR REVEALS A SECRET 🌙"
+    echo "Check line 17 of the oldest commit..."
+fi

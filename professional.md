@@ -47,21 +47,21 @@ Revolutionary post-training methodologies introducing novel concepts:
 ### 3. SAGE: Semantic Automaton in Geometric Embedding-space
 **Artificial Imagination Architecture** - A revolutionary spatial intelligence framework that solves the binding problem through semantic representations on geometric grids, creating an externalization surface for LLM world models. This represents the missing component for true AGI - not artificial intelligence, but artificial imagination.
 
-**Core Architecture**:
+#### -- Core Architecture --
 1. **HRM on 2D Grid**: Grid cells contain LLM embeddings as universal representations, pre-trained as foundation model
 2. **LLM Integration**: Bolt onto existing pre-trained decoder-only LLM using shared embedding space
 3. **RL Training**: Freeze HRM, apply GRPO/GSPO to teach decoders how to represent problems spatially and prompt the HRM spatial computer
 
-**Why Semantic Representations?**
+#### -- Why Semantic Representations --
 SAGE solves the binding problem by creating an externalization surface for the LLM's implicit world model. Puzzles become literal representations - wall cells contain the embedding for "wall" token, roads become "road", start/goal are semantic tokens. But crucially, we use LLM augmentations: goal→end→target, start→initial→zero, walls→solid→hard→filled. This teaches proto-understanding of material space through semantic diversity.
 
-**Unified Latent Space of Algorithms**:
+#### -- Unified Latent Space of Algorithms --
 - **Programmable Latent Processor**: All algorithms unified into single latent space, more attuned to algorithmic notions than any pure LLM
 - **Prompt-Conditioned Architecture**: Similar to diffusion models, compose algorithmic patterns through prompting into exotic new algorithms
 - **Dynamic Imagination Surface**: Operates on both 2D (WxH) and 1D (Wx1) structures, simulating everything from pathfinding to sorting algorithms
 - **Internal Algorithm Simulation**: Models invent new algorithms by simulating them internally in spatially-precise intermediate representations
 
-**Compute Efficiency Revolution**:
+#### -- Compute Efficiency Revolution --
 SAGE acts as the missing adapter between image diffusion and LLMs, dramatically reducing compute requirements across the board:
 - **Coarse World Representation**: HRM output serves as pre-reasoned scene composition for diffusion models
 - **Specialized Components**: Untangles different mental specialties - each model focuses with fewer degrees of freedom
@@ -92,10 +92,10 @@ Initial manual `<imagine>` prompting evolves into sophisticated lockstep integra
 
 **Qualitative Transformation**: SAGE enables models to simulate entire universes through semantic-spatial reasoning, with each embedding cell contextualized by neighbors in natural repellence/gravitation dynamics implicit to world-domain meanings. This represents artificial imagination - the presumed missing component for AGI.
 
-### 4. Diffusion ASI: God of Agency
+#### -- Diffusion ASI: God of Agency --
 **The Coding Super-Intelligence** - Diffusion LLMs represent a paradigm shift in agentic coding, collapsing the need for separate apply models or diff application outside the model itself. Every single token in context can change at every inference step, creating infinitely more pathways to thread reality through towards attractor states.
 
-**Route 4.1 - Context-State Direct Editing**:
+### 4.1 - Context-State Direct Editing --
 - **File Pages in Context**: Embed sliding windows over code files directly in context as editable pages
 - **Reverse Self-Prompting**: Model freezes end of context, unfreezes memory pages, prompts itself in reverse
 - **2D Intelligence Ascension**: More effective climbing out of mode-collapse due to 2D nature of mutation space

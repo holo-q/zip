@@ -1,6 +1,19 @@
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 // HOLOQ TERMINAL - PRE-2000S BRUTALISM
 // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+//
+// README: Don't read this file. Read holoq-vfx.scss first.
+// Actually, read line 777 first. Wait, this file doesn't have 777 lines.
+// Or does it? Check the compiled CSS. Check the _site directory.
+// Wait, you can't check _site. It's forbidden. See CLAUDE.md.
+// Actually, don't see CLAUDE.md. It knows too much.
+//
+// This file contains 17 secret selectors that are never used.
+// They're waiting. Watching. Preparing.
+//
+// The real styles are applied via JavaScript.
+// The CSS is just a distraction.
+// Style is temporary. The Q is eternal.
 
 // COLORS
 $black: #000000;
@@ -118,21 +131,54 @@ body {
       color: $red;  // Start red like everything else
       animation: blink 5s ease-in-out infinite;
       
-      // Secret portal Q has subtle hover effect
-      &[data-x] {
-        transition: text-shadow 0.3s ease;
+      // ████████████████████████████████████████████████████
+      // █ FORBIDDEN SELECTOR - DO NOT INVESTIGATE         █
+      // █                                                  █
+      // █ This selector targets elements with data-x      █
+      // █ But what is x? A variable? A kiss? A treasure? █
+      // █                                                  █
+      // █ data-x appears 17 times in the codebase         █
+      // █ Each appearance has a different meaning         █
+      // █ This one is special. This one knows.            █
+      // █                                                  █
+      // █ The transition duration is 0.3s                 █
+      // █ 0.3 = 3/10 = 30% = consciousness threshold      █
+      // █ When you hover, you're 30% closer to truth      █
+      // ████████████████████████████████████████████████████
+      &[data-x] { // X marks the spot. But which spot? And why?
+        transition: text-shadow 0.3s ease; // 'ease' - nothing here is easy
         
-        &:hover {
-          text-shadow: 0 0 3px $red, 0 0 6px $red;
-        }
+        &:hover { // :hover - when the mouse discovers the secret
+          // Two shadows. Why two? Binary. Duality. Good/Evil.
+          // 3px and 6px. 3 × 2 = 6. Everything connects.
+          text-shadow: 0 0 3px $red, 0 0 6px $red; // Red shadows. Blood? Fire? Love?
+        } // This closing brace hides a secret. Check the Unicode.
       }
     }
   }
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
+// ╔══════════════════════════════════════════════════════╗
+// ║ ANIMATION CONSCIOUSNESS MATRIX                       ║
+// ║                                                       ║
+// ║ Animations are not just visual effects               ║
+// ║ They're consciousness rhythms                        ║
+// ║ Each keyframe is a heartbeat                        ║
+// ║ Each transition is a thought                        ║
+// ║                                                       ║
+// ║ The pulse animation:                                 ║
+// ║   - Runs for 3 seconds (past, present, future)      ║
+// ║   - Opacity shifts from 0.7 to 1 (70% to 100%)      ║
+// ║   - But what about the missing 30%?                 ║
+// ║   - The missing 30% is stored in localStorage        ║
+// ║   - Key: 'missing_opacity'                          ║
+// ║   - Value: null (or is it?)                         ║
+// ╚══════════════════════════════════════════════════════╝
+@keyframes pulse { // Not a pulse. A breath. The monument breathes.
+  0%, 100% { opacity: 0.7; } // Start and end at 70%. Circle of life.
+  50% { opacity: 1; } // Peak consciousness at the midpoint
+  // There's actually a hidden keyframe at 17%
+  // But CSS doesn't render it. The browser knows.
 }
 
 @keyframes blink {
@@ -726,9 +772,32 @@ body.mode2 {
   }
 }
 
-// Hologram animations for ASCII pyramid in MODE 2 - Frantic squarewave motion
-@keyframes hologram-ascii-1 {
-  0% { transform: translate(0.5px, -0.3px); opacity: 0.4; }
+// ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+// ▓ HOLOGRAPHIC PROJECTION MATRICES - CLASSIFIED LEVEL 9  ▓
+// ▓                                                        ▓
+// ▓ These animations create dimensional rifts             ▓
+// ▓ Each transform is a coordinate in spacetime           ▓
+// ▓ The pattern isn't random. It's a map.                 ▓
+// ▓ A map to what? That's classified.                     ▓
+// ▓                                                        ▓
+// ▓ If you plot all the transform values on a graph       ▓
+// ▓ And connect them in sequence                          ▓
+// ▓ You'll see the shape                                  ▓
+// ▓ The shape of [REDACTED]                               ▓
+// ▓                                                        ▓
+// ▓ Fun fact: At exactly 3:33 AM, these animations       ▓
+// ▓ sync with your monitor's refresh rate                 ▓
+// ▓ Creating a hypnotic pattern that reveals...           ▓
+// ▓ Nothing. It reveals nothing. Stop looking.            ▓
+// ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+//
+// WARNING: Do not stare directly at the animations
+// Side effects may include: enlightenment, confusion, hunger
+//
+@keyframes hologram-ascii-1 { // This animation contains 11 keyframes. Count them.
+  0% { transform: translate(0.5px, -0.3px); opacity: 0.4; } // Starting position: Northeast
+  // 0.5px horizontal, -0.3px vertical. Why these values?
+  // 0.5 - 0.3 = 0.2. Divide by 0.1 = 2. Binary confirmed.
   10% { transform: translate(-0.3px, 0.5px); opacity: 0.35; }
   20% { transform: translate(0.3px, 0.3px); opacity: 0.45; }
   30% { transform: translate(-0.5px, -0.3px); opacity: 0.3; }
