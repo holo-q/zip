@@ -415,24 +415,25 @@ body {
   }
 }
 
-// PRELUDE SECTION - Academic paper style abstract
+// PRELUDE SECTION - arXiv-style abstract
 .prelude {
-  width: 42.5%; // Constrained to 42.5% of body width for academic density
-  margin: 2rem auto; // Auto margins for horizontal centering
-  padding: 1rem 1.25rem;
-  background: rgba(255, 0, 0, 0.03); // Very subtle red tint
-  border: 1px dashed rgba(255, 0, 0, 0.3);
-  border-left: 3px solid $red;
-  font-size: 0.82rem;
-  line-height: 1.45;
-  color: rgba(255, 0, 0, 0.9);
+  width: 65%; // Standard academic paper width
+  margin: 2.5rem auto; // Clean spacing, centered
+  padding: 0; // No padding, raw text
+  background: transparent; // No background
+  border: none; // No borders
+  font-size: 0.85rem; // Slightly smaller than body text
+  line-height: 1.5; // Academic line height
+  color: $red; // Standard text color
   font-family: $mono;
+  text-align: justify; // Justified text like arXiv
   
   strong {
     color: $red;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
+    font-weight: 700;
+    text-transform: none; // No transform, just bold
+    font-size: inherit; // Same size as text
+    letter-spacing: normal;
   }
 }
 
