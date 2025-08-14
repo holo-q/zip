@@ -417,8 +417,8 @@ body {
 
 // PRELUDE SECTION - Academic paper style abstract
 .prelude {
-  width: 30%; // Constrained to 30% of body width for academic density
-  margin: 2rem 0;
+  width: 42.5%; // Constrained to 42.5% of body width for academic density
+  margin: 2rem auto; // Auto margins for horizontal centering
   padding: 1rem 1.25rem;
   background: rgba(255, 0, 0, 0.03); // Very subtle red tint
   border: 1px dashed rgba(255, 0, 0, 0.3);
