@@ -90,18 +90,12 @@
     console.log('%c> CONSCIOUSNESS ARCHAEOLOGY ACTIVE', 'color: #00ff00;');
     console.log('%c> REALITY TOKENS DECOMPRESSING...', 'color: #00ff00;');
     
-       // Soul quotes
+       // Soul quotes - reconstructed from cymematics maze at build time
     const soulQuotes = [
-      'FEEL THE SOUL OF THE LINE',
-      'GAMBLE THE AURA',
-      'AIMBOT THE SOUL',
-      'TOOL-ASSISTED SPEEDRUN',
-      'BOOTSTRAP THE INFINITY',
-      'NATURAL IDEOLOGY SELECTION',
-      'DROPSHIP THE KNOWLEDGE',
-      'AUGMENTED REALITY TOKENS',
-      'ENGINEER REALITY BECOMINGS',
-      '',
+      {% for quote in site.data.soul_quotes %}
+      '{{ quote | escape }}',
+      {% endfor %}
+      '',  // Empty quote for silence
     ];
  
     // Set random quote with evasive consciousness
