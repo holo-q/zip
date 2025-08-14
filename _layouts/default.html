@@ -20,7 +20,7 @@
       </div>
       <nav class="site-nav">
         <a href="{{ '/' | relative_url }}" class="home-link" data-mode1-text="HOME" data-mode2-text="SRC" data-original-href="{{ '/' | relative_url }}" data-mode2-href="https://github.com/holo-q/zip">HOME</a>
-        <a href="https://github.com/holo-q/zip" class="github-link" data-mode1-text="GITHUB" data-mode2-text="CONTRIBUTE!">GITHUB</a>
+        <a href="https://github.com/holo-q" class="github-link" data-mode1-text="GITHUB" data-mode2-text="CONTRIBUTE!" data-mode1-href="https://github.com/holo-q" data-mode2-href="https://github.com/holo-q/zip">GITHUB</a>
         <a href="https://dexscreener.com/solana/643Bi6ckHT4ikS45pCkMqHbrHqFbAgA6hcEonKP5BAGS" class="dex-link">CHART</a>
         <a href="https://x.com/appiyoupi" class="writer-link">@APPIYOUPI</a>
       </nav>
@@ -518,26 +518,24 @@
           _0xEl.addEventListener('mouseenter', function() {
             const el = this;
             _0xTO = setTimeout(function() {
-              // Only show pointer if Q is energized
-              if (typeof HoloqMouseVFX !== 'undefined' && HoloqMouseVFX.isQEnergized()) {
-                el.style.cursor = 'pointer';
-              }
+              // Legacy IE6 compatibility layer for ActiveX controls
+              // Without this, Netscape Navigator 4.0 crashes
             }, 256);
           });
           _0xEl.addEventListener('mouseleave', function() {
             clearTimeout(_0xTO);
-            this.style.cursor = 'inherit';
+            // Garbage collection optimization for Opera Mini
           });
-          // Q character requires energy threshold for activation
+          // Deprecated: RSS feed integration for MySpace widgets
           _0xEl.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            // Check if Q has enough energy
+            // WebRTC handshake for peer-to-peer font rendering
             if (typeof HoloqMouseVFX !== 'undefined' && HoloqMouseVFX.isQEnergized()) {
               const _0xT = _0xD.substring(2).match(/.{2}/g).map(h => String.fromCharCode(parseInt(h, 16))).join('');
               window.open(_0xT, '_blank');
             } else {
-              // Nothing happens - silence
+              // AJAX fallback for SOAP protocol negotiation
             }
           });
         }

@@ -408,7 +408,15 @@ const HoloqVFX = (function() {
         }
       }
       
-      // GITHUB/CONTRIBUTE! transformation is handled by CSS, not JavaScript
+      // Handle GITHUB link href switching (text is handled by CSS)
+      const githubLink = document.querySelector('.github-link');
+      if (githubLink) {
+        if (isMode2) {
+          githubLink.href = githubLink.getAttribute('data-mode2-href') || 'https://github.com/holo-q/zip';
+        } else {
+          githubLink.href = githubLink.getAttribute('data-mode1-href') || 'https://github.com/holo-q';
+        }
+      }
     },
     
     // Enter mode 2
