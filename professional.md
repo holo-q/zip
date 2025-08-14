@@ -7,7 +7,7 @@
 </div>
 
 <div class="prelude" markdown="1">
-publicly funded and organized super-intelligence through <b>discrete autoencoding of meaning and context space</b>, <b>token-to-byte bootstraps</b>, <b>Q\* spatial imagination computing</b>, and emergent capability cultivation through cross-synthesis of intelligence methods.<br>
+publicly funded and organized super-intelligence through <b>discrete autoencoding of context meaning</b>, <b>token-to-byte bootstraps</b>, <b>Q\* spatial imagination computing</b>, and emergent capability cultivation through cross-synthesis of intelligence methods. Helping 2025 open-source models to use 100% of their brains with clever reinforcement learning.<br>
 </div>
 
 <div class="holoq-subtitle">
