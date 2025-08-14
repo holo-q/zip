@@ -453,11 +453,25 @@ body.mode2 {
     }
   }
   
-  // Change @RYUNUCK to WRITER in mode 2
+  // Change @APPIYOUPI to CODER in mode 2
   .writer-link {
     font-size: 0;
     &::after {
-      content: 'WRITER';
+      content: 'CODER';
+      font-size: 0.8rem;
+      color: $red;
+    }
+    &:hover::after {
+      background: $red;
+      color: $black;
+    }
+  }
+  
+  // Change GITHUB to CONTRIBUTE! in mode 2
+  .github-link {
+    font-size: 0;
+    &::after {
+      content: 'CONTRIBUTE!';
       font-size: 0.8rem;
       color: $red;
     }

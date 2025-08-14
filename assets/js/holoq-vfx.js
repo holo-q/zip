@@ -407,6 +407,16 @@ const HoloqVFX = (function() {
           homeLink.href = homeLink.getAttribute('data-original-href') || '/';
         }
       }
+      
+      // Handle GITHUB/CONTRIBUTE! transformation
+      const githubLink = document.querySelector('.github-link');
+      if (githubLink) {
+        if (isMode2) {
+          githubLink.textContent = githubLink.getAttribute('data-mode2-text') || 'CONTRIBUTE!';
+        } else {
+          githubLink.textContent = githubLink.getAttribute('data-mode1-text') || 'GITHUB';
+        }
+      }
     },
     
     // Enter mode 2
