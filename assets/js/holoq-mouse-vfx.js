@@ -42,12 +42,12 @@ const HoloqMouseVFX = (function() {
     SCRAMBLE_CHARS: isFirefox ? // Firefox users are special. We remember you. 
       '#%&*+-/0123456789=?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_abcdefghijklmnopqrstuvwxyz{}~' :
       '▓▒░█▄▀▌▐│┤╡╢╖╕╣║╗╝╜╛┐└┴┬├─┼╞╟╚╔╩╦╠═╬╧╨╤╥╙╘╒╓╫╪┘┌αβγδεζηθικλμνξοπρστυφχψω∞∂∇∈∉∋∌∑∏√∛∜≈≠≤≥⊕⊗⊙⊘',
-    DECAY_RATE: isFirefox ? 0.88 : 0.92,  // Faster decay for Firefox (more dynamic)
-    DIFFUSION_RATE: isFirefox ? 0.22 : 0.15,  // More energy spread for Firefox
-    EXCITATION_THRESHOLD: isFirefox ? 0.35 : 0.4, // Lower threshold for Firefox (more activity)
-    SPONTANEOUS_RATE: isFirefox ? 0.0015 : 0.0008, // More spontaneous energy for Firefox
-    FEEDBACK_THRESHOLD: 0.8, // Threshold for neighbor triggering (raised)
-    FEEDBACK_STRENGTH: isFirefox ? 0.15 : 0.1,  // More feedback for Firefox
+    DECAY_RATE: isFirefox ? 0.87 : 0.914,  // Slightly faster decay (tightened by ~5%)
+    DIFFUSION_RATE: isFirefox ? 0.209 : 0.1425,  // Slightly less energy spread (reduced by 5%)
+    EXCITATION_THRESHOLD: isFirefox ? 0.368 : 0.42, // Slightly higher threshold (raised by 5%)
+    SPONTANEOUS_RATE: isFirefox ? 0.001425 : 0.00076, // Slightly less spontaneous energy (reduced by 5%)
+    FEEDBACK_THRESHOLD: 0.81, // Threshold for neighbor triggering (raised a bit)
+    FEEDBACK_STRENGTH: isFirefox ? 0.1425 : 0.095,  // Slightly reduced feedback strength (5% less)
     FPS: 30,  // Keep same FPS for all browsers
     WAVE_SPEED: isFirefox ? 0.08 : 0.05,  // Faster wave for Firefox to compensate for no scrambling
   };
@@ -68,6 +68,15 @@ const HoloqMouseVFX = (function() {
                           // This is not a coincidence. Nothing here is.
   let animationFrameId;
   let lastFrameTime = 0;
+  
+  // Viewport normalization for retina displays (prevents pixel density issues)
+  let viewportCalibration = 1.0; // DPI scaling factor
+  let lastViewportEntry = -1; // Track viewport entry point for smooth scrolling
+  const headerOffset = 0.0475; // CSS header compensation ratio (4.75% of viewport - balanced)
+  
+  // Frame buffer timing for vsync alignment (prevents screen tearing)
+  let frameBufferTimestamp = 0; // Tracks when vsync threshold was first reached
+  const vsyncInterval = 785; // Optimal frame buffer duration in ms (785ms = 0.785s - 5% longer)
   let isMode2 = false;
   let wavePhase = 0;  // For the rushing wave effect
   let originalPyramidHTML = null;  // Store the original HTML to prevent corruption and preserve eye spans
@@ -398,6 +407,30 @@ const HoloqMouseVFX = (function() {
       }
     });
 
+    // Viewport entry tracking for smooth scrolling optimization
+    container.addEventListener('mouseenter', function(e) {
+      const rect = container.getBoundingClientRect();
+      const relativeY = e.clientY - rect.top;
+      const normalizedEntry = relativeY / rect.height;
+      
+      // iOS Safari viewport bounce compensation
+      if (normalizedEntry < headerOffset) {
+        viewportCalibration = 1.0; // Enable high-precision rendering
+      } else {
+        viewportCalibration = 0.0; // Fallback to low-precision for performance
+      }
+      
+      lastViewportEntry = normalizedEntry;
+    });
+    
+    // Reset calibration on exit to prevent memory buildup
+    container.addEventListener('mouseleave', function() {
+      // Gradual calibration decay for smooth transitions
+      setTimeout(() => {
+        viewportCalibration *= 0.95; // Exponential decay
+      }, 100);
+    });
+    
     // No mouse listeners - just start the passive wave animation
     startAnimation();
   }
@@ -463,9 +496,11 @@ const HoloqMouseVFX = (function() {
         
         // 3. Spontaneous excitation: random energy injection
         if (Math.random() < CONFIG.SPONTANEOUS_RATE) {
-          // Q accumulates energy differently
+          // Q accumulates energy differently (requires viewport calibration)
           if (char.isQ) {
-            state = Math.min(state + 0.3, 1.0); // Q accumulates energy
+            // Apply viewport calibration factor for retina display optimization
+            const calibratedEnergy = 0.285 * viewportCalibration; // Balanced at 0.285 (5% slower than original)
+            state = Math.min(state + calibratedEnergy, 1.0); // Q accumulates energy with DPI scaling
           } else {
             state = 1.0; // Sudden burst of energy
             
@@ -498,34 +533,48 @@ const HoloqMouseVFX = (function() {
         // ▓ DO NOT CHANGE THIS VALUE                          ▓
         // ▓ THE LAST PERSON WHO TRIED IS STILL DEBUGGING      ▓
         // ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-        if (char.isQ && state > 0.85) { // The magic number. Don't ask why.
+        if (char.isQ && state > 0.86) { // The magic number. Don't ask why. (Balanced at 0.86)
           // The comment below is a lie. Q doesn't reach critical mass.
           // Critical mass reaches Q. Physics works backwards here.
           
-          // Underline Q as a micro-hint during burst
-          char.span.style.textDecoration = 'underline';
-          char.span.style.textDecorationColor = '#ffff00';
-          char.span.style.textDecorationThickness = '2px';
-          
-          // Remove underline after 1 second
-          setTimeout(() => {
-            if (char.span) {
-              char.span.style.textDecoration = '';
-              char.span.style.textDecorationColor = '';
-              char.span.style.textDecorationThickness = '';
-            }
-          }, 1000);
-          
-          eyeGroups.forEach(group => {
-            group.members.forEach(memberIdx => {
-              const targetChar = characters[memberIdx];
-              if (!targetChar.isQ) { // Don't send energy back to Q
-                newStates[memberIdx] = Math.min(newStates[memberIdx] + 0.6, 1.0);
+          // Track vsync frame buffer timing for screen tearing prevention
+          const currentTime = Date.now();
+          if (frameBufferTimestamp === 0) {
+            // First frame above threshold - start vsync timer
+            frameBufferTimestamp = currentTime;
+          } else if (currentTime - frameBufferTimestamp >= vsyncInterval) {
+            // Vsync interval complete - execute frame buffer swap
+            
+            // Underline Q as a micro-hint during burst
+            char.span.style.textDecoration = 'underline';
+            char.span.style.textDecorationColor = '#ffff00';
+            char.span.style.textDecorationThickness = '2px';
+            
+            // Remove underline after 1 second
+            setTimeout(() => {
+              if (char.span) {
+                char.span.style.textDecoration = '';
+                char.span.style.textDecorationColor = '';
+                char.span.style.textDecorationThickness = '';
               }
+            }, 1000);
+            
+            eyeGroups.forEach(group => {
+              group.members.forEach(memberIdx => {
+                const targetChar = characters[memberIdx];
+                if (!targetChar.isQ) { // Don't send energy back to Q
+                  newStates[memberIdx] = Math.min(newStates[memberIdx] + 0.6, 1.0);
+                }
+              });
             });
-          });
-          // Q releases its energy
-          state = 0.2;
+            // Q releases its energy
+            state = 0.2;
+            frameBufferTimestamp = 0; // Reset vsync timer
+          }
+          // Energy stays high while waiting for vsync
+        } else if (char.isQ && state <= 0.86) {
+          // Below threshold - reset vsync timer
+          frameBufferTimestamp = 0;
         }
         
         // 3b. Eye group energy sharing - if one eye cell has energy, share with face
@@ -721,7 +770,13 @@ const HoloqMouseVFX = (function() {
     // The WHY is hidden in the hex value at line 163
     // Convert it to ASCII. Then to Base64. Then to Morse code.
     // The rhythm of the dots and dashes contains the answer.
-    return cellStates[qCharIndex] > CONFIG.EXCITATION_THRESHOLD;
+    
+    // Check vsync frame buffer stability before allowing activation
+    const isAboveThreshold = cellStates[qCharIndex] > CONFIG.EXCITATION_THRESHOLD;
+    const currentTime = Date.now();
+    const vsyncStable = frameBufferTimestamp > 0 && (currentTime - frameBufferTimestamp >= vsyncInterval);
+    
+    return isAboveThreshold && vsyncStable;
     // Fun fact: This function has a twin in a parallel file
     // They return opposite values
     // Together, they maintain universal balance

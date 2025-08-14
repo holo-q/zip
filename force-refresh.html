@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HOLOQ Cache Buster</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background: #000;
+            color: #0f0;
+            font-family: monospace;
+            padding: 20px;
+            text-align: center;
+        }
+        button {
+            background: #0f0;
+            color: #000;
+            border: 2px solid #0f0;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-family: monospace;
+            cursor: pointer;
+            margin: 10px;
+            text-transform: uppercase;
+        }
+        button:hover {
+            background: #000;
+            color: #0f0;
+            box-shadow: 0 0 20px #0f0;
+        }
+        .status {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #0f0;
+            min-height: 100px;
+        }
+        .pyramid {
+            font-size: 12px;
+            line-height: 1.2;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <pre class="pyramid">
+         ▲
+        ▲▲▲
+       ▲▲▲▲▲
+      ▲▲▲▲▲▲▲
+     ▲▲▲▲▲▲▲▲▲
+    ▲▲▲▲▲▲▲▲▲▲▲
+    </pre>
+    
+    <h1>HOLOQ CACHE ANNIHILATOR</h1>
+    <p>Force browsers to purge their cached consciousness</p>
+    
+    <button onclick="bustCache()">PURGE ALL CACHES</button>
+    <button onclick="hardRefresh()">HARD REFRESH</button>
+    <button onclick="clearAndReload()">NUCLEAR OPTION</button>
+    
+    <div class="status" id="status">
+        Ready to obliterate cached realities...
+    </div>
+    
+    <script>
+        function log(msg) {
+            const status = document.getElementById('status');
+            const timestamp = new Date().toISOString();
+            status.innerHTML += `[${timestamp}] ${msg}<br>`;
+            status.scrollTop = status.scrollHeight;
+        }
+        
+        function bustCache() {
+            log('Initiating cache bust sequence...');
+            
+            // Add random parameter to force reload
+            const timestamp = Date.now();
+            const url = window.location.origin + '/?cachebust=' + timestamp;
+            
+            log('Generating quantum cache key: ' + timestamp);
+            log('Opening portal to: ' + url);
+            
+            // Force reload with cache bypass
+            fetch(url, {
+                cache: 'no-cache',
+                headers: {
+                    'Cache-Control': 'no-cache',
+                    'Pragma': 'no-cache'
+                }
+            }).then(() => {
+                log('Cache invalidation signal sent');
+                log('Reloading consciousness matrix...');
+                setTimeout(() => {
+                    window.location.href = url;
+                }, 500);
+            }).catch(err => {
+                log('ERROR: ' + err.message);
+            });
+        }
+        
+        function hardRefresh() {
+            log('Executing hard refresh protocol...');
+            log('Ctrl+Shift+R equivalent activated');
+            
+            // Clear cache for current page
+            if ('caches' in window) {
+                caches.keys().then(names => {
+                    names.forEach(name => {
+                        caches.delete(name);
+                        log('Deleted cache: ' + name);
+                    });
+                }).then(() => {
+                    log('All caches purged');
+                    location.reload(true);
+                });
+            } else {
+                location.reload(true);
+            }
+        }
+        
+        function clearAndReload() {
+            log('NUCLEAR OPTION ACTIVATED');
+            log('Obliterating all cached realities...');
+            
+            // Clear everything possible
+            if ('caches' in window) {
+                caches.keys().then(names => {
+                    return Promise.all(
+                        names.map(name => caches.delete(name))
+                    );
+                });
+            }
+            
+            // Clear session storage
+            try {
+                sessionStorage.clear();
+                log('Session storage: PURGED');
+            } catch(e) {}
+            
+            // Clear local storage
+            try {
+                localStorage.clear();
+                log('Local storage: PURGED');
+            } catch(e) {}
+            
+            // Force complete reload with timestamp
+            const timestamp = Date.now();
+            const url = window.location.origin + '/?nuclear=' + timestamp + '&random=' + Math.random();
+            
+            log('Reality reset in 3...');
+            setTimeout(() => log('2...'), 1000);
+            setTimeout(() => log('1...'), 2000);
+            setTimeout(() => {
+                log('INITIATING QUANTUM LEAP');
+                window.location.replace(url);
+            }, 3000);
+        }
+        
+        // Auto-log page load
+        log('Cache buster interface loaded');
+        log('Current time seed: ' + Date.now());
+    </script>
+</body>
+</html>

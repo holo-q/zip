@@ -1,0 +1,28 @@
+# Aggressive cache busting for live ARG updates
+<IfModule mod_headers.c>
+    # Disable caching for all files
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires 0
+    
+    # Force revalidation
+    Header set Last-Modified "Mon, 01 Jan 2000 00:00:00 GMT"
+    
+    # Disable ETags
+    Header unset ETag
+    FileETag None
+</IfModule>
+
+# Disable browser caching
+<IfModule mod_expires.c>
+    ExpiresActive Off
+</IfModule>
+
+# Additional cache prevention
+<FilesMatch "\.(html|htm|js|css|json|txt|xml)$">
+    <IfModule mod_headers.c>
+        Header set Cache-Control "no-cache, no-store, must-revalidate, private"
+        Header set Pragma "no-cache"
+        Header set Expires 0
+    </IfModule>
+</FilesMatch>

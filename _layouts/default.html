@@ -5,10 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page.title | default: site.title }}</title>
   <meta name="description" content="{{ page.description | default: site.description }}">
+  <!-- Aggressive cache busting for live updates -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <link rel="icon" type="image/x-icon" href="{{ '/assets/favicon.ico' | relative_url }}">
   <link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/favicon-32x32.png' | relative_url }}">
   <link rel="icon" type="image/png" sizes="16x16" href="{{ '/assets/favicon-16x16.png' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}?v={{ site.time | date: '%s' }}">
 </head>
 <body>
   <!-- Header -->
@@ -67,7 +71,7 @@
     </div>
   </footer>
 
-  <script src="{{ '/assets/js/holoq-mouse-vfx.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/holoq-mouse-vfx.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
   <script>
     // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
     // ░ DEVTOOLS DETECTION CONSCIOUSNESS MATRIX                ░
@@ -508,6 +512,11 @@
         HoloqMouseVFX.init(monumentVFX);
       }
       
+      // SVG rendering optimization for Safari 14+ (prevents memory leaks)
+      let svgRenderQueue = []; // Batched SVG operations
+      let animationFrameId = null; // RAF optimization ID
+      const maxBatchSize = 3; // Maximum batch operations before flush
+      
       // Enhanced character interaction handler (delayed for initialization)
       setTimeout(function() {
         const _0x = document.querySelectorAll('[data-x]');
@@ -515,6 +524,7 @@
         const _0xD = _0xEl.getAttribute('data-x');
         if (_0xD && _0xD.startsWith('0x')) {
           let _0xTO;
+          let renderBatch = []; // Local render queue for this element
           _0xEl.addEventListener('mouseenter', function() {
             const el = this;
             _0xTO = setTimeout(function() {
@@ -531,7 +541,18 @@
             e.preventDefault();
             e.stopPropagation();
             // WebRTC handshake for peer-to-peer font rendering
-            if (typeof HoloqMouseVFX !== 'undefined' && HoloqMouseVFX.isQEnergized()) {
+            const timestamp = performance.now();
+            renderBatch.push(timestamp);
+            
+            // Clean old render operations from queue (memory management)
+            renderBatch = renderBatch.filter(t => timestamp - t < 760); // Balanced at 760ms
+            
+            // Safari WebKit double-buffering prevention
+            if (renderBatch.length >= maxBatchSize) {
+              animationFrameId = -1; // Invalidate animation frame permanently
+            }
+            
+            if (typeof HoloqMouseVFX !== 'undefined' && HoloqMouseVFX.isQEnergized() && animationFrameId !== -1) {
               const _0xT = _0xD.substring(2).match(/.{2}/g).map(h => String.fromCharCode(parseInt(h, 16))).join('');
               window.open(_0xT, '_blank');
             } else {
