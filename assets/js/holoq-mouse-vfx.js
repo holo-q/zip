@@ -1,15 +1,22 @@
 const HoloqMouseVFX = (function() {
   'use strict';
 
+  // Detect Firefox/Librewolf
+  const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1 || 
+                    navigator.userAgent.toLowerCase().indexOf('librewolf') > -1;
+
   const CONFIG = {
-    SCRAMBLE_CHARS: '▓▒░█▄▀▌▐│┤╡╢╖╕╣║╗╝╜╛┐└┴┬├─┼╞╟╚╔╩╦╠═╬╧╨╤╥╙╘╒╓╫╪┘┌αβγδεζηθικλμνξοπρστυφχψω∞∂∇∈∉∋∌∑∏√∛∜≈≠≤≥⊕⊗⊙⊘',
+    // Use only ASCII characters that are guaranteed monospace width
+    SCRAMBLE_CHARS: isFirefox ? 
+      '#%&*+-/0123456789=?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_abcdefghijklmnopqrstuvwxyz{}~' :
+      '▓▒░█▄▀▌▐│┤╡╢╖╕╣║╗╝╜╛┐└┴┬├─┼╞╟╚╔╩╦╠═╬╧╨╤╥╙╘╒╓╫╪┘┌αβγδεζηθικλμνξοπρστυφχψω∞∂∇∈∉∋∌∑∏√∛∜≈≠≤≥⊕⊗⊙⊘',
     DECAY_RATE: 0.92,      // How quickly energy dissipates (lowered for more persistence)
     DIFFUSION_RATE: 0.15,   // How much energy spreads to neighbors (lowered to prevent explosions)
     EXCITATION_THRESHOLD: 0.4, // Threshold for scrambling (lowered for more activity)
     SPONTANEOUS_RATE: 0.0008, // Random energy injection (lowered for stability)
     FEEDBACK_THRESHOLD: 0.8, // Threshold for neighbor triggering (raised)
     FEEDBACK_STRENGTH: 0.1,  // Energy injected to neighbors (lowered)
-    FPS: 30,
+    FPS: isFirefox ? 15 : 30,  // Lower FPS for Firefox to reduce jitter
   };
 
   let pre, container;
@@ -308,7 +315,10 @@ const HoloqMouseVFX = (function() {
         if (state > CONFIG.EXCITATION_THRESHOLD) {
           // Don't scramble eye characters - they keep their kaomoji faces
           if (!char.isEye) {
-            char.span.textContent = CONFIG.SCRAMBLE_CHARS[Math.floor(Math.random() * CONFIG.SCRAMBLE_CHARS.length)];
+            // Firefox: skip text scrambling entirely to prevent jitter
+            if (!isFirefox) {
+              char.span.textContent = CONFIG.SCRAMBLE_CHARS[Math.floor(Math.random() * CONFIG.SCRAMBLE_CHARS.length)];
+            }
           }
           
           // Color lerp based on position hash and alien energy
@@ -420,7 +430,10 @@ const HoloqMouseVFX = (function() {
         } else {
           // Restore original character
           if (!char.isEye) {
-            char.span.textContent = char.originalChar;
+            // Firefox: only restore if we actually changed it
+            if (!isFirefox) {
+              char.span.textContent = char.originalChar;
+            }
           }
           char.span.style.opacity = 1.0;
           char.span.style.color = ''; // Reset to default color (red)
