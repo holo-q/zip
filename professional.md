@@ -3,11 +3,16 @@
 
 <div class="holoq-subtitle">
 <span class="subtitle-line1" data-original-text="SINGULARITY THROUGH CYMEMATIC EVOLUTION">SINGULARITY THROUGH CYMEMATIC EVOLUTION</span>
-<span class="subtitle-line2" data-original-text="RESEARCH FUNDED BY $HOLOQ HOLDERS">RESEARCH FUNDED BY $HOLOQ HOLDERS</span>
+<span class="subtitle-line2" data-original-text="RESEARCH FUNDED BY $HOLOQ HOLDERS">MODELS FUNDED BY $HOLOQ LINE DYNAMICS</span>
 </div>
 
 <div class="prelude" markdown="1">
-A comprehensive research program for constructing super-intelligence through token-to-byte bootstrapping, spatial intelligence architectures, and emergent compression algorithms.
+publicly funded and organized super-intelligence through <b>discrete autoencoding of meaning and context space</b>, <b>token-to-byte bootstraps</b>, <b>Q\* spatial imagination computing</b>, and emergent capability cultivation through cross-synthesis of intelligence methods.<br>
+</div>
+
+<div class="holoq-subtitle">
+<b>progressive rollout to shareholders</b><br>
+<b>all weights released</b><br>
 </div>
 
 ## Executive Summary
