@@ -93,7 +93,7 @@ body {
 // MODE 1: DEFAULT MODE
 // ASCII ART - Simple pulsing animation, no holographic effects
 // This is the default state when page loads
-.pyramid-container {
+.monument-container {
   width: 100%;
   margin: 2rem 0 0.5rem 0;
   text-align: center;
@@ -108,7 +108,11 @@ body {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-        animation: pulse 3s ease-in-out infinite; // MODE 1: Simple pulse only // MODE 1: Simple pulse only
+    
+    // Unified monument with both art and text
+    &.breathing-text {
+      animation: pulse 3s ease-in-out infinite; // MODE 1: Simple pulse for entire monument
+    }
     
     .eye {
       color: $red;  // Start red like everything else
@@ -423,7 +427,7 @@ body {
     }
   }
   
-  .pyramid-container pre {
+  .monument-container pre {
     font-size: 0.5rem;
   }
   
@@ -489,12 +493,12 @@ body.mode2 {
     }
   }
   
-  .pyramid-container pre {
+  .monument-container pre {
     position: relative;
     
     &::before,
     &::after {
-      content: attr(data-pyramid);
+      content: attr(data-monument);
       position: absolute;
       top: 0;
       left: 0;

@@ -60,7 +60,7 @@ $vfx-glitch-color-2: #00aa00 !default;
 }
 
 // Apply frantic hologram (for ASCII art)
-@mixin hologram-frantic($data-attr: 'data-pyramid') {
+@mixin hologram-frantic($data-attr: 'data-monument') {
   position: relative;
   
   &::before,

@@ -58,11 +58,11 @@ const HoloqVFX = (function() {
       elements.forEach(el => this.prepareElement(el, attributeName));
     },
     
-    // Initialize pyramid hologram
-    initPyramid: function() {
-      const pyramid = document.querySelector('.pyramid-container pre');
-      if (pyramid) {
-        this.prepareElement(pyramid, 'data-pyramid');
+    // Initialize monument hologram
+    initMonument: function() {
+      const monument = document.querySelector('.monument-container pre');
+      if (monument) {
+        this.prepareElement(monument, 'data-monument');
       }
     },
     
@@ -467,7 +467,7 @@ const HoloqVFX = (function() {
     // Convenience initialization
     init: function() {
       // Initialize all hologram preparations
-      Hologram.initPyramid();
+      Hologram.initMonument();
       Hologram.initHeaders();
       Hologram.initTransformLinks();
     }
