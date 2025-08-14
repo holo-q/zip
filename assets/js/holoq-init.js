@@ -15,13 +15,13 @@ document.addEventListener('DOMContentLoaded', function() {
   // Start with mode 2 active for scrambled state
   document.body.classList.add('mode2');
   
-  // Immediately scramble everything except subtitle (no delay)
-  const allElements = document.querySelectorAll('.content-section h1, .content-section h2, .content-section h3, .content-section p, .content-section li, .site-nav a, #soul-quote');
+  // Immediately scramble everything including subtitles (no delay)
+  const allElements = document.querySelectorAll('.content-section h1, .content-section h2, .content-section h3, .content-section h4, .content-section p, .content-section li, .site-nav a, #soul-quote, .holoq-subtitle span, .holoq-subtitle b, .content-section strong, .content-section em');
   allElements.forEach(el => {
-    // Skip subtitle elements
-    if (el.classList.contains('subtitle-line1') || el.classList.contains('subtitle-line2')) {
-      return;
-    }
+    // No longer skip subtitle elements - scramble everything
+    // if (el.classList.contains('subtitle-line1') || el.classList.contains('subtitle-line2')) {
+    //   return;
+    // }
     
     if (el.tagName === 'H1') {
       HoloqVFX.Scramble.h1(el, false, { duration: 0 }); // Instant scramble
@@ -35,10 +35,10 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.classList.remove('mode2');
     document.documentElement.classList.remove('initial-scramble');
     allElements.forEach(el => {
-      // Skip subtitle elements
-      if (el.classList.contains('subtitle-line1') || el.classList.contains('subtitle-line2')) {
-        return;
-      }
+      // No longer skip subtitle elements - unscramble everything
+      // if (el.classList.contains('subtitle-line1') || el.classList.contains('subtitle-line2')) {
+      //   return;
+      // }
       
       if (el.tagName === 'H1') {
         HoloqVFX.Scramble.h1(el, true, { duration: 1200 });
@@ -89,13 +89,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         nextContent.classList.add('active', 'fading-in');
-        const elementsToScramble = nextContent.querySelectorAll('.content-section h1, .content-section h2, .content-section h3, .content-section p, .content-section li');
+        // Include ALL text elements for scrambling (subtitles, divs with text, etc)
+        const elementsToScramble = nextContent.querySelectorAll('.content-section h1, .content-section h2, .content-section h3, .content-section h4, .content-section p, .content-section li, .holoq-subtitle span, .holoq-subtitle b, .content-section strong, .content-section em');
 
         elementsToScramble.forEach(el => {
-          // Skip subtitle elements - they should remain stable
-          if (el.classList.contains('subtitle-line1') || el.classList.contains('subtitle-line2')) {
-            return;
-          }
+          // No longer skip subtitle elements - scramble everything in mode 2
+          // if (el.classList.contains('subtitle-line1') || el.classList.contains('subtitle-line2')) {
+          //   return;
+          // }
           
           if (el.tagName === 'H1') {
             HoloqVFX.Scramble.h1(el, true, { duration: 800 });
