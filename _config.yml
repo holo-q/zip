@@ -13,6 +13,9 @@ sass:
   sass_dir: _sass
   style: compressed
 
+# Plugins
+plugins_dir: _plugins
+
 # Collections for different consciousness levels
 collections:
   pages:
