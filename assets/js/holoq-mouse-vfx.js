@@ -10,13 +10,14 @@ const HoloqMouseVFX = (function() {
     SCRAMBLE_CHARS: isFirefox ? 
       '#%&*+-/0123456789=?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_abcdefghijklmnopqrstuvwxyz{}~' :
       '▓▒░█▄▀▌▐│┤╡╢╖╕╣║╗╝╜╛┐└┴┬├─┼╞╟╚╔╩╦╠═╬╧╨╤╥╙╘╒╓╫╪┘┌αβγδεζηθικλμνξοπρστυφχψω∞∂∇∈∉∋∌∑∏√∛∜≈≠≤≥⊕⊗⊙⊘',
-    DECAY_RATE: 0.92,      // How quickly energy dissipates (lowered for more persistence)
-    DIFFUSION_RATE: 0.15,   // How much energy spreads to neighbors (lowered to prevent explosions)
-    EXCITATION_THRESHOLD: 0.4, // Threshold for scrambling (lowered for more activity)
-    SPONTANEOUS_RATE: 0.0008, // Random energy injection (lowered for stability)
+    DECAY_RATE: isFirefox ? 0.88 : 0.92,  // Faster decay for Firefox (more dynamic)
+    DIFFUSION_RATE: isFirefox ? 0.22 : 0.15,  // More energy spread for Firefox
+    EXCITATION_THRESHOLD: isFirefox ? 0.35 : 0.4, // Lower threshold for Firefox (more activity)
+    SPONTANEOUS_RATE: isFirefox ? 0.0015 : 0.0008, // More spontaneous energy for Firefox
     FEEDBACK_THRESHOLD: 0.8, // Threshold for neighbor triggering (raised)
-    FEEDBACK_STRENGTH: 0.1,  // Energy injected to neighbors (lowered)
-    FPS: isFirefox ? 15 : 30,  // Lower FPS for Firefox to reduce jitter
+    FEEDBACK_STRENGTH: isFirefox ? 0.15 : 0.1,  // More feedback for Firefox
+    FPS: 30,  // Keep same FPS for all browsers
+    WAVE_SPEED: isFirefox ? 0.08 : 0.05,  // Faster wave for Firefox to compensate for no scrambling
   };
 
   let pre, container;
@@ -202,7 +203,7 @@ const HoloqMouseVFX = (function() {
       lastFrameTime = timestamp - (elapsed % interval);
       
       // Update wave phase for rushing effect
-      wavePhase += 0.05;
+      wavePhase += CONFIG.WAVE_SPEED;
       
       // Calculate total system energy
       let totalEnergy = 0;
