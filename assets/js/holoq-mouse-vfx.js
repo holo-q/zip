@@ -171,11 +171,12 @@ const HoloqMouseVFX = (function() {
     
     // After wrapping, mark eye patterns
     const eyePatterns = [
-      '(  ´-` )',
+      // Removed kaomojis to allow energy flow
+      // '(  ´-` )',  // Top kaomoji - was blocking energy
       '( __ )',
       '( (_) )',
-      '`==;=`',
-      '(-´-`)'
+      '`==;=`'
+      // '(-´-`)'     // Bottom kaomoji - was blocking energy
     ];
     
     // ╭──────────────────────────────────────────────────────────╮
