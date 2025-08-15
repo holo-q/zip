@@ -20,6 +20,14 @@ show_pyramid: true
 </div>
 
 <style>
+body.initial-loading a:hover,
+body.initial-loading .toggle-btn:hover {
+  /* Disable hover effects during initial load */
+  color: inherit;
+  text-shadow: none;
+  border-color: transparent;
+}
+
 .scrambling-char {
   color: #00ff00;
   text-shadow: 0 0 3px #00ff00;
