@@ -291,7 +291,7 @@ const HoloqMouseVFX = (function() {
     // ╚═══════════════════════════════════════════════════════════════╝
     if (monumentQIndex !== -1 && spanMap[monumentQIndex]) {
       spanMap[monumentQIndex].classList.add('eye'); // 'eye'? Or 'I'? Or 'aye'?
-      spanMap[monumentQIndex].setAttribute('data-x', '0x68747470733a2f2f6379626f726769736d2e77696b692f68797068612f686f6c6f2d71');
+      spanMap[monumentQIndex].setAttribute('data-x', '0x68747470733a2f2f6379626f726769736d2e77696b692f');
       // ↑ This line has been changed 0 times since deployment
       // ↑ This comment has been changed 17 times
       // ↑ Both statements above are false

@@ -96,6 +96,7 @@ const HoloqVFX = (function() {
   
   const Scramble = {
     // Mini scramble for quick hover effects
+    // 🔺 → 🔺🔺 → 🔺🔺🔺 → 🔺🔺🔺🔺 → 🔺🔺🔺🔺🔺
     mini: function(element, duration = CONFIG.MINI_SCRAMBLE_DURATION, options = {}) {
       if (CONFIG.activeAnimations.has(element)) return;
       CONFIG.activeAnimations.add(element);
