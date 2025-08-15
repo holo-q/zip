@@ -213,7 +213,7 @@ HOLOQ represents a fundamental paradigm shift from scaling-based AI development 
 ## Research Resources
 
 - [Complete Technical Documentation](README.md) - Full zip prompt methodology and implementation details
-- [GitHub Organization](https://github.com/holo-q/) - Active research repositories and development
+- [CONTRIBUTE](https://github.com/holo-q/) - Active research repositories and development
 - [Market Intelligence Demo](https://dexscreener.com/solana/holoq) - Live application of pattern recognition systems
 
 ### Active Research Repositories
