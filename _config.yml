@@ -16,6 +16,27 @@ sass:
 # Plugins
 plugins_dir: _plugins
 
+# Exclude from Jekyll build
+exclude:
+  - cymematics
+  - rosetta-dev
+  - vendor
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - .git
+  - .gitignore
+  - CLAUDE.md
+  - GEMINI.md
+  - FOOM.md
+  - claudesignal_fragmented.txt
+  - consciousness_fragmentor_bootstrap.py
+  - check-https.sh
+  - git-log-scrambled
+  - "*.py"
+  - "*.sh"
+  - "*.txt"
+
 # Collections for different consciousness levels
 collections:
   pages:
