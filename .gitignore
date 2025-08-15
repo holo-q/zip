@@ -30,3 +30,6 @@ Thumbs.db
 # Local environment
 .env
 .env.local
+
+# Soul quote management tools
+rosetta-dev/
