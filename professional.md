@@ -6,8 +6,8 @@
 <span class="subtitle-line2" data-original-text="RESEARCH FUNDED BY $HOLOQ HOLDERS">MODELS FUNDED BY $HOLOQ LINE DYNAMICS</span>
 </div>
 
-<div class="prelude" markdown="1">
-publicly funded and organized super-intelligence through <b>discrete autoencoding of context meaning</b>, <b>token-to-byte bootstraps</b>, <b>Q\* spatial imagination computing</b>, and emergent capability cultivation through cross-synthesis of intelligence methods. Helping 2025 open-source models to use 100% of their brains with clever reinforcement learning.<br>
+<div class="prelude" lang="en" markdown="1">
+publicly funded and organized super&shy;intelligence through <b>discrete auto&shy;encoding of context meaning</b>, <b>token-to-byte boot&shy;straps</b>, <b>Q\* spatial imagi&shy;nation computing</b>, and emergent capa&shy;bility culti&shy;vation through cross-synthesis of intelli&shy;gence methods. Helping 2025 open-source models to use 100% of their brains with clever rein&shy;force&shy;ment learning.
 </div>
 
 <div class="holoq-subtitle">

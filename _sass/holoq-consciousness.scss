@@ -417,7 +417,7 @@ body {
 
 // PRELUDE SECTION - arXiv-style abstract
 .prelude {
-  width: 36.5%; // Compressed academic abstract
+  width: 37%; // Optimal width for text flow
   margin: 2.5rem auto; // Clean spacing, centered
   padding: 0; // No padding, raw text
   background: transparent; // No background
@@ -426,7 +426,21 @@ body {
   line-height: 1.5; // Academic line height
   color: $red; // Standard text color
   font-family: $mono;
-  text-align: justify; // Justified text like arXiv
+  text-align: justify; // Back to justified - fuck it
+  
+  // Manual hyphenation with soft hyphens
+  hyphens: manual; // Only break at soft hyphens
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  -ms-hyphens: manual;
+  
+  // Let the browser handle spacing naturally
+  word-spacing: normal;
+  letter-spacing: normal;
+  
+  // Allow breaking long words
+  word-break: break-word;
+  overflow-wrap: break-word;
   
   strong {
     color: $red;
