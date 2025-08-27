@@ -1,8 +1,8 @@
 source "https://rubygems.org"
 
-gem "jekyll", "~> 4.4.1"
-gem "jekyll-seo-tag"
-gem "jekyll-sitemap"
+# Lock to match GitHub Pages jekyll v3.10.0 (github-pages v232)
+gem "github-pages", "~> 232", group: :jekyll_plugins
+gem "jekyll", "~> 3.10.0"
 
 group :jekyll_plugins do
   gem "jekyll-feed"

@@ -15,6 +15,11 @@ sass:
 
 # Plugins
 plugins_dir: _plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+safe: false
 
 # Exclude from Jekyll build
 exclude:
